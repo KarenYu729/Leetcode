@@ -1,0 +1,141 @@
+week 0
+Sep 17
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+4. Median of Two Sorted Arrays <hard>
+输入：
+int[]
+int[]
+输出：
+float
+两个数组组合之后的中位数
+"""
+***********************解法一分割线***********************
+"""
+昨天已经做了最暴力的直接合并两个数组，重新排序，按照序号求出中位数的方法
+想起来numpy有一个自带的求中位数的函数（DS人绝不认输）
+因为逻辑相似，故仍为解法一
+import numpy as np
+class Solution(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        nums = nums1+nums2
+        nums = np.array(nums)
+        return np.median(nums)
+
+效果：
+Runtime: 319 ms, faster than 5.02% of Python online submissions for Median of Two Sorted Arrays.
+Memory Usage: 25.7 MB, less than 5.09% of Python online submissions for Median of Two Sorted Arrays.
+相比之前会更慢，猜测和np.median函数内部的逻辑有关，相比之下肯定还是直接输出对应索引的值更快
+
+"""
+***********************解法二分割线***********************
+"""
+找到每个数组中的中位数候选者，对其进行排序（比较大小），再进行计算
+class Solution(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        # * Swap the array so as to apply the binary search on the smaller array (nums1).
+        if len(nums2) < len(nums1):
+            nums1, nums2 = nums2, nums1
+
+        nums1_len, nums2_len = len(nums1), len(nums2)
+        total_len = nums1_len + nums2_len
+        left, right = 0, nums1_len
+        cnt = 0
+        while left <= right:
+            partition1 = left + (right - left) // 2
+            # * total_len + 1 -> To handle both even and odd lengths.
+            partition2 = ((total_len + 1) // 2) - partition1
+            left1 = nums1[partition1 - 1] if partition1 > 0 else float("-inf")
+            right1 = nums1[partition1] if partition1 < nums1_len else float("inf")
+            left2 = nums2[partition2 - 1] if partition2 > 0 else float("-inf")
+            right2 = nums2[partition2] if partition2 < nums2_len else float("inf")
+
+            if left1 <= right2 and left2 <= right1:
+                # * If even length.
+                if not total_len % 2:
+                    return float(max(left1, left2) + min(right1, right2)) / 2
+
+                # * If odd length.
+                return max(left1, left2)
+            elif left1 > right2:
+                right = partition1 - 1
+            else:
+                left = partition1 + 1
+
+reference:
+https://leetcode.com/problems/median-of-two-sorted-arrays/discuss/2468246/Python-Binary-Search-Solution-or-O(log(min(m-n)))-Time-or-O(1)-Space
+
+效果：
+Runtime: 131 ms, faster than 47.75% of Python online submissions for Median of Two Sorted Arrays.
+Memory Usage: 13.6 MB, less than 74.04% of Python online submissions for Median of Two Sorted Arrays.
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+11. Container With Most Water <Medium>
+输入：
+int[]
+输出
+int
+木桶原理了属于是，输入的是不同的木板的高度，算的是围成的面积
+这是一道典型的贪心问题，贪心的原理是，只要有一边的木板更矮，咱们就寄希望于使用下一块木板会让面积变大
+选择木板的方法是two pointers，但是这是手段不是策略，注意这里
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        left, right = 0, len(height)-1
+        area = []
+        while left<right:
+            area.append((right-left)*min(height[left], height[right]))
+            if height[left]<height[right]:
+                left+=1
+            else:
+                right-=1
+        return max(area)
+
+效果：
+Runtime: 1355 ms, faster than 14.18% of Python online submissions for Container With Most Water.
+Memory Usage: 24 MB, less than 50.77% of Python online submissions for Container With Most Water.
+这里采取的方法是把面积都存下来，当然也可以用一个变量，每次比较大小决定是否重新赋值
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        left, right = 0, len(height)-1
+        area = 0
+        while left<right:
+            area = max((right-left)*min(height[left], height[right]), area)
+            if height[left]<height[right]:
+                left+=1
+            else:
+                right-=1
+        return area
+
+效果：
+Success
+Details 
+Runtime: 1371 ms, faster than 14.03% of Python online submissions for Container With Most Water.
+Memory Usage: 24 MB, less than 21.33% of Python online submissions for Container With Most Water.
+
+
+
+
+
