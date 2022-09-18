@@ -136,6 +136,651 @@ Runtime: 1371 ms, faster than 14.03% of Python online submissions for Container 
 Memory Usage: 24 MB, less than 21.33% of Python online submissions for Container With Most Water.
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+46. Permutations <medium>
+输入：
+int[]
+输出：
+int[int[]]
+给出一组数字， 输出所有可能的全排列
 
+经典backtracking题目了属于是
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        visited = [0]*len(nums)
+        
+        def backtracking(visited, List):
+            if len(List)==len(nums):
+                res.append(List[:])
+            
+            for i in range(len(nums)):
+                if visited[i] == 0:
+                    List.append(nums[i])
+                    visited[i] = 1
+                    backtracking(visited, List)
+                    visited[i] = 0
+                    List.pop()
+        
+        backtracking(visited, [])
+        return res
+        
+效果：
+Runtime: 59 ms, faster than 13.03% of Python online submissions for Permutations.
+Memory Usage: 13.7 MB, less than 16.54% of Python online submissions for Permutations.
+
+要注意这里的visited，相当于一个flag数组，记录是否访问过这个数字，如果去掉这个数组：
+1. 
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        
+        def backtracking(start_idx, List):
+            if len(List)==len(nums):
+                res.append(List[:])
+            
+            for i in range(start_idx, len(nums)):
+                List.append(nums[i])
+                backtracking(start_idx+1, List)
+                List.pop()
+        
+        backtracking(0, [])
+        return res
+输入：
+[1,2,3]
+输出：
+[[1,2,3],[1,3,3],[2,2,3],[2,3,3],[3,2,3],[3,3,3]]
+2.
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        
+        def backtracking(start_idx, List):
+            if len(List)==len(nums):
+                res.append(List[:])
+            
+            for i in range(start_idx, len(nums)):
+                List.append(nums[i])
+                backtracking(i+1, List)
+                List.pop()
+        
+        backtracking(0, [])
+        return res
+        
+输入：
+[1,2,3]
+输出：
+[[1,2,3]]
+
+补充：
+用字典做flag也可以
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        visited = {}
+        for num in nums:
+            visited[num] = visited.get(num, False)
+        
+        def backtracking(visited, List):
+            if len(List)==len(nums):
+                res.append(List[:])
+            
+            for i in range(len(nums)):
+                if visited[nums[i]] != 0:
+                    continue
+                List.append(nums[i])
+                visited[nums[i]] = True
+                backtracking(visited, List)
+                visited[nums[i]] = False
+                List.pop()
+        
+        backtracking(visited, [])
+        return res
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+47. Permutations II <medium>
+输入：
+int[]
+输出：
+int[int[]]
+类似前一题，但是会有重复的数字
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        visited = [0]*len(nums)
+        nums.sort()
+        
+        def backtracking(List, visited):
+            if len(List)==len(nums):
+                res.append(List[:])
+            
+            for i in range(len(nums)):
+                if i>0 and nums[i]==nums[i-1] and visited[i-1]==0:
+                    continue
+                if visited[i] == 1:
+                    continue
+                List.append(nums[i])
+                visited[i]=1
+                backtracking(List, visited)
+                visited[i]=0
+                List.pop()
+        
+        backtracking([], visited)
+        return res
+
+效果：
+Runtime: 68 ms, faster than 66.84% of Python online submissions for Permutations II.
+Memory Usage: 13.8 MB, less than 26.16% of Python online submissions for Permutations II.
+
+                if i>0 and nums[i]==nums[i-1] and visited[i-1]==0:
+                    continue
+这里为了排除掉重复的项
+也可以：
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        visited = [0]*len(nums)
+        nums.sort()
+        
+        def backtracking(List, visited):
+            if len(List)==len(nums) and List not in res:
+                res.append(List[:])
+            
+            for i in range(len(nums)):
+                # if i>0 and nums[i]==nums[i-1] and visited[i-1]==0:
+                #     continue
+                if visited[i] == 1:
+                    continue
+                List.append(nums[i])
+                visited[i]=1
+                backtracking(List, visited)
+                visited[i]=0
+                List.pop()
+        
+        backtracking([], visited)
+        return res
+
+效果：
+Runtime: 2279 ms, faster than 5.04% of Python online submissions for Permutations II.
+Memory Usage: 13.7 MB, less than 68.59% of Python online submissions for Permutations II.
+
+如果不加排除相同项：
+输入：
+[1,1,2]
+输出：
+[[1,1,2],[1,2,1],[1,1,2],[1,2,1],[2,1,1],[2,1,1]]
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+58. Length of Last Word <easy>
+输入：
+string
+输出：
+int
+输入一个字符串，输出字符串的最后一个单词的长度
+没啥好说的，暴力题
+class Solution(object):
+    def lengthOfLastWord(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        s_list = s.split()
+        lastword = s_list[-1]
+        
+        return len(lastword)
+
+效果：
+Runtime: 17 ms, faster than 89.03% of Python online submissions for Length of Last Word.
+Memory Usage: 13.8 MB, less than 28.91% of Python online submissions for Length of Last Word.
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+67. Add Binary <easy>
+输入：
+string
+string
+输出：
+string
+输入两个代表二进制值的string
+输出其加法结果
+"""
+***********************解法一分割线***********************
+"""
+记录一下之前没注意过的方法，用int做字符串->整型转换，可以指定是几进制
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        a, b = int(a, 2), int(b, 2)
+        add = bin(a+b)
+        
+        return add.replace("0b", "")
+reference：
+https://leetcode.com/problems/add-binary/discuss/2582504/Python-easy-to-understand
+
+效果：
+Runtime: 21 ms, faster than 90.76% of Python online submissions for Add Binary.
+Memory Usage: 13.7 MB, less than 19.99% of Python online submissions for Add Binary.
+
+"""
+***********************解法二分割线***********************
+"""
+第一反应的暴力解法，就是对字符串每一位进行操作，按照正常二进制加法的方式计算
+可以联想一下有一道算二叉树各个节点求和的，先把所有的两个树都有的位置先求一下，再把有一树有另一棵树没有的部分求一下
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        a, b = list(a), list(b)
+        num3 = 0
+        binary_bit=[]
+        while a and b:
+            num1=int(a.pop())
+            num2=int(b.pop())
+            temp_sum=num1+num2+num3
+            num3=temp_sum//2
+            binary_bit.append(temp_sum%2)
+            
+        while a:
+            num1=int(a.pop())
+            num2=0
+            temp_sum=num1+num2+num3
+            num3=temp_sum//2
+            binary_bit.append(temp_sum%2)
+        
+        while b:
+            num1=0
+            num2=int(b.pop())
+            temp_sum=num1+num2+num3
+            num3=temp_sum//2
+            binary_bit.append(temp_sum%2)
+        
+        if num3!=0:
+            binary_bit.append(num3)
+            
+        ans=''
+        for i in range(len(binary_bit)-1,-1,-1):
+            ans=ans+str(binary_bit[i])
+        
+        return ans
+
+效果：
+Runtime: 52 ms, faster than 15.15% of Python online submissions for Add Binary.
+Memory Usage: 13.4 MB, less than 92.93% of Python online submissions for Add Binary.
+
+相比于之前的解法，可见时间和空间属于鱼和熊掌的关系了×
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+20. Valid Parentheses <easy>
+输入：
+string
+输出
+bool
+看是否所有括号都闭合了
+典型的stack题
+找到一个右括号就检查前一个是不是左括号
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        
+        stack=[]
+        for i in s:
+            if i == '(' or i == '[' or i == '{':
+                stack.append(i)
+            else:
+                if not stack:
+                    return False
+                prev=stack.pop()
+                if i == ')':
+                    if prev == '(':
+                        continue
+                    else:
+                        return False
+                elif i == ']':
+                    if prev == '[' :
+                        continue
+                    else:
+                        return False
+                else:
+                    if prev == '{':
+                        continue
+                    else:
+                        return False
+                    
+        return not stack
+
+效果：
+Runtime: 28 ms, faster than 57.95% of Python online submissions for Valid Parentheses.
+Memory Usage: 13.8 MB, less than 5.14% of Python online submissions for Valid Parentheses.
+
+也有使用pass语句而非continue语句的，如下：
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for c in s:
+            if c == '(' or c == '{' or c == '[': #if opening bracket append to stack
+                stack.append(c)
+            else: #if closing bracket 
+                if not stack: #check if stack is empty already
+                    return False
+                b = stack.pop() #if not empty then check if the closing bracket has a matching opening bracket on top of the stack
+                if c == ')' and b == '(' or c == '}' and b == '{' or c == ']' and b == '[':
+                    pass
+                else: #if No then return false
+                    return False
+        return not stack #if stack is empty, it means all opening brackets have found their closing ones. Else not
+        
+        
+reference：
+https://leetcode.com/problems/valid-parentheses/discuss/2587131/Python-fastest-solution-with-explanation-oror-Faster-than-96
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+34. Find First and Last Position of Element in Sorted Array <medium>
+输入：
+int[]
+int
+输出：
+int[]
+"""
+***********************解法一分割线***********************
+"""
+
+非常straightforward的方法就是硬来，用if排除开头和结尾的部分
+（当然这十分不优雅）
+
+class Solution(object):
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        res=[-1, -1]
+        for i in range(1,len(nums)):
+            if nums[i] == target and nums[i-1] != target:
+                res[0]=i
+        for i in range(len(nums)-1):
+            if nums[i] == target and nums[i+1] != target:
+                res[1]=i
+        if nums:
+            if nums[0]==target:
+                res[0]=0
+            if nums[-1]==target:
+                res[1]=len(nums)-1
+        return res
+
+效果：
+Runtime: 106 ms, faster than 46.92% of Python online submissions for Find First and Last Position of Element in Sorted Array.
+Memory Usage: 15.1 MB, less than 7.00% of Python online submissions for Find First and Last Position of Element in Sorted Array.
+
+
+"""
+***********************解法二分割线***********************
+"""
+这道题是binary-search专题点进去的，所以显然有binary-search的解法
+这一方法很好辨别，就是二分法，因为是有序的，在找一个数的时候完全可以不用遍历，而是每一对半破开，看看在那一半里
+class Solution(object):
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        left, right=0, len(nums)-1
+        while left<=right:
+            mid=(left+right)//2
+            if nums[mid]<target:
+                left=mid + 1
+            elif nums[mid]>target:
+                right=mid - 1
+            
+            else:
+                left=mid
+                right=mid
+                while left >= 1 and nums[left - 1] == target: 
+                        left -= 1
+                while right < len(nums) - 1 and nums[right + 1] == target:
+                        right += 1
+                return [left, right]
+            
+        return [-1, -1] 
+
+效果：
+Runtime: 104 ms, faster than 49.21% of Python online submissions for Find First and Last Position of Element in Sorted Array.
+Memory Usage: 14.5 MB, less than 63.84% of Python online submissions for Find First and Last Position of Element in Sorted Array.
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+69. Sqrt(x) <easy>
+输入：
+int
+输出：
+int
+
+找出floor(sqrt(x))
+
+class Solution(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        left, right=0, x
+        while left <= right:
+            mid=(left+right)//2
+            mid_2=mid*mid
+            cell_mid_2=(mid+1)*(mid+1)
+            if mid_2==x or (mid_2<x and cell_mid_2>x):
+                return mid
+            if mid_2>x:
+                right=mid-1
+            elif mid_2<x:
+                left=mid+1
+
+效果：
+Runtime: 21 ms, faster than 93.47% of Python online submissions for Sqrt(x).
+Memory Usage: 13.6 MB, less than 12.12% of Python online submissions for Sqrt(x).
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+74. Search a 2D Matrix <medium>
+输入：
+int[int[]]
+输出：
+bool
+
+查找target是否在矩阵中
+先固定行，在找具体的数
+这里注意left和right判断的终止条件是left<=right
+注意if else的顺序会影响效率，尽量让能终止循环的步骤先进行
+
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        r, c = len(matrix), len(matrix[0])
+        
+        r_num=-1
+        for i in range(r):
+            if matrix[i][0]<=target and matrix[i][-1]>=target:
+                r_num=i
+                break
+                
+        if r_num==-1:
+            return False
+        else:
+            left, right=0, c-1
+            while left<=right:
+                mid=(left+right)//2
+                if matrix[r_num][mid]==target:
+                    return True
+                elif matrix[r_num][mid]>target:
+                    right=mid-1
+                else:
+                    left=mid+1
+                
+        return False
+                
+效果：
+Runtime: 32 ms, faster than 85.02% of Python online submissions for Search a 2D Matrix.
+Memory Usage: 13.8 MB, less than 74.18% of Python online submissions for Search a 2D Matrix.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+75. Sort Colors <medium>
+输入：
+int[]
+输出：
+int[]
+
+"""
+***********************解法一分割线***********************
+"""
+完全不理解这题感觉就是个排序，但是放在two pointer里。先用内置函数试一下， 然后再换各种排序
+
+# 内置函数
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        nums.sort()
+
+效果：
+Runtime: 22 ms, faster than 86.97% of Python online submissions for Sort Colors.
+Memory Usage: 13.3 MB, less than 88.60% of Python online submissions for Sort Colors.
+
+# 经典冒泡排序
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        for i in range(len(nums)):
+            for j in range(i+1, len(nums)):
+                if nums[j]<nums[i]:
+                    nums[i], nums[j]=nums[j], nums[i]
+                 
+效果：
+Runtime: 22 ms, faster than 86.97% of Python online submissions for Sort Colors.
+Memory Usage: 13.4 MB, less than 65.33% of Python online submissions for Sort Colors.
+
+
+# 经典快排
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        def quick_sort(array, start, end):
+            if start >= end:
+                return
+            mid_data, left, right = array[start], start, end
+            while left < right:
+                while array[right] >= mid_data and left < right:
+                    right -= 1
+                array[left] = array[right]
+                while array[left] < mid_data and left < right:
+                    left += 1
+                array[right] = array[left]
+            array[left] = mid_data
+            quick_sort(array, start, left-1)
+            quick_sort(array, left+1, end)
+        
+        quick_sort(nums, 0, len(nums)-1)
+
+效果：
+Runtime: 30 ms, faster than 59.96% of Python online submissions for Sort Colors.
+Memory Usage: 13.5 MB, less than 13.09% of Python online submissions for Sort Colors.
+快了个寂寞属于是
+
+"""
+***********************解法二分割线***********************
+"""
+强行 two pointer了一下
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        left, right=0, len(nums)-1
+        cur = 0
+        while(cur <= right):
+            if(nums[cur] == 2):
+                nums[cur], nums[right] = nums[right], nums[cur]
+                right -=1
+            elif (nums[cur] == 1):
+                cur +=1
+            else:
+                nums[cur], nums[left]=nums[left], nums[cur]
+                left +=1
+                cur +=1
+
+效果：
+Runtime: 20 ms, faster than 90.75% of Python online submissions for Sort Colors.
+Memory Usage: 13.6 MB, less than 13.09% of Python online submissions for Sort Colors.
 
 
