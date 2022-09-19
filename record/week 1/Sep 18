@@ -1,0 +1,456 @@
+week 0
+Sep 18
+
+计划部分正式开始！这周的专题是string, Binary Search, 以及 Array
+浅唠两句题外话，我发现专题还挺容易互相交叉的，比如之前在DFS里做的部分，出现在了string里，我就特别想知道，string里的题目是不是应该还有string的解法，结果点开discussion全都是DFS，行吧
+
+完全不明白划分easy medium 和hard的依据是什么，尤其是准确率有的easy非常低，hard又很高，大概是只有大佬会做hard才会点开吧
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+35. Search Insert Position <easy>
+输入：
+int[]
+int
+输出：
+int
+
+小蝌蚪找妈妈了输入是，找一下应该把数字放到哪里
+"""
+***********************解法一分割线***********************
+"""
+从头遍历的暴力款
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        if len(nums)==1:
+            if nums[0]>=target:
+                return 0
+            else:
+                return 1
+        if nums[0]>=target:
+                return 0
+        for i in range(1, len(nums)):
+            if nums[i]==target:
+                return i
+            elif nums[i]>target and nums[i-1]<target:
+                return i
+        
+        return len(nums)
+
+效果：
+Runtime: 69 ms, faster than 22.11% of Python online submissions for Search Insert Position.
+Memory Usage: 14.1 MB, less than 52.24% of Python online submissions for Search Insert Position.
+
+"""
+***********************解法二分割线***********************
+"""
+切一半切一半再切一半，确定区间
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        left, right = 0, len(nums)-1
+        mid=0
+        while left<=right:
+            mid=(left+right)//2
+            if nums[mid]==target:
+                return mid
+            elif nums[mid]>target:
+                right=mid-1
+            else:
+                left=mid+1
+        return left
+
+效果：
+Runtime: 72 ms, faster than 16.88% of Python online submissions for Search Insert Position.
+Memory Usage: 14.2 MB, less than 25.46% of Python online submissions for Search Insert Position.
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+33. Search in Rotated Sorted Array <medium>
+输入：
+int[]
+int
+输出：
+int
+
+类似的还是找数字
+"""
+***********************解法一分割线***********************
+"""
+类似的还是一个一个检查
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        for i in range(len(nums)):
+            if nums[i] == target:
+                return i
+        
+        return -1
+
+效果：
+Runtime: 59 ms, faster than 13.45% of Python online submissions for Search in Rotated Sorted Array.
+Memory Usage: 13.6 MB, less than 65.46% of Python online submissions for Search in Rotated Sorted Array.
+
+"""
+***********************解法二分割线***********************
+"""
+刚刚忽然想到可以直接用字典存位置，然后直接查字典就行了，反正hash table很快
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        ele_dict = {num: i for i, num in enumerate(nums)}
+        if target in ele_dict:
+            return ele_dict[target]
+        else:
+            return -1
+
+效果：
+Runtime: 34 ms, faster than 74.91% of Python online submissions for Search in Rotated Sorted Array.
+Memory Usage: 13.6 MB, less than 65.46% of Python online submissions for Search in Rotated Sorted Array.
+
+"""
+***********************解法三分割线***********************
+"""
+好了，本题主要的还是在考二分法相关内容
+逻辑和之前一样，但是要加上多余的判断条件
+有两种情况，单边是单增的或者单边不是单增的，如果是单增且target在其中，则与之前的问题完全相同，如果不在，就继续移动
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        left, right = 0, len(nums)-1
+        while left<=right:
+            mid=(left+right)//2
+            if nums[mid]==target:
+                return mid
+            # Left position
+            if nums[left] <= nums[mid]:
+                # if target is between start & mid, make right to (mid -1)
+                if nums[left] <= target <= nums[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+
+            # Right position
+            else:
+                # if target is between mid & end, make start to (mid + 1)
+                if nums[mid] <= target <= nums[right]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+
+        return -1
+
+效果：
+Runtime: 62 ms, faster than 9.34% of Python online submissions for Search in Rotated Sorted Array.
+Memory Usage: 13.9 MB, less than 14.28% of Python online submissions for Search in Rotated Sorted Array.
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+81. Search in Rotated Sorted Array II <medium>
+输入：
+int[]
+int
+输出：
+bool
+
+就是在看是否在数组中（完全不知道这道题的难度体现在哪里，直接用in判断就能做出来）
+
+"""
+***********************解法一分割线***********************
+"""
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: bool
+        """
+        if target in nums:
+            return True
+        else:
+            return False
+
+效果：
+Runtime: 89 ms, faster than 6.37% of Python online submissions for Search in Rotated Sorted Array II.
+Memory Usage: 13.9 MB, less than 68.17% of Python online submissions for Search in Rotated Sorted Array II.
+也可以用字典的
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: bool
+        """
+        ele_dict = {num: i for i, num in enumerate(nums)}
+        if target in ele_dict:
+            return True
+        else:
+            return False
+            
+效果：
+Runtime: 79 ms, faster than 18.89% of Python online submissions for Search in Rotated Sorted Array II.
+Memory Usage: 13.9 MB, less than 39.63% of Python online submissions for Search in Rotated Sorted Array II.
+快是快了点，但是占的空间更大了
+
+"""
+***********************解法二分割线***********************
+"""
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: bool
+        """
+        nums.sort()
+        left, right=0, len(nums)-1
+        while left<=right:
+            mid=(left+right)//2
+            if nums[mid]==target:
+                return True
+            elif nums[mid]>target:
+                right=mid-1
+            else:
+                left=mid+1
+        
+        return False
+
+效果：
+Runtime: 83 ms, faster than 11.70% of Python online submissions for Search in Rotated Sorted Array II.
+Memory Usage: 13.9 MB, less than 68.17% of Python online submissions for Search in Rotated Sorted Array II.
+
+确实比in快一点
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+153. Find Minimum in Rotated Sorted Array <medium>
+输入：
+int[]
+输出：
+int
+
+找最小的数
+"""
+***********************解法一分割线***********************
+"""
+暴力×，直接用内置函数
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return min(nums)
+
+效果：
+Runtime: 57 ms, faster than 14.06% of Python online submissions for Find Minimum in Rotated Sorted Array.
+Memory Usage: 13.7 MB, less than 55.56% of Python online submissions for Find Minimum in Rotated Sorted Array.
+
+"""
+***********************解法二分割线***********************
+"""
+总是试图找到包含最小值的区间，比较区间的两端确定
+因为这玩意儿虽然旋转，但是旋转之前是单增的
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left, right=0, len(nums)-1
+        while left<=right:
+            mid = (left+right)//2
+            if nums[left]<=nums[mid]:
+                if nums[left]<nums[right]:
+                    right=mid-1
+                else:
+                    left=mid+1
+            else:
+                if nums[mid]<nums[mid-1]:
+                    break
+                right=mid-1
+        return nums[mid]
+
+效果：
+Runtime: 68 ms, faster than 5.14% of Python online submissions for Find Minimum in Rotated Sorted Array.
+Memory Usage: 13.6 MB, less than 55.56% of Python online submissions for Find Minimum in Rotated Sorted Array.
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+154. Find Minimum in Rotated Sorted Array II <hard>
+输入：
+int[]
+输出：
+int
+
+还是找最小值，依然可以用赖皮的内置函数：
+"""
+***********************解法一分割线***********************
+"""
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return min(nums)
+
+效果：
+Runtime: 66 ms, faster than 43.02% of Python online submissions for Find Minimum in Rotated Sorted Array II.
+Memory Usage: 13.8 MB, less than 83.80% of Python online submissions for Find Minimum in Rotated Sorted Array II.
+
+"""
+***********************解法二分割线***********************
+"""
+显然不能直接用之前的方法，因为这里是可能出现重复的数字的，当然，你也可以先去重再用之前的方法，但是显然这样复杂度会很高
+所以if nums[mid]<nums[mid-1]:显然达咩因为这样会不注意重复的情况
+
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left, right = 0, len(nums) - 1
+
+        while left < right:
+            mid = (left+right)//2
+
+            # To filter duplicate values
+            if nums[left] == nums[mid] == nums[right]:
+                left += 1
+                right -= 1
+            
+            # mid is in the rotation part
+            elif nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right = mid
+                
+        return nums[left]
+
+reference:
+https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/discuss/2584942/Python-faster-than-99.96-well-explained
+
+效果：
+Runtime: 103 ms, faster than 5.03% of Python online submissions for Find Minimum in Rotated Sorted Array II.
+Memory Usage: 13.9 MB, less than 58.94% of Python online submissions for Find Minimum in Rotated Sorted Array II.
+
+同时在reference中的方法中，提到使用位运算而非使用除以二
+mid = left + ((right - left) >> 1)
+这样能快很多
+效果：
+Runtime: 38 ms, faster than 90.22% of Python online submissions for Find Minimum in Rotated Sorted Array II.
+Memory Usage: 13.7 MB, less than 95.81% of Python online submissions for Find Minimum in Rotated Sorted Array II.
+这一方法同样适用于之前的题目
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+162. Find Peak Element <medium>
+输入：
+int[]
+输出：
+int
+
+"""
+***********************解法一分割线***********************
+"""
+虽然是binary search专题，但是看到这题选sliding Windows也很正常吧orz
+class Solution(object):
+    def findPeakElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        if len(nums) == 1: 
+            return 0 # edge case [1]
+        if len(nums) > 1 and nums[0] > nums[1]: 
+            return 0 # checking first element
+        if len(nums) > 1 and nums[-1] > nums[-2]: 
+            return len(nums)-1 # checking last element
+        # sliding windows
+        for i in range(1, len(nums)-1):
+            if nums[i-1]<nums[i] and nums[i]>nums[i+1]:
+                return i
+        
+        return -1
+            
+效果：
+Runtime: 78 ms, faster than 5.48% of Python online submissions for Find Peak Element.
+Memory Usage: 13.7 MB, less than 18.49% of Python online submissions for Find Peak Element.
+
+
+"""
+***********************解法二分割线***********************
+"""
+用left和right作为定位指针
+class Solution(object):
+    def findPeakElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        N = len(nums)
+       
+        if N == 1: 
+            return 0 # edge case [1]
+        if N > 1 and nums[0] > nums[1]: 
+            return 0 # checking first element
+        if N > 1 and nums[-1] > nums[-2]: 
+            return N-1 # checking last element
+        
+        left, right=1, len(nums)-2
+        while left<=right:
+            mid=(left+right)>>1
+            if nums[mid]>nums[mid-1] and nums[mid]>nums[mid+1]:
+                return mid
+            elif nums[mid-1]>nums[mid]:
+                right=mid-1
+            else:
+                left=mid+1
+        return -1
+
+效果：
+Runtime: 56 ms, faster than 33.31% of Python online submissions for Find Peak Element.
+Memory Usage: 13.7 MB, less than 45.45% of Python online submissions for Find Peak Element.
+
+
+
+
+
