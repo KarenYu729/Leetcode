@@ -1,0 +1,78 @@
+week 1
+Sep 20
+
+依旧是题外话，昨天和室友关于我嗑CP的嗑点展开讨论，到中国古代离谱又开放的CP关系（我怎么忍住没有说野史的张居正的部分！失算了）
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+167. Two Sum II - Input Array Is Sorted <medium>
+输入：
+int[]
+int
+输出：
+int[]
+
+"""
+***********************解法一分割线***********************
+"""
+这道题第一反应就是two pointers，这非常正常~
+class Solution(object):
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        left, right = 0, len(numbers)-1
+        while left<=right:
+            two_sum = numbers[left]+numbers[right]
+            if two_sum == target:
+                return [left+1, right+1]
+            elif two_sum > target:
+                right-=1
+            else:
+                left+=1
+        
+        return
+        
+效果：
+Runtime: 251 ms, faster than 8.80% of Python online submissions for Two Sum II - Input Array Is Sorted.
+Memory Usage: 14.6 MB, less than 13.52% of Python online submissions for Two Sum II - Input Array Is Sorted.
+        
+        
+"""
+***********************解法二分割线***********************
+"""        
+class Solution(object):
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        ln = len(numbers)
+        for i in range(ln):
+            left, mid, right = i, (ln-i) // 2 + i, ln
+            while left < right:
+                if numbers[i] + numbers[mid] == target:
+                    return [i+1, mid+1]
+                elif numbers[i] + numbers[mid] > target:
+                    right = mid
+                else:
+                    left = mid+1
+                mid = (right-left) // 2 + left        
+
+效果：
+Runtime: 253 ms, faster than 8.47% of Python online submissions for Two Sum II - Input Array Is Sorted.
+Memory Usage: 15.1 MB, less than 6.04% of Python online submissions for Two Sum II - Input Array Is Sorted.       
+        
+        
+        
+        
+        
+        
+        
