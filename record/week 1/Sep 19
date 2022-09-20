@@ -1,0 +1,101 @@
+week 1
+Sep 19
+
+日常唠两句题外话，终于敲定还是按照原计划时间毕业
+以及中午投喂自己的萝卜炖牛肉确实好吃，只不过发现本来用来做咖喱鸡的鸡胸肉被我手快给腌上了，看来只能拿来煎了
+
+多说一句，今日犯傻，忘了带鼠标了
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+209. Minimum Size Subarray Sum <medium>
+输入：
+int[]
+int
+输出：
+int
+
+看到的第一反应就是排序，然后贪心，然后打开related topics发现完全没有greedy……
+被摆了一道了属于是
+"""
+***********************解法一分割线***********************
+"""
+sliding Windows
+以每一个序号作为下限基点，依次向后扩展，当达到target后，缩减边界
+
+class Solution(object):
+    def minSubArrayLen(self, target, nums):
+        """
+        :type target: int
+        :type nums: List[int]
+        :rtype: int
+        """
+        window_len = float('inf')
+        window_sum = 0
+        start = 0
+        
+        for i in range(len(nums)):
+            window_sum += nums[i]
+            while window_sum >= target:
+                window_len = min(window_len, i - start + 1)
+                # subtract first num of previous window
+                window_sum -= nums[start]
+                # move window to right
+                start += 1
+
+        if window_len == float('inf'):
+            return 0
+        else:
+            return window_len
+
+
+效果：
+Runtime: 449 ms, faster than 22.08% of Python online submissions for Minimum Size Subarray Sum.
+Memory Usage: 23.5 MB, less than 49.93% of Python online submissions for Minimum Size Subarray Sum.
+
+"""
+***********************解法二分割线***********************
+"""
+用的是binary search
+但是感觉用的是很tricky的数学方法，不要求掌握（并且效果也不好）
+class Solution(object):
+    def minSubArrayLen(self, target, nums):
+        """
+        :type target: int
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        index_sum = [nums[0]]
+        for i in range(1, n):
+            index_sum.append(index_sum[i - 1] + nums[i])
+        res = (n + 1)
+        for i in range(n):
+            left, right = i, (n - 1)
+            while (left <= right):
+                mid =  left + ((right - left) // 2)
+                sum_upto_mid = (index_sum[mid] - index_sum[i] + nums[i])
+                if (sum_upto_mid == target):
+                    res = min(res, (mid - i + 1))
+                    break
+                elif (sum_upto_mid > target):
+                    res = min(res, (mid - i + 1))
+                    right = (mid - 1)
+                else:
+                    left = (mid + 1)
+        return (0 if res == (n + 1) else res)
+
+reference：
+https://leetcode.com/problems/minimum-size-subarray-sum/discuss/1579908/Followup-question-Intuitive-binary-search-technique-oror-Python-oror-TC-O(nlogn)-SC-O(n)
+
+效果：
+Runtime: 2201 ms, faster than 5.03% of Python online submissions for Minimum Size Subarray Sum.
+Memory Usage: 24.9 MB, less than 7.74% of Python online submissions for Minimum Size Subarray Sum.
+
+
+
+
+
+
