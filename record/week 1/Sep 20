@@ -72,7 +72,459 @@ Memory Usage: 15.1 MB, less than 6.04% of Python online submissions for Two Sum 
         
         
         
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""        
+222. Count Complete Tree Nodes <medium>
+输入：
+TreeNode
+输出：
+int
+输出树的节点数目
+
+我第一反应这玩意儿不应该就是DFS嘛，但是为什么又出现在binary search里啊喂
+
+"""
+***********************解法一分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def countNodes(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
         
+        res = []
         
+        def dfs(node):
+            if not node:
+                return
+            
+            res.append(node.val)
+            dfs(node.left)
+            dfs(node.right)
         
+        dfs(root)
+        return len(res)
+
+效果：
+Runtime: 181 ms, faster than 9.45% of Python online submissions for Count Complete Tree Nodes.
+Memory Usage: 29.1 MB, less than 82.64% of Python online submissions for Count Complete Tree Nodes.
+
+
+"""
+***********************解法二分割线***********************
+"""
+类似的，当然也可以用栈的方式遍历，先一路压栈，一条路走到黑，然后再回头
+题外话，想起来原来玩仙剑的时候走迷宫的痛苦了
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def countNodes(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
         
+        cur = root
+        stack=[]
+        ans=[]
+        
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                ans.append(cur.val)
+                cur=cur.left
+            cur=stack.pop()
+            cur=cur.right
+        
+        return len(ans)
+
+效果：
+Runtime: 162 ms, faster than 16.04% of Python online submissions for Count Complete Tree Nodes.
+Memory Usage: 29.1 MB, less than 61.76% of Python online submissions for Count Complete Tree Nodes.
+
+当然，不存数字会更快一点
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def countNodes(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        
+        cur = root
+        stack=[]
+        ans=0
+        
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                ans+=1
+                cur=cur.left
+            cur=stack.pop()
+            cur=cur.right
+        
+        return ans
+
+效果：
+Runtime: 76 ms, faster than 89.01% of Python online submissions for Count Complete Tree Nodes.
+Memory Usage: 29.2 MB, less than 61.76% of Python online submissions for Count Complete Tree Nodes.
+
+更快了好耶ヾ(✿ﾟ▽ﾟ)ノ
+
+"""
+***********************解法三分割线***********************
+"""
+看了一眼binary search的方法又不是正常思路
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def countNodes(self, root: TreeNode) -> int:
+        def pathExists(root: TreeNode, pathNumber: int, treeHeight: int) -> bool:
+            current = root
+            for level in range(0, treeHeight - 1):
+                current = current.left if (pathNumber & (1 << (treeHeight - 2 - level))) == 0 else current.right
+                if not current:
+                    return False
+            return True
+            
+        if not root:
+            return 0
+        
+        count = 0;
+        
+        # Node count without last level
+        hcurrent = root.left
+        levelCount = 1
+        height = 1
+        while hcurrent:
+            height += 1
+            count += levelCount
+            levelCount *= 2
+            hcurrent = hcurrent.left
+        
+        # Find node count in the last level using binary search
+        # encode last level node number:
+        # going from the root to node and adding bits: 0bit - on going left, 1bit - on going right,
+        # so first node bits is 0...0 (left) and last node bits is 1...1 (right)  
+        left = 0
+        right = levelCount - 1
+        
+        if pathExists(root, right, height):
+            return count + right + 1
+        
+        while True:
+            mid = (left + right) // 2
+            if pathExists(root, mid, height):
+                left = mid
+            else:
+                right = mid
+            if right - left <= 1:
+                break
+
+        return count + left + 1
+
+reference：
+https://leetcode.com/problems/count-complete-tree-nodes/discuss/1315397/Python-O(log2(N))-solution-with-single-binary-search
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+输入：
+int[int[]]
+输出：
+bool
+
+还是在找数字
+"""
+***********************解法一分割线***********************
+"""   
+正常binary search流程，先固定行， 然后再找
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        r, c = len(matrix), len(matrix[0])
+        for i in range(r):
+            left, right = 0, c-1
+            if matrix[i][left]<=target<=matrix[i][right]:
+                while left<=right:
+                    mid = (left+right)>>1
+                    if matrix[i][mid] == target:
+                        return True
+                    elif matrix[i][mid] > target:
+                        right = mid-1
+                    else:
+                        left = mid+1
+        
+        return False        
+
+效果：
+Runtime: 306 ms, faster than 10.12% of Python online submissions for Search a 2D Matrix II.
+Memory Usage: 19.5 MB, less than 47.00% of Python online submissions for Search a 2D Matrix II.
+
+"""
+***********************解法二分割线***********************
+"""  
+还要注意一点，可以不用通过遍历行的方法固定行，因为每一列也是单增的
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        r, c = 0, len(matrix[0])-1
+        while (r<len(matrix) and c>=0):
+            mid_val = matrix[r][c]
+            
+            if mid_val==target:
+                return True
+            elif mid_val>target:
+                c-=1
+            else:
+                r+=1
+            
+        return False
+
+效果：
+Runtime: 322 ms, faster than 7.34% of Python online submissions for Search a 2D Matrix II.
+Memory Usage: 19.4 MB, less than 89.37% of Python online submissions for Search a 2D Matrix II.
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+268. Missing Number <easy>
+输入：
+int[]
+输出：
+int
+
+"""
+***********************解法一分割线***********************
+"""  
+找找哪个数字没出现~，先排序，然后遍历
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        
+        for i in range(len(nums)):
+            if i != nums[i]:
+                return i
+        
+        return len(nums)
+
+效果：
+Runtime: 266 ms, faster than 28.14% of Python online submissions for Missing Number.
+Memory Usage: 14.8 MB, less than 25.02% of Python online submissions for Missing Number.
+
+
+"""
+***********************解法二分割线***********************
+"""  
+看到下面topic有hash table，就拿字典试了一下
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        numDict={n: i for i, n in enumerate(nums)}
+        
+        for i in range(len(nums)):
+            if i not in numDict:
+                return i
+        
+        return len(nums)
+
+效果：
+Runtime: 245 ms, faster than 33.00% of Python online submissions for Missing Number.
+Memory Usage: 15.6 MB, less than 7.60% of Python online submissions for Missing Number.
+
+
+
+"""
+***********************解法三分割线***********************
+"""  
+注意一下这里不用强调是否nums[mid]==mid+1
+因为只少一个，while的目的是设置区间
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        
+        left, right = 0, len(nums)-1
+        res=-1
+        
+        while left<=right:
+            mid = (left+right)>>1
+            if nums[mid]>mid:
+                res=mid
+                right=mid-1
+            else:
+                left=mid+1
+        if res==-1:
+            return len(nums)
+        else:
+            return res
+
+效果：
+Runtime: 268 ms, faster than 27.74% of Python online submissions for Missing Number.
+Memory Usage: 14.9 MB, less than 25.02% of Python online submissions for Missing Number.
+看起来性能没有显著提高，猜测是因为之前排序过的原因
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+287. Find the Duplicate Number <medium>
+输入：
+int[]
+输出：
+int
+
+
+"""
+***********************解法一分割线***********************
+"""  
+先记录一下犯傻，我一开始以为和之前的题是一挂的
+然后就按照上面解法一的思路去写，然后发现这玩意儿不是从头开始的
+所以直接用字典了。刚刚还在想如果是原来，用C++的时候，肯定就是建一个flag数组，先都memset成0，然后出现就置一，然后检查flag是不是1（有没有出现过），这么想也算是曾经的字典吧
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        numDict = {}
+        for i in nums:
+            if i in numDict:
+                return i
+            else:
+                numDict[i]=1
+        return
+
+"""
+***********************解法二分割线***********************
+"""  
+大概看明白了orz
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # nums.sort()
+        left, right = 0, len(nums)-1
+        while left<right:
+            mid = (left + right) // 2
+
+            count = sum(i <= mid for i in nums)
+            
+            if count <= mid:
+                left = mid + 1
+            else:
+                right = mid
+        
+        # return
+        return right
+
+效果：
+Runtime: 2398 ms, faster than 5.05% of Python online submissions for Find the Duplicate Number.
+Memory Usage: 25.2 MB, less than 58.53% of Python online submissions for Find the Duplicate Number.
+除法改成位运算能少用点memory
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+349. Intersection of Two Arrays
+输入：
+int[]
+int[]
+输出：
+int[]
+
+"""
+***********************解法一分割线***********************
+""" 
+暴力解，就是hash，明天再看其他方法
+class Solution(object):
+    def intersection(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        nums1Dict = {}
+        for i in nums1:
+            if i in nums1Dict:
+                nums1Dict[i] += 1
+            else:
+                nums1Dict[i] = 1
+        
+        nums2 = list(set(nums2))
+        res=[]
+        for i in nums2:
+            if i in nums1Dict:
+                res.append(i)
+        
+        return res
+        
+效果：
+Runtime: 78 ms, faster than 19.98% of Python online submissions for Intersection of Two Arrays.
+Memory Usage: 13.5 MB, less than 84.19% of Python online submissions for Intersection of Two Arrays.
+
+
+
+
+
+
+
+
+
+
+
+
