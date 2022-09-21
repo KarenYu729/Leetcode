@@ -1,0 +1,240 @@
+week 1
+Sep 21
+
+今日题外话，早上听machine learning被矩阵卡住了
+人生中第不知道多少次被矩阵扼住命运的咽喉
+上次这么惨还是上学期的DSP
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+349. Intersection of Two Arrays
+输入：
+int[]
+int[]
+输出：
+int[]
+
+"""
+***********************解法二分割线***********************
+""" 
+昨天有用字典做
+这次就按遍历来（我永远喜欢暴力）
+class Solution(object):
+    def intersection(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        
+        idx1 = 0
+        
+        while idx1<len(nums1):
+            for i in range(len(nums2)):
+                if nums1[idx1]==nums2[i] and nums1[idx1] not in res:
+                    res.append(nums1[idx1])
+            idx1+=1
+            
+        return res
+        
+效果：
+Runtime: 417 ms, faster than 5.15% of Python online submissions for Intersection of Two Arrays.
+Memory Usage: 13.6 MB, less than 60.95% of Python online submissions for Intersection of Two Arrays.
+
+但是相比于之前用字典，更慢了orz
+
+
+
+"""
+***********************解法三分割线***********************
+""" 
+binary search
+
+class Solution(object):
+    def intersection(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        result = []
+        def binarySearch(arr , target):
+            
+            start = 0 
+            end = len(arr) -1 
+            mid = start + (end - start)//2 
+            
+            while start <= end :
+                
+                if arr[mid] == target :
+                    
+                    return True
+                elif target > arr[mid]:
+                    start = mid + 1 
+                else:
+                    end = mid - 1
+                mid = start + (end - start)//2
+            return False 
+        
+        if len(nums1) >= len(nums2) :
+            nums1.sort()
+            
+            for i in range(len(nums2)):
+                
+                if binarySearch(nums1 , nums2[i]) :
+                    result.append(nums2[i])
+        elif len(nums2) > len(nums1) :
+            nums2.sort()
+            for i in range(len(nums1)):
+                
+                if binarySearch(nums2 , nums1[i]) :
+                    result.append(nums1[i])
+ 
+        return set(result)
+
+效果：
+Runtime: 78 ms, faster than 20.24% of Python online submissions for Intersection of Two Arrays.
+Memory Usage: 13.8 MB, less than 13.96% of Python online submissions for Intersection of Two Arrays.
+
+reference：
+https://leetcode.com/problems/intersection-of-two-arrays/discuss/1850677/Beginner-friendly-solution-from-scratch
+
+俺自己写的
+在一个很傻的地方卡了很久->指忘了break，导致一直TLE，我还在想原来TLE的是我们组的另一个同学，我一直是那个RE的
+class Solution(object):
+    def intersection(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        # 让nums1永远是短的那个数组，遍历nums1，设置target
+        if len(nums1)>len(nums2):
+            nums1, nums2 = nums2, nums1
+        
+        nums2.sort()
+        
+        for i in range(len(nums1)):
+            target = nums1[i]
+            if target not in res:
+                left, right = 0, len(nums2)-1
+                mid = (left+right)>>1
+                while left<=right:
+                    mid = (left+right)>>1
+                    if nums2[mid]==target:
+                        res.append(target)
+                        break
+                    elif nums2[mid]>target:
+                        right=mid-1
+                    else:
+                        left=mid+1
+        
+        return res
+
+效果：
+Runtime: 72 ms, faster than 26.04% of Python online submissions for Intersection of Two Arrays.
+Memory Usage: 13.6 MB, less than 60.95% of Python online submissions for Intersection of Two Arrays.
+我就说这个干嘛写函数！还慢还占地方orz×
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+350. Intersection of Two Arrays II <easy>
+输入：
+int[]
+int[]
+输出：
+int[]
+类似上一题，但是要包含重复
+
+"""
+***********************解法一分割线***********************
+"""
+仍然是暴力解法
+记一下remove的用法
+这里不是放index是放要remove的具体value
+class Solution(object):
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        res=[]
+        for num in nums1:
+            if len(nums2) != 0 and num in nums2:
+                res.append(num)
+                nums2.remove(num)
+        return res
+
+效果：
+Runtime: 88 ms, faster than 17.41% of Python online submissions for Intersection of Two Arrays II.
+Memory Usage: 13.7 MB, less than 11.15% of Python online submissions for Intersection of Two Arrays II.
+
+"""
+***********************解法二分割线***********************
+"""
+仍然是暴力字典
+class Solution(object):
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        nums1Dict = {}
+        nums2Dict = {}
+        for i in nums1:
+            if i not in nums1Dict:
+                nums1Dict[i] = 1
+            else:
+                nums1Dict[i] += 1
+        
+        for i in nums2:
+            if i not in nums2Dict:
+                nums2Dict[i] = 1
+            else:
+                nums2Dict[i] += 1
+        
+        res = []
+
+        for i in nums1Dict:
+            if i in nums2Dict:
+
+                cnt = min(nums1Dict[i], nums2Dict[i])
+                for j in range(cnt):
+                    res.append(i)
+                
+        return res
+
+效果：
+Runtime: 49 ms, faster than 70.96% of Python online submissions for Intersection of Two Arrays II.
+Memory Usage: 13.7 MB, less than 31.00% of Python online submissions for Intersection of Two Arrays II.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
