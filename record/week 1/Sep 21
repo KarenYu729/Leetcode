@@ -219,10 +219,27 @@ Runtime: 49 ms, faster than 70.96% of Python online submissions for Intersection
 Memory Usage: 13.7 MB, less than 31.00% of Python online submissions for Intersection of Two Arrays II.
 
 
+补充，可以用Counter函数
+class Solution(object):
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        res = []
+        if len(nums1) > len(nums2):
+            nums1, nums2 = nums2, nums1
+        count = Counter(nums1)
+        for num in nums2:
+            if num in count and count[num] > 0:
+                res.append(num)
+                count[num] -= 1               
+        return res
 
-
-
-
+效果：
+Runtime: 36 ms, faster than 89.26% of Python online submissions for Intersection of Two Arrays II.
+Memory Usage: 13.5 MB, less than 79.11% of Python online submissions for Intersection of Two Arrays II.
 
 
 
