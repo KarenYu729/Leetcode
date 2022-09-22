@@ -244,14 +244,155 @@ Memory Usage: 13.5 MB, less than 79.11% of Python online submissions for Interse
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+985. Sum of Even Numbers After Queries <medium>
+输入：
+int[]
+int[int[]]
+输出：
+int[]
 
+class Solution(object):
+    def sumEvenAfterQueries(self, nums, queries):
+        """
+        :type nums: List[int]
+        :type queries: List[List[int]]
+        :rtype: List[int]
+        """
+        currSum = sum([val for val in nums if not val & 1])
+        a = []
+        for val, i in queries:
+            if not nums[i] & 1: currSum -= nums[i]
+            nums[i] += val
+            if not nums[i] & 1: currSum += nums[i]
+            a.append(currSum)
+        return a
+        
+效果：
+Runtime: 933 ms, faster than 35.44% of Python online submissions for Sum of Even Numbers After Queries.
+Memory Usage: 19.6 MB, less than 92.41% of Python online submissions for Sum of Even Numbers After Queries.
 
+reference：
+https://leetcode.com/problems/sum-of-even-numbers-after-queries/discuss/2607229/Python-or-Easy-understanding-or-Presum
+        
+比较新奇（对我而言）的做法
+定点注释：
+currSum = sum([val for val in nums if not val & 1])
+val & 1
+print(2&1)
+print(11&1)
+输出：
+0
+1
 
+比较正常的写法：
+class Solution(object):
+    def sumEvenAfterQueries(self, nums, queries):
+        """
+        :type nums: List[int]
+        :type queries: List[List[int]]
+        :rtype: List[int]
+        """
+        InitRes = 0
+        for num in nums:
+            if num%2==0:
+                InitRes+=num
+        
+        res=[]
+        
+        for i in queries:
+            addVal, numIdx = i
+            if nums[numIdx]%2==0:
+                InitRes-=nums[numIdx]
+            nums[numIdx]+=addVal
+            
+            if nums[numIdx]%2==0:
+                InitRes+=nums[numIdx]
+            
+            res.append(InitRes)
+        
+        return res
 
-
-
-
-
-
-
-
+效果：
+Runtime: 848 ms, faster than 43.04% of Python online submissions for Sum of Even Numbers After Queries.
+Memory Usage: 19.8 MB, less than 18.99% of Python online submissions for Sum of Even Numbers After Queries.
+        
+        位运算还是快
+        
+        
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""         
+2. Add Two Numbers <medium>
+输入：
+ListNode
+ListNode
+输出：        
+ListNode        
+        
+经典链表展开
+这个写的很详细
+reference：
+https://leetcode.com/problems/add-two-numbers/discuss/2592931/Python-99.35-faster-or-Simplest-solution-with-explanation-or-Beg-to-Adv-or-Linked-list
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode() # taking dummy node
+        curr = dummy # making pointer to point to the dummy node.
+        
+        carry = 0 # taking variable to take care of carry.
+        
+        while l1 or l2 or carry: # Firstly we are considering we should be having 2 list & then we have to take care of 2nd edge case for that we are taking carry in it. If we didnt have to take care of carry then we could have used l1 and l2 as in merging of 2 linked lists.
+            v1 = l1.val if l1 else 0 # if we have any node in list1 else will add 0 as we might have carry to take care of.
+            # Could be written as :
+            #     if l1:
+            #         v1 = l1.val
+            #     else:
+            #         None
+            v2 = l2.val if l2 else 0 # if we have any node in list2 else will add 0 as we might have carry to take care of.
+            
+            # new digit
+            val = v1 + v2 + carry # calculating the sum of the values in both the list with any carry we might have.
+            carry = val // 10 # for calculating carry, for instance we have 15 as val then we`ll get 1 as carry.
+            val = val % 10 # for having the first digit(reminder), for instance we have 15 as val then we`ll get 5 as value(reminder).
+            curr.next = ListNode(val) # updating the reference to the next node of val. 
+            
+            # update pointers
+            curr = curr.next # updating pointer to point to the new node(value)
+            l1 = l1.next if l1 else None # updating pointer of list1 to have next value of list1.
+            l2 = l2.next if l2 else None # updating pointer of list2 to have next value of list2.
+            
+        return dummy.next # returing dummy next bcz actuall linked list is after dummy node only, that why we dont consider dummy node while returing the linked list.         
+        
+效果：
+Runtime: 114 ms, faster than 23.37% of Python online submissions for Add Two Numbers.
+Memory Usage: 13.6 MB, less than 17.00% of Python online submissions for Add Two Numbers.
+        
+步骤：
+1.新建一个链表
+ dummy = ListNode()       
+2.复制一波刚刚新建的链表        
+ curr = dummy      
+ （实际，指向首位）       
+3.让行的链表指向一个新的节点
+curr.next = ListNode(val)        
+4.结束操作
+5.返回
+return dummy.next
+第一位是空格
+        
+        
+        
+        
+        
