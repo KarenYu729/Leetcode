@@ -393,6 +393,68 @@ return dummy.next
 第一位是空格
         
         
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""        
+36. Valid Sudoku <medium>       
+输入：
+int[int[]]
+输出：
+bool
+
+收录在array分类里，差点以为是8皇后的同类了，毕竟这个也是检查行列和另一个
+一看related topic有hash table，那不犹豫了，直接用字典
+但是这里要注意对没有填字的情况要单独让continue，否则一定有重复的数值
+
+class Solution(object):
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        # check row
+        for r in board:
+            rowDict={}
+            for i in r:
+                if i in rowDict and i!='.':
+                    return False
+                elif i == '.':
+                    continue
+                else:
+                    rowDict[i]=1
+        
+        #check column
+        for c in range(len(board[0])):
+            colDict={}
+            for r in range(len(board)):
+                if board[r][c] in colDict and board[r][c]!='.':
+                    return False
+                elif board[r][c] == '.':
+                    continue
+                else:
+                    colDict[board[r][c]] = 1
+        
+        #check 3*3
+        for large in range(len(board)):
+            l_row = large//3
+            l_col = large%3
+            s_Dict = {}
+            for small in range(len(board[0])):
+                e = board[l_row*3+small//3][l_col*3+small%3]
+                if e in s_Dict and e != '.':
+                    return False
+                elif e == '.':
+                    continue
+                else:
+                    s_Dict[e]=1
+
+        return True
+        
+效果：        
+Runtime: 156 ms, faster than 26.61% of Python online submissions for Valid Sudoku.
+Memory Usage: 13.5 MB, less than 45.43% of Python online submissions for Valid Sudoku.        
         
         
         
+        
+     
