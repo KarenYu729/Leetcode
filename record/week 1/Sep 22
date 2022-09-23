@@ -1,0 +1,49 @@
+week1
+Sep 22
+
+今天在看scikit-learn，这是今天半夜做的
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+66. Plus One <easy>
+输入：
+int[]
+输出：
+int[]
+
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        i=len(digits)-1
+        total=0
+        
+        if i==0:
+            if digits[i]==9:
+                digits[i]=1
+                digits.append(0)
+            else:
+                digits[i]=digits[i]+1
+            return digits
+        
+        while i>=0:
+            if digits[i]==9:
+                digits[i]=0
+                total=total+1
+            else:
+                digits[i]=digits[i]+1
+                return digits
+            i=i-1
+        
+        if total==len(digits):
+            digits[0]=1
+            digits.append(0)
+        
+        return digits
+
+效果：
+Runtime: 41 ms, faster than 15.87% of Python online submissions for Plus One.
+Memory Usage: 13.4 MB, less than 69.98% of Python online submissions for Plus One.
