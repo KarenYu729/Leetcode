@@ -1,0 +1,146 @@
+week1
+Sep 24
+
+到12点啦
+换个地方继续
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+876. Middle of the Linked List <easy>
+输入：
+ListNode
+输出：
+ListNode
+
+"""
+***********************解法一分割线***********************
+"""
+纯纯的暴力，遍历链表，然后再创造一个新的链表。
+我比较好奇的是two-pointer的做法是什么样的
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def middleNode(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        store = []
+        while head:
+            store.append(head.val)
+            head=head.next
+        resList = store[len(store)//2:len(store)]
+        print(resList)
+        dummy = ListNode(0)
+        res = dummy
+        for i in resList:
+            dummy.next=ListNode(i)
+            dummy=dummy.next
+        return res.next
+
+效果：
+Runtime: 29 ms, faster than 44.70% of Python online submissions for Middle of the Linked List.
+Memory Usage: 13.6 MB, less than 25.93% of Python online submissions for Middle of the Linked List.
+
+
+"""
+***********************解法二分割线***********************
+"""
+看了discussion，现在不好奇了，是因为我完全忘了快慢指针这种东西
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def middleNode(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        slow= fast= head
+        while fast is not None and fast.next is not None:
+            slow= slow.next
+            fast= fast.next.next
+        return slow
+
+reference：
+https://leetcode.com/problems/middle-of-the-linked-list/discuss/2599260/Python-solution..-two-pointers
+
+效果：
+Runtime: 31 ms, faster than 36.77% of Python online submissions for Middle of the Linked List.
+Memory Usage: 13.7 MB, less than 8.32% of Python online submissions for Middle of the Linked List.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+905. Sort Array By Parity <easy>
+输入：
+int[]
+输出：
+int[]
+
+class Solution(object):
+    def sortArrayByParity(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        left, right=0, len(nums)-1
+        while left<right:
+            if nums[left]%2!=0 :
+                if nums[right]%2==0:
+                    nums[left],nums[right]=nums[right],nums[left]
+                    left+=1
+                    right-=1
+                else:
+                    right-=1
+            else:
+                left+=1
+        return nums
+
+效果：
+Runtime: 121 ms, faster than 33.46% of Python online submissions for Sort Array By Parity.
+Memory Usage: 14.4 MB, less than 18.65% of Python online submissions for Sort Array By Parity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
