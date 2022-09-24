@@ -1,0 +1,249 @@
+week 1
+Sep 23
+
+今日题外话
+之前没有注意过，或者已经完全忘了，为什么要加penalty了。
+当feature很多但是sample又没有那么丰富的时候，很有可能咱们拟合的函数不是在建模而是在记忆了。因此，想要遏制这种过拟合，提高泛化能力（让在新数据上也能如鱼得水），要不然减少feature，
+要不然通过加penalty的方式对参数进行一个限制。
+这里说是限制是因为，在一个正常的cost function后面加上惩罚项（从θ1开始到θn，假设一共有n个feature，θ0是常数项，对应的x0是设置的1，所以惩罚的意义不大）可以设置每个feature的优先级
+如果某个特征的给的penalty多，自然就会调整自己的权重（挨揍了当然就知道躲了）
+总结来说，虽然penalty可以平衡training set的拟合&keeping parameter small，以期达到假设模型相对简单且不过拟合的状态
+但是太小也不行
+
+属于是：
+种瓜黄台下，瓜熟子离离。
+一摘使瓜好，再摘令瓜稀。
+三摘尚自可，摘绝抱蔓归。
+
+感谢章怀太子的总结，呱唧呱唧
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+15. 3Sum <medium>
+输入：
+int[]
+输出：
+int[int[]]
+
+先吐槽一下，第一反应，这不就是subset嘛，我完全可以用backtrack做，然后TLE了
+原理上应该是可行的，但是似乎在这里是需要顺序的。
+等下这道题结束之后我去把subset敲了
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        res = []
+        for i in range(len(nums)-1):
+            l = i + 1
+            r = len(nums) - 1
+            while l < r:
+                if nums[i] + nums[l] + nums[r] == 0:
+                    res.append((nums[i], nums[l], nums[r]))
+                    l += 1
+                    r -= 1
+                elif nums[i] + nums[l] + nums[r] > 0:
+                    r -= 1
+                else:
+                    l += 1
+        return set(res)
+        
+效果：
+Runtime: 6954 ms, faster than 6.37% of Python online submissions for 3Sum.
+Memory Usage: 213.2 MB, less than 5.04% of Python online submissions for 3Sum.
+
+先固定一个位置，然后设置两个指针，从当前位置的下一位和数组的最后一位开始移动。要先排序是为了之后移动指针
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+78. Subsets <medium>
+输入：
+int[]
+输出：
+int[int[]]
+这是一道backtracking的题
+
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        
+        def backtracking(List, start_idx):
+            res.append(List[:])
+            
+            for i in range(start_idx, len(nums)):
+                List.append(nums[i])
+                backtracking(List, i+1)
+                List.pop()
+                
+        backtracking([], 0)
+        return res
+
+效果：
+Runtime: 53 ms, faster than 5.52% of Python online submissions for Subsets.
+Memory Usage: 13.4 MB, less than 90.98% of Python online submissions for Subsets.
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+16. 3Sum Closest <medium>
+输入：
+int[]
+int
+输出：
+int
+
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.sort()
+        n = len(nums)
+        mindiff = float('inf')
+        res=0
+        for i in range(len(nums)-1):
+            l, r = i+1, len(nums)-1
+            while l<r:
+                temp_sum=nums[i]+nums[l]+nums[r]
+                if temp_sum==target:
+                    return target
+                elif temp_sum>target:
+                    r-=1
+                else:
+                    l+=1
+                if abs(target - temp_sum) < mindiff:
+					res = temp_sum
+					mindiff = abs(target - temp_sum)    
+        
+        return res
+
+效果：
+Runtime: 2672 ms, faster than 96.16% of Python online submissions for 3Sum Closest.
+Memory Usage: 13.9 MB, less than 5.12% of Python online submissions for 3Sum Closest.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+18. 4Sum <medium>
+输入：
+int[]
+int
+输出：
+int[int[]]
+
+"""
+***********************解法一分割线***********************
+"""
+class Solution(object):
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        res=[]
+        quad=[]
+
+        def K_Sum(start,K,target):
+
+            if K!=2:
+                for i in range(start,len(nums)-K+1):
+                    if nums[i]==nums[i-1] and i>start:
+                        continue
+                    quad.append(nums[i])
+                    K_Sum(i+1,K-1,target-nums[i])
+                    quad.pop()
+                return
+
+            else:
+                l,r=start,len(nums)-1
+                while(l<r):
+                    two_sum=nums[l]+nums[r]
+                    if two_sum>target:
+                        r-=1
+                    elif two_sum<target:
+                        l+=1
+                    else:
+                        res.append(quad+[nums[l],nums[r]])
+                        l+=1
+                        while(nums[l]==nums[l-1] and l<r):
+                            l+=1
+        K_Sum(0,4,target)
+        return res
+
+
+reference：
+https://leetcode.com/problems/4sum/discuss/2578751/Python3-greater-4Sum-oror-K-Sum-oror-Generalized-Solution-oror-Sorting-and-Two-Pointers-oror-Easy-and-Clean-Code.
+由上述网址提供的K sum的general的解法
+
+
+"""
+***********************解法二分割线***********************
+"""
+比较正常的写法
+class Solution(object):
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        ans = []
+        for i in range (len(nums)-3):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            for j in range (i+1, len(nums)-2):
+                if j >i+1 and nums[j] == nums[j - 1]:
+                    continue
+                
+                sum = target - nums[i]-nums[j]
+                left = j+1
+                right = len(nums)-1
+                while left < right:
+                    if nums[left] + nums[right] == sum:
+                        ans.append([nums[i], nums[j], nums[left], nums[right]])
+                        while left < right and nums [left] == nums[left + 1]:
+                            left += 1
+                        while left < right and nums [right] == nums [right -1]:
+                            right -= 1
+                        
+                        left += 1
+                        right -= 1
+                    elif nums[left] + nums[right] < sum :
+                        left += 1
+                    
+                    else:
+                        right -= 1
+        return ans
+
+效果：
+Runtime: 773 ms, faster than 73.20% of Python online submissions for 4Sum.
+Memory Usage: 13.4 MB, less than 52.92% of Python online submissions for 4Sum.
+
+
+
+
+
+
