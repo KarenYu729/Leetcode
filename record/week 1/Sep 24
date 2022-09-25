@@ -114,14 +114,170 @@ Memory Usage: 14.4 MB, less than 18.65% of Python online submissions for Sort Ar
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+28. Find the Index of the First Occurrence in a String <medium>
+输入：
+str
+str
+输出：
+int
+
+找到匹配字符串的首位index
+"""
+***********************解法一分割线***********************
+"""
+简单是截取子字符串，然后看是不是一样的
+要注意一下这里的index的取值
+
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        firstS = needle[0]
+        for i in range(len(haystack)-len(needle)+1):
+            if haystack[i] == firstS:
+                subStr = haystack[i:i+len(needle)]
+                if subStr == needle:
+                    return i 
+        print(needle in haystack)
+        return -1
+
+效果：
+Runtime: 22 ms, faster than 74.88% of Python online submissions for Find the Index of the First Occurrence in a String.
+Memory Usage: 13.5 MB, less than 58.16% of Python online submissions for Find the Index of the First Occurrence in a String.
+
+
+在discussion里看到有人提到用sliding Windows（少个判断）
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        for i in range(len(haystack)-len(needle)+1):
+            subStr = haystack[i:i+len(needle)]
+            if subStr == needle:
+                return i 
+        
+        return -1
+
+效果：
+Runtime: 14 ms, faster than 95.42% of Python online submissions for Find the Index of the First Occurrence in a String.
+Memory Usage: 13.6 MB, less than 30.02% of Python online submissions for Find the Index of the First Occurrence in a String.
+
+
+"""
+***********************解法二分割线***********************
+"""
+这道题分类在two-pointers里，很好奇怎么做
+
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if len(needle)>len(haystack):
+            return -1
+        hayP, needleP, i = 0, 0, 0
+        while hayP < len(haystack)-len(needle)+1:
+            if i < len(haystack):
+                if haystack[i] == needle[needleP]:
+                    i+=1
+                    needleP+=1
+                    if needleP == len(needle):
+                        return hayP
+                else:
+                    hayP+=1
+                    i=hayP
+                    needleP=0
+        
+        return -1
+
+效果：
+Runtime: 35 ms, faster than 22.53% of Python online submissions for Find the Index of the First Occurrence in a String.
+Memory Usage: 13.5 MB, less than 58.16% of Python online submissions for Find the Index of the First Occurrence in a String.
+
+reference：
+https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/discuss/2078559/python-two-pointers-easy-understanding
 
 
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+输入：
+int[]
+输出：
+不返回任何值
+
+"""
+***********************解法一分割线***********************
+"""
+直接改，因为不能确定k一定比nums的长度短，所以有可能转了个圈但是其实没有动
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        k = k%len(nums)
+        nums[:] = nums[-k:] + nums[:-k]
+
+效果：
+Runtime: 174 ms, faster than 95.46% of Python online submissions for Rotate Array.
+Memory Usage: 25.1 MB, less than 15.78% of Python online submissions for Rotate Array.
+
+reference：
+https://leetcode.com/problems/rotate-array/discuss/2604104/Python-easy-solution-with-2-lines
+
+
+正常pop出去一个，再insert进去会TLE
 
 
 
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+""" 
+202. Happy Number <easy>
+输入：
+int
+输出：
+bool
+
+class Solution(object):
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        #什么样的情况下会进入循环：在运算的时候出现了之前出现的数字
+        rememberN = {}
+        i = 0
+        while n!= 1 and n not in rememberN:
+            rememberN[n]=i
+            i+=1
+            nums = [int(x) for x in str(n)]
+            n = 0
+            for num in nums:
+                n+=num**2
+        
+        return n==1
+
+效果：
+Runtime: 42 ms, faster than 34.52% of Python online submissions for Happy Number.
+Memory Usage: 13.5 MB, less than 35.95% of Python online submissions for Happy Number.
 
 
 
