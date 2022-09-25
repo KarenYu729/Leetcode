@@ -1,0 +1,100 @@
+week2
+Sep 25
+
+先占个坑，明天要去中国城买菜，做一道题再睡（提前消费了属于是）
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+135. Candy <hard>
+输入：
+int[]
+输出：
+int
+
+好家伙，我以为是要比两边都大才能多拿一块糖，没想到只要比一边大就可以多拿糖
+就是另外开一个数组放糖，先从左边开始看，再从右边开始看，始终保持给多的多加一块糖（或者保持其糖的个数更多）的策略
+class Solution(object):
+    def candy(self, ratings):
+        """
+        :type ratings: List[int]
+        :rtype: int
+        """
+        n = len(ratings)
+        #Each child must have at least one candy
+        res = [1]*n
+        
+        #Children with a higher rating get more candies than their neighbors
+        for i in range(n-1):
+            if ratings[i+1] > ratings[i]:
+                res[i+1] = max(1+res[i], res[i+1])
+        
+        #Children with a higher rating get more candies than their neighbors
+        #if neighbor with a higher rating already has more candy, do nothing
+        for i in range(n-2, -1, -1):
+            if ratings[i] > ratings[i+1]:
+                res[i] = max(1+res[i+1], res[i])
+        
+        return sum(res)
+
+效果：
+Runtime: 255 ms, faster than 32.67% of Python online submissions for Candy.
+Memory Usage: 15.4 MB, less than 59.89% of Python online submissions for Candy.
+
+reference：
+https://leetcode.com/problems/candy/discuss/2520758/candy%3A-TO(n)-SO(1)
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+147. Insertion Sort List <medium>
+输入：
+ListNode
+输出：
+ListNode
+
+"""
+***********************解法一分割线***********************
+"""
+简单的思路，先拿出来，然后在插进去，应该还有其他的指针来回指的方法，但是现在不想想了，先去睡觉了
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def insertionSortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        storeNode = []
+        
+        while head:
+            storeNode.append(head.val)
+            head=head.next
+        
+        storeNode.sort()
+        
+        res = ListNode(0)
+        dummy = res
+        
+        for i in storeNode:
+            dummy.next=ListNode(i)
+            dummy=dummy.next
+        
+        return res.next
+
+效果：
+Runtime: 82 ms, faster than 93.82% of Python online submissions for Insertion Sort List.
+Memory Usage: 18.8 MB, less than 6.19% of Python online submissions for Insertion Sort List.
+
+
+
+
+
+
+
