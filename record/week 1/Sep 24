@@ -215,6 +215,7 @@ https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string
 """
 --------------------------------------题目分割线----------------------------------------------
 """ 
+189. Rotate Array <medium>
 输入：
 int[]
 输出：
@@ -278,19 +279,6 @@ class Solution(object):
 效果：
 Runtime: 42 ms, faster than 34.52% of Python online submissions for Happy Number.
 Memory Usage: 13.5 MB, less than 35.95% of Python online submissions for Happy Number.
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
