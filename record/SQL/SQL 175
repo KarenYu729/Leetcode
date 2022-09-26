@@ -1,0 +1,61 @@
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+175. Combine Two Tables <easy>
+
+Input: 
+Person table:
++----------+----------+-----------+
+| personId | lastName | firstName |
++----------+----------+-----------+
+| 1        | Wang     | Allen     |
+| 2        | Alice    | Bob       |
++----------+----------+-----------+
+Address table:
++-----------+----------+---------------+------------+
+| addressId | personId | city          | state      |
++-----------+----------+---------------+------------+
+| 1         | 2        | New York City | New York   |
+| 2         | 3        | Leetcode      | California |
++-----------+----------+---------------+------------+
+Output: 
++-----------+----------+---------------+----------+
+| firstName | lastName | city          | state    |
++-----------+----------+---------------+----------+
+| Allen     | Wang     | Null          | Null     |
+| Bob       | Alice    | New York City | New York |
++-----------+----------+---------------+----------+
+Explanation: 
+There is no address in the address table for the personId = 1 so we return null in their city and state.
+addressId = 1 contains information about the address of personId = 2.
+
+
+"""
+***********************解法分割线***********************
+"""
+# Write your MySQL query statement below
+select firstName, lastName, city, state from Person p LEFT OUTER JOIN Address a on p.personID = a.personID;
+
+为什么选择左外连接
+
+外连接分为两种：左外连接 & 右外连接
+其中左外连接尤为常见，因为右外连接可以用左外连接表示
+————————————++——++++++++++++
+|           +   |          +
+|           +   |          +
+|      A    +   |   B      +
+|           +   |          +
+|           +   |          +
+———————————————— +++++++++++
+
+左外连接就是展示ALL表1的数据（包含交集部分）
+语法：
+SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件 ...;
+为什么不用内连接呢？
+∵如果有null，内连接不会显示出来null的内容，但是这里要把所有数据查出来，不是说表2没数据就不展示表1了
+
+
+当然也可以改成右外连接：
+# Write your MySQL query statement below
+select firstName, lastName, city, state from Address a RIGHT OUTER JOIN Person p on p.personID = a.personID;
