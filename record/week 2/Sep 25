@@ -93,6 +93,59 @@ Runtime: 82 ms, faster than 93.82% of Python online submissions for Insertion So
 Memory Usage: 18.8 MB, less than 6.19% of Python online submissions for Insertion Sort List.
 
 
+"""
+***********************解法二分割线***********************
+"""
+用指针来回指
+不是特别明白的解法，pass
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def insertionSortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0, head)
+        prev, curr = head, head.next
+        
+        while curr:
+            if prev.val <= curr.val:
+                prev, curr = prev.next, curr.next
+                continue
+            temp = dummy
+            while temp.next and temp.next.val < curr.val:
+                temp = temp.next
+            prev.next = prev.next.next
+            curr.next = temp.next
+            temp.next = curr
+            curr = prev.next
+        return dummy.next
+
+效果：
+Runtime: 360 ms, faster than 56.64% of Python online submissions for Insertion Sort List.
+Memory Usage: 16.5 MB, less than 98.60% of Python online submissions for Insertion Sort List.
+
+reference：
+https://leetcode.com/problems/insertion-sort-list/discuss/2605607/Mixture-of-bubble-and-insertion-sort-Python
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
