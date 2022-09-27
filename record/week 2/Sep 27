@@ -1,0 +1,67 @@
+week 2
+Sep 27
+
+
+做点DP
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+5. Longest Palindromic Substring <medium>
+输入：
+str
+输出：
+str
+
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        
+        dp = [[False] * len(s) for _ in range(len(s))]
+        start, end = 0, 0
+        for i in range(len(s)-1, -1, -1):
+            for j in range(i, len(s)):
+                if i == j:
+                    dp[i][j] = True
+                elif s[i] == s[j] and (dp[i+1][j-1] or j-i==1):
+                    if j - i > end - start:
+                        end = j
+                        start = i
+                    dp[i][j] = True
+
+        return s[start:end+1]
+
+效果：
+Runtime: 4612 ms, faster than 18.94% of Python online submissions for Longest Palindromic Substring.
+Memory Usage: 21.5 MB, less than 7.76% of Python online submissions for Longest Palindromic Substring.
+
+reference：
+https://leetcode.com/problems/longest-palindromic-substring/discuss/2463013/Python-dynamic-programming-solution-with-explanation
+
+看到提出了很多别的方法，比如dfs
+等下明天写一下
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
