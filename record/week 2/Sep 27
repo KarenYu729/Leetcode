@@ -1,0 +1,167 @@
+week 2
+Sep 27
+
+今天看了挺久的feature selection
+还挺受启发的
+除了ML的方法之外，也有统计学方法，也就是做出假设，然后计算p-value，看看相关性怎么样
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+7. Reverse Integer <medium>
+输入：
+int
+输出：
+int
+
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        ans = x
+        if x >= 0:
+            ans=int(str(x)[::-1])
+        else:
+            ans=int(str(x)[:0:-1])*(-1)
+        return ans if ans>=(-1)*pow(2, 31) and ans<=pow(2, 31)-1 else 0
+
+效果：
+Runtime: 26 ms, faster than 76.22% of Python online submissions for Reverse Integer.
+Memory Usage: 13.4 MB, less than 36.67% of Python online submissions for Reverse Integer.
+
+之前没有注意到是否因为reverse超过范围，然后WA了
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+9. Palindrome Number <easy>
+输入：
+int
+输出：
+bool
+
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x<0:
+            return False
+        
+        x=str(x)
+        left, right = 0, len(x)-1
+        while left<right:
+            if x[left]!=x[right]:
+                return False
+            left+=1
+            right-=1
+        
+        return True
+        
+效果：
+Runtime: 160 ms, faster than 7.32% of Python online submissions for Palindrome Number.
+Memory Usage: 13.5 MB, less than 35.99% of Python online submissions for Palindrome Number.
+
+不过这道题的topic是math，怀疑有其他解法
+
+看到了一个类似的写法：
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        return str(x) == str(x)[::-1]
+
+效果：
+Runtime: 94 ms, faster than 55.80% of Python online submissions for Palindrome Number.
+Memory Usage: 13.4 MB, less than 62.79% of Python online submissions for Palindrome Number.
+
+看到一个没有用string的解法，是把数字的每一位都摘出来，然后物理取反，在直接比较数字是否一样
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+2413. Smallest Even Multiple <easy>
+输入：
+int
+输出：
+int
+
+class Solution(object):
+    def smallestEvenMultiple(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n%2==0:
+            return n
+        
+        return n*2
+
+效果：
+Runtime: 38 ms, faster than 14.62% of Python online submissions for Smallest Even Multiple.
+Memory Usage: 13.2 MB, less than 96.86% of Python online submissions for Smallest Even Multiple.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+2396. Strictly Palindromic Number <medium>
+输入：
+int
+输出：
+bool
+
+class Solution(object):
+    def isStrictlyPalindromic(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        n=str(bin(n))
+        
+        return n[::-1] == n
+
+效果：
+Runtime: 46 ms, faster than 24.24% of Python online submissions for Strictly Palindromic Number.
+Memory Usage: 13.2 MB, less than 97.58% of Python online submissions for Strictly Palindromic Number.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+2235. Add Two Integers <easy>
+输入：
+int
+int
+输出：
+int
+
+class Solution(object):
+    def sum(self, num1, num2):
+        """
+        :type num1: int
+        :type num2: int
+        :rtype: int
+        """
+        return num1+num2
+
+效果：
+Runtime: 22 ms, faster than 74.24% of Python online submissions for Add Two Integers.
+Memory Usage: 13.4 MB, less than 31.31% of Python online submissions for Add Two Integers.
+
+
+
+
+
