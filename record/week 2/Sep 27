@@ -48,16 +48,173 @@ https://leetcode.com/problems/longest-palindromic-substring/discuss/2463013/Pyth
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+22. Generate Parentheses <medium>
+输入：
+int
+输出：
+list[str]
+
+"""
+***********************解法一分割线***********************
+"""
+这个很显然是可以用backtracking做的
+
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        res = []
+        
+        def backtracking(List, leftCnt, rightCnt):
+            if leftCnt==0 and rightCnt==0:
+                res.append(List)
+                return
+            
+            if leftCnt>0:
+                backtracking(List+"(", leftCnt-1, rightCnt)
+            if rightCnt>0 and leftCnt<rightCnt:
+                backtracking(List+")", leftCnt, rightCnt-1)
+                
+        backtracking("(", n-1, n)
+        return res
+
+效果：
+Runtime: 37 ms, faster than 51.88% of Python online submissions for Generate Parentheses.
+Memory Usage: 13.6 MB, less than 85.18% of Python online submissions for Generate Parentheses.
+
+从n到0可以，反过来从0到n也可以
+之前一直不对是这一步
+rightCnt<leftCnt
+写反了
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        res = []
+        
+        def backtracking(List, leftCnt, rightCnt, n):
+            if leftCnt==rightCnt==n:
+                res.append(List)
+                return
+            
+            if leftCnt<n:
+                backtracking(List+'(', leftCnt+1, rightCnt, n)
+            if rightCnt<leftCnt:
+                backtracking(List+')', leftCnt, rightCnt+1, n)
+        
+        backtracking("", 0, 0, n)
+        return res
+
+效果：
+Runtime: 18 ms, faster than 96.31% of Python online submissions for Generate Parentheses.
+Memory Usage: 13.7 MB, less than 38.77% of Python online submissions for Generate Parentheses.
+
+我竟然曾经给标星了，看来是这个月backtracking做多了，开始飘了
+
+
+"""
+***********************解法二分割线***********************
+"""
+DP解法
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        if n == 0:
+            return []
+        else:
+            f = [[] for i in range(n + 1)]
+            f[0] = [""]
+            for i in range(1, n + 1):
+                f[i] += ['(' + s + ')' + t for k in range(i) for s in f[i-k-1] for t in f[k]]
+            return f[n]
+
+效果：
+Runtime: 22 ms, faster than 91.40% of Python online submissions for Generate Parentheses.
+Memory Usage: 13.6 MB, less than 85.18% of Python online submissions for Generate Parentheses.
+
+reference：
+https://leetcode.com/problems/generate-parentheses/discuss/828165/Very-simple-python-solution
+https://leetcode.com/problems/generate-parentheses/discuss/1276667/Generate-Parentheses-or-Python-or-Recursive-and-Iterative-Solution-(Catalan-Numbers-and-Parentheses)
+
+Let f(n) be a function that returns the well-formed parentheses given n matched parentheses
+n = 0 -> ""
+n = 1 -> "()"
+n = 2 -> "(())", "()()"
+n = 3 -> "((()))","(()())","(())()","()(())","()()()"
+
+In other words:
+f(0) = ""
+f(1) = ( f(0) )f(0) 
+f(2) = ( f(0) )f(1) + ( f(1) )f(0)
+f(3) = ( f(0) )f(2) + ( f(1) )f(1) + ( f(2) )f(0)
+...
+f(n) = ( f(0) )f(n-1) + ( f(1) )f(n-2) + ( f(2) )f(n-3) + ...... + ( f(n-1) )f(0)
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+70. Climbing Stairs <easy>
+输入：
+int
+输出：
+int
+
+"""
+***********************解法一分割线***********************
+"""
+轻松愉快一下，这道题虽然是DP，但是也是很明显的一个斐波拉契数列，一般就是递归和迭代最容易想到
+这里先来迭代
+递归会TLE
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        f = [0]*(n+1)
+        f[0] = 1
+        f[1] = 1
+        if n<2:
+            return f[n]
+        for i in range(2,n+1):
+            f[i] = f[i-1] + f[i-2]
+        
+        return f[n]
+
+效果：
+Runtime: 35 ms, faster than 16.87% of Python online submissions for Climbing Stairs.
+Memory Usage: 13.4 MB, less than 35.25% of Python online submissions for Climbing Stairs.
 
 
+"""
+***********************解法二分割线***********************
+"""
+动态规划 
 
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        dp = [1, 1] + [0]*n
+        for i in range(2, n+1):
+            dp[i] = dp[i-1] + dp[i-2]
+        return dp[n]
 
-
-
-
+逻辑上和之前的好像没区别……
 
 
 
