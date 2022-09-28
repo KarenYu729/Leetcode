@@ -8,3 +8,181 @@ Sep 28
 jump game & unique path
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+55. Jump Game <medium>
+输入：
+int[]
+输出：
+bool
+
+"""
+***********************解法一分割线***********************
+"""
+虽然是DP的题，但是topic里有greedy
+所以先按照greedy来看
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if len(nums)==1:
+            return True
+        JumpIdx = len(nums)-1
+        
+        for i in range(len(nums)-2, -1, -1):
+            # 不是按从头跳到尾，而是检查能不能从最后走到开头
+            # 如果只有一位，那开头就是结尾，当然可以
+            # 贪心策略就是，如果每一次都选择跳最大的步长，该步长能够到达前一步的位置（因为是一步一步倒退的，所以理论上没有0就行）
+            # 最后检查有没有到开头
+            if i+nums[i]>=JumpIdx:
+                JumpIdx = i
+        
+        return JumpIdx==0
+
+效果：
+Runtime: 1023 ms, faster than 21.09% of Python online submissions for Jump Game.
+Memory Usage: 14.5 MB, less than 66.33% of Python online submissions for Jump Game.
+
+之前想了一下，可不可以认为出现0就False，显然不可以，因为0是有可能被跳过的，那么可以向前找，如果有能跳过0的就可以
+但是这种贪心策略非常麻烦，而且慢，需要考虑很多情况，让我WA了很多次
+听取wa声一片.jpg
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if len(nums)==1:
+            return True
+        if nums[0] == 0:
+            return False
+        
+        for i in range(1, len(nums)):
+            if nums[i]==0 and i != len(nums)-1:
+                for j in range(i):
+                    if nums[j]+j>i:
+                        break
+                    if j==i-1 and nums[j]+j<=i:
+                        return False
+        
+        return True
+
+效果：
+Runtime: 1118 ms, faster than 15.95% of Python online submissions for Jump Game.
+Memory Usage: 14.9 MB, less than 6.58% of Python online submissions for Jump Game.
+
+奉献一组test case
+[2,3,1,1,4]
+[3,2,1,0,4]
+[2,0]
+[2,0,0]
+[1,1,1,0]
+[2,0,1,0,1]
+[2,0,0,0,2,0,0,0]
+
+
+"""
+***********************解法二分割线***********************
+"""
+DP
+逻辑，每一步都找能跳出的最远距离
+以题目example为例：
+
+nums: [2,3,1,1,4]
+初始化：
+DP:   [0,0,0,0,0]
+DP:   [2,0,0,0,0]
+更新DP下一格
+DP：  [2,3,0,0,0] 3=max(dp[0]-1, nums[1])
+DP：  [2,3,2,0,0] 2=max(dp[1]-1, nums[2])
+相当于一辆汽车，每一步都做一个判断，在自己剩的汽油和下一格能给自己填的汽油里选多的那个，然后舍弃另一个，
+减一的原因是因为走一格，消耗了一格汽油
+
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        n = len(nums)
+        dp = [0] * n
+        dp[0] = nums[0]
+	
+        for i in range(n-1):
+            if dp[i] == 0:
+                return False 
+            dp[i+1] = max(dp[i]-1, nums[i+1])
+
+        return True 
+
+效果：
+Runtime: 912 ms, faster than 29.25% of Python online submissions for Jump Game.
+Memory Usage: 14.7 MB, less than 12.18% of Python online submissions for Jump Game.
+
+reference：
+https://leetcode.com/problems/jump-game/discuss/2635027/Python-Solution-DP-%2B-Greedy-Approach
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+45. Jump Game II <medium>
+输入：
+int[]
+输出：
+int
+
+判断最短路径，显然也是greedy和DP都行
+（一个题外话，感觉如果用这个构造一个图，每个位置根据数字的大小，将在范围内的所有点都和这个点连上，然后求最短路径，似乎也不是不可以）
+（再题外话，我每次都想管Dijkstra叫迪士尼……）
+"""
+***********************解法一分割线***********************
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
