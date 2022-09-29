@@ -39,8 +39,9 @@ https://leetcode.com/problems/maximum-subarray/discuss/1086412/Python-or-DP-or-9
 
 𝑑𝑝[𝑛] = 𝑑𝑝[0] × 𝑑𝑝[𝑛 − 1] + 𝑑𝑝[1] × 𝑑𝑝[𝑛 − 2] + ⋯ + 𝑑𝑝[𝑛 − 1] × 𝑑𝑝[0]
 
-
-
+效果：
+Runtime: 26 ms, faster than 56.45% of Python online submissions for Unique Binary Search Trees.
+Memory Usage: 13.4 MB, less than 67.94% of Python online submissions for Unique Binary Search Trees.
 
 
 
