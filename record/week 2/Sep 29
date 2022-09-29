@@ -1,0 +1,54 @@
+week 2
+Sep 29
+
+明天大概大部分时间都是在project
+所以先开个记录
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+53. Maximum Subarray <medium>
+输入：
+int[]
+输出：
+int
+
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        dp = [0] * n
+        dp[0] = nums[0]
+        
+        for i in range(1,n):
+            dp[i] = max(dp[i-1] + nums[i], nums[i])
+        
+        return max(dp)
+
+效果：
+Runtime: 804 ms, faster than 68.27% of Python online submissions for Maximum Subarray.
+Memory Usage: 26 MB, less than 8.90% of Python online submissions for Maximum Subarray.
+
+reference：
+https://leetcode.com/problems/maximum-subarray/discuss/1086412/Python-or-DP-or-99-faster
+
+𝑑𝑝[𝑛] = 𝑑𝑝[0] × 𝑑𝑝[𝑛 − 1] + 𝑑𝑝[1] × 𝑑𝑝[𝑛 − 2] + ⋯ + 𝑑𝑝[𝑛 − 1] × 𝑑𝑝[0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
