@@ -147,6 +147,74 @@ https://leetcode.com/problems/triangle/discuss/2144882/Python-In-place-DP-with-E
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+198. House Robber <medium>
+输入：
+int[]
+输出：
+int
+
+睡前做点轻松愉快的
+
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums)<=2:
+            return max(nums)
+        dp = [0]*len(nums)
+        dp[0] = nums[0]
+        dp[1] = nums[1]
+        
+        for i in range(2, len(nums)):
+            dp[i] = nums[i] + max(dp[0:i-1])
+        
+        return max(dp)
+ 
+效果：
+Runtime: 43 ms, faster than 9.79% of Python online submissions for House Robber.
+Memory Usage: 13.2 MB, less than 88.62% of Python online submissions for House Robber.
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+213. House Robber II <medium>
+输入：
+int[]
+输出：
+int
+
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        dp1 = [0, 0]
+        dp2 = [-nums[0] if len(nums) > 1 else 0, 0]
+        for i, n in enumerate(nums):
+            dp1.append(max(dp1[i+1], n + dp1[i]))
+            dp2.append(max(dp2[i+1], n + dp2[i]))
+        return max(dp1[-2], dp2[-1])
+
+效果：
+Runtime: 27 ms, faster than 63.73% of Python online submissions for House Robber II.
+Memory Usage: 13.4 MB, less than 40.70% of Python online submissions for House Robber II.
+
+
+两遍前一题
+
+reference：
+https://leetcode.com/problems/house-robber-ii/discuss/693341/Python-6-line-less-obscure-DP-solution
+
 
 
 
