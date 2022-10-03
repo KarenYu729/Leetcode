@@ -1,0 +1,132 @@
+week 3
+Oct 3
+
+今天听spam甄别的时候突然就get到了bag of words了
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+121. Best Time to Buy and Sell Stock <easy>
+输入：
+int[]
+输出：
+int
+
+"""
+***********************解法一分割线***********************
+"""
+应该就是暴力破解：
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        maxProfit=0
+        minBuy=prices[0]
+        
+        for sellPrice in prices:
+            if sellPrice<minBuy:
+                minBuy = sellPrice
+            if sellPrice-minBuy>maxProfit:
+                maxProfit=sellPrice-minBuy
+        
+        return maxProfit
+
+每次都比较当前的价格和之前最小的价格的大小，如果当前价格更小就把这个价格定义为最小值
+然后再看卖价和买价的大小差异，总是把最大的差价赋值给maxProfit
+
+这样看这里应该是greedy
+
+效果：
+Runtime: 1801 ms, faster than 32.54% of Python online submissions for Best Time to Buy and Sell Stock.
+Memory Usage: 21.6 MB, less than 99.41% of Python online submissions for Best Time to Buy and Sell Stock.
+
+
+"""
+***********************解法二分割线***********************
+"""
+很显然可以DP做
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        dp = [0]*len(prices)
+        
+        for i in range(1, len(prices)):
+            dp[i] = max(dp[i-1]+prices[i]-prices[i-1],0)
+        
+        return max(dp)
+
+效果：
+Runtime: 1862 ms, faster than 29.50% of Python online submissions for Best Time to Buy and Sell Stock.
+Memory Usage: 24.6 MB, less than 12.05% of Python online submissions for Best Time to Buy and Sell Stock.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+122. Best Time to Buy and Sell Stock II <medium>
+输入：
+int[]
+输出：
+int
+
+"""
+***********************解法一分割线***********************
+"""
+还是先贪心
+策略是：
+只要有赚钱就卖，完全不做长期考虑
+反正贪心就是鼠目寸光嘛（我喜欢）
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        maxProfit=0
+        BuyPrice=prices[0]
+        
+        for i in range(len(prices)):
+            if prices[i]<BuyPrice:
+                BuyPrice=prices[i]
+            if prices[i]-BuyPrice>0:
+                maxProfit+=prices[i]-BuyPrice
+                BuyPrice=prices[i]
+        
+        return maxProfit
+
+效果：
+Runtime: 48 ms, faster than 86.45% of Python online submissions for Best Time to Buy and Sell Stock II.
+Memory Usage: 14.5 MB, less than 41.61% of Python online submissions for Best Time to Buy and Sell Stock II.
+
+"""
+***********************解法二分割线***********************
+"""
+还是DP
+不过等会儿再写了，要去上课了
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
