@@ -644,12 +644,127 @@ Memory Usage: 18.8 MB, less than 98.72% of Python online submissions for Surroun
 reference:
 https://leetcode.com/problems/surrounded-regions/discuss/2647256/Easy-DFSBFS-Imp...-in-Python
 
+先把边缘的岛屿标志出来，然后再每个标记的点向四周走看要不要标记
+最后还是标记恢复，没标记翻转
+ 或者依旧按照之前的，一次遍历标记完边界
+
+class Solution(object):
+    def solve(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """        
+        queue = collections.deque([])
+        for r in range(len(board)):
+            for c in range(len(board[0])):
+                if (r in [0, len(board)-1] or c in [0, len(board[0])-1]) and board[r][c] == "O":
+                    queue.append((r, c))
+        while queue:
+            r, c = queue.popleft()
+            if 0<=r<len(board) and 0<=c<len(board[0]) and board[r][c] == "O":
+                board[r][c] = "."
+                queue.extend([(r-1, c),(r+1, c),(r, c-1),(r, c+1)])
+        
+        for r in range(len(board)):
+            for c in range(len(board[0])):
+                if board[r][c] == "O":
+                    board[r][c] = "X"
+                elif board[r][c] == ".":
+                    board[r][c] = "O"
+
+效果：
+Runtime: 281 ms, faster than 25.24% of Python online submissions for Surrounded Regions.
+Memory Usage: 19 MB, less than 84.28% of Python online submissions for Surrounded Regions.
+
+reference：
+https://leetcode.com/problems/surrounded-regions/discuss/41652/Python-easy-to-understand-DFS-and-BFS-solutions
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+200. Number of Islands <medium>
+输入：
+str[str[]]
+输出：
+int
+
+"""
+***********************解法一分割线***********************
+"""
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        r,c,ans=len(grid),len(grid[0]),0
+        def dfs(i,j):
+            if i<0 or j<0 or i>r-1 or j>c-1 or grid[i][j] != "1":  
+                return  
+            
+            grid[i][j] = "*"
+            
+            dfs(i+1, j)
+            dfs(i-1, j) 
+            dfs(i, j+1)
+            dfs(i, j-1)
+           
+        for i in range(r):
+            for j in range(c):
+                if grid[i][j] == "1":
+                    dfs(i,j)
+                    ans +=1 
+                    
+        return ans
+
+效果：
+Runtime: 244 ms, faster than 96.86% of Python online submissions for Number of Islands.
+Memory Usage: 28.9 MB, less than 61.74% of Python online submissions for Number of Islands.
+
+reference：
+https://leetcode.com/problems/number-of-islands/discuss/2497928/Easy-implementation-with-beats-70-runtime-DFS-recursive
+
+碰壁就+1
 
 
+"""
+***********************解法二分割线***********************
+"""
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        row, col = len(grid), len(grid[0])
+        res = 0
+        def bfs(i, j):
+            q = collections.deque()
+            q.append((i, j))
+            while q:
+                r, c = q.popleft()
+                if ( not 0 <= r < row) or (not 0 <= c < col) or (grid[r][c] == '0'): 
+                    continue
+                grid[r][c] = '0'
+                q.append((r-1, c))
+                q.append((r+1, c))
+                q.append((r, c-1))
+                q.append((r, c+1))
+            
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j] == '1':
+                    res += 1
+                    bfs(i, j)
+        
+        return res
 
 
+效果：
+Runtime: 743 ms, faster than 24.74% of Python online submissions for Number of Islands.
+Memory Usage: 28.5 MB, less than 96.67% of Python online submissions for Number of Islands.
 
-
+reference：
+https://leetcode.com/problems/number-of-islands/discuss/2160946/Python3-Very-Concise-AC-Solution-Both-DFS-BFS
