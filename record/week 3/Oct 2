@@ -240,4 +240,416 @@ rotate queue:
  deque(['e', 'f', 'a', 'b', 'c', 'd'])
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+232. Implement Queue using Stacks <easy>
+输入：
+str[str[]]
+int[int[]]
+输出：
+int[]
+
+其实开始没仔细看题，直接就上了，很惨的WA了，但是实际上跟我想的不一样，似乎不用管如果来来回回操作怎么样
+而且要两个stack
+就像凉水一样，那两个杯子来来回回荡
+进杯子A是顺序的，倒进杯子B就是逆序的
+
+class MyQueue(object):
+
+    def __init__(self):
+        self.front = []
+        self.rear = []
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        self.front.append(x)
+
+    def pop(self):
+        """
+        :rtype: int
+        """
+        """Since in stack we can only pop element from last.
+        We first pop all the element from stack1 and append it to stack2.
+        After that we pop the last element from stack2"""
+        if not self.rear:
+            while self.front:
+                self.rear.append(self.front.pop())
+            
+        return self.rear.pop()
+        
+        
+    def peek(self):
+        """
+        :rtype: int
+        """
+        if not self.rear:
+            while self.front:
+                self.rear.append(self.front.pop())
+
+        return self.rear[-1]
+
+    
+    def empty(self):
+        """
+        :rtype: bool
+        """
+        return len(self.front)+len(self.rear)==0
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
+
+效果：
+Runtime: 37 ms, faster than 12.71% of Python online submissions for Implement Queue using Stacks.
+Memory Usage: 13.5 MB, less than 34.54% of Python online submissions for Implement Queue using Stacks.
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+225. Implement Stack using Queues <easy>
+输入：
+str[str[]]
+int[int[]]
+输出：
+int[]
+
+"""
+***********************解法一分割线***********************
+"""
+用stack模拟stack
+class MyStack(object):
+
+    def __init__(self):
+        self.stack = []
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        self.stack.append(x)
+        
+    def pop(self):
+        """
+        :rtype: int
+        """
+        return self.stack.pop()
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1]
+
+    def empty(self):
+        """
+        :rtype: bool
+        """
+        return len(self.stack)==0
+
+
+# Your MyStack object will be instantiated and called as such:
+# obj = MyStack()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.empty()
+
+效果：
+Runtime: 22 ms, faster than 73.42% of Python online submissions for Implement Stack using Queues.
+Memory Usage: 13.4 MB, less than 63.29% of Python online submissions for Implement Stack using Queues.
+
+
+"""
+***********************解法二分割线***********************
+"""
+用今天中午过的新技能deque
+class MyStack(object):
+
+    def __init__(self):
+        self.queue = collections.deque()
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        self.queue.append(x)
+        
+    def pop(self):
+        """
+        :rtype: int
+        """
+        return self.queue.pop()
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.queue[-1]
+
+    def empty(self):
+        """
+        :rtype: bool
+        """
+        return len(self.queue)==0
+
+
+# Your MyStack object will be instantiated and called as such:
+# obj = MyStack()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.empty()
+
+效果：
+Runtime: 12 ms, faster than 97.78% of Python online submissions for Implement Stack using Queues.
+Memory Usage: 13.3 MB, less than 87.50% of Python online submissions for Implement Stack using Queues.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+239. Sliding Window Maximum <hard>
+输入：
+int[]
+int
+输出：
+int[]
+
+这里不能直接用sliding Windows，会TLE
+class Solution(object):
+    def maxSlidingWindow(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        output = []
+        maxQueue = deque()
+
+        i,j = 0,0
+        n = len(nums)
+
+        while(j < n):
+            #Remove all elements from deque that are smaller than current element at index j
+            while(len(maxQueue) > 0 and nums[j] > maxQueue[-1]): maxQueue.pop()  
+                
+            #And once removed, then put the j index element in the Queue
+            maxQueue.append(nums[j])
+
+            #Check Window size
+            if(j - i + 1 < k): j += 1
+            #If Window size = k
+            else:
+                #Put the maximum element in this window in the output
+                output.append(maxQueue[0])
+                
+                #Before sliding the window, check if the element we are not going to include in next window is max element or not
+                # It it is the max element, that means we remove it from deQue as well
+                if(nums[i] == maxQueue[0]): maxQueue.popleft()
+                #Slide the window
+                i += 1
+                j += 1
+
+        return output
+
+维持一个单调递减的队列
+i是队列的开头，j是当前的位置
+总是把最大的数字放到队首
+
+效果：
+Runtime: 1526 ms, faster than 91.68% of Python online submissions for Sliding Window Maximum.
+Memory Usage: 31.1 MB, less than 33.30% of Python online submissions for Sliding Window Maximum.
+
+reference：
+https://leetcode.com/problems/sliding-window-maximum/discuss/2565755/Python-SLIDING-WINDOW-DEQUE-EXPLAINED
+
+
+queue的题太少了，做一下BFS看看
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+130. Surrounded Regions <medium>
+输入：
+str[str[]]
+输出：
+无输出
+
+简言之，这道题就是消灭孤岛
+
+这道题可以用DFS解，介于我稍微熟悉一点DFS，所以就先DFS。
+逻辑就是一条路走到黑
+在这里有个问题，不能直接判断可以翻转就改，否则会影响其他位置的判断
+之所以采用DFS，是因为我花了一个小时写了暴力……全是if，太离奇了，写不下去了
+
+"""
+***********************解法一分割线***********************
+"""
+一些文艺复兴的方法
+文艺复兴点：
+1. dir = [[-1,0],[0,1],[1,0],[0,-1]]
+向哪个方向走，↑ → ↓ ←
+2. if row>=0 and row<n and col>=0 and col<m and board[row][col]=='O' and not visited[row][col]
+需要走迷宫，只能在陆地（小岛）上走，0是海相当于迷宫的墙壁，走遍小岛所有的没有走过的点，标记做过的点
+3. visited = [[0 for _ in range(m)] for i in range(n)]
+标记
+class Solution(object):
+    def solve(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """        
+        n = len(board)
+        m = len(board[0])
+        
+        def dfs(i,j):
+            visited[i][j]=1
+            dir = [[-1,0],[0,1],[1,0],[0,-1]]
+            for a,b in dir:
+                row = a+i
+                col = b+j
+                if row>=0 and row<n and col>=0 and col<m and board[row][col]=='O' and not visited[row][col]:
+                    dfs(row,col)
+        visited = [[0 for _ in range(m)] for i in range(n)]
+        for j in range(m):
+            if not visited[0][j] and board[0][j]=='O':
+                dfs(0,j)
+            if not visited[n-1][j] and board[n-1][j]=='O':
+                dfs(n-1,j)
+        for i in range(n):
+            if not visited[i][0] and board[i][0]=='O':
+                dfs(i,0)
+            if not visited[i][m-1] and board[i][m-1]=='O':
+                dfs(i,m-1)
+        for i in range(n):
+            for j in range(m):
+                if not visited[i][j] and board[i][j]=='O':
+                    board[i][j]='X'
+
+注意这里为什么只判断边界（对行边界和列边界开扫描）
+
+Notice that an 'O' should not be flipped if:
+- It is on the border, or
+- It is adjacent to an 'O' that should not be flipped.
+
+->边界不翻转
+->有免死金牌（其联通的陆地是不能被翻转的），也就是说连在边界上，所以只要从每个边界上的点向中间能走的位置探索，其能走到的最远的距离都标记上，最后给没走过且是陆地的小岛翻转
+
+效果：
+Runtime: 217 ms, faster than 47.59% of Python online submissions for Surrounded Regions.
+Memory Usage: 19.3 MB, less than 24.06% of Python online submissions for Surrounded Regions.
+
+reference：
+https://leetcode.com/problems/surrounded-regions/discuss/2652417/Python-way-Simple-DFS
+
+类似的，也可以不适用标记数组，而直接在原来的矩阵上进行标记（用另一种字符标记不能翻转的点），遍历完整张表之后，翻转未被标志的点，恢复被标志的点
+
+class Solution(object):
+    def solve(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """        
+        def dfs(r,c,board):
+            if r<0 or c<0 or r>=row or c>=col or board[r][c]!='O':
+                
+                return
+            board[r][c]='#'
+            dfs(r-1,c,board)
+            dfs(r+1,c,board)
+            dfs(r,c-1,board)
+            dfs(r,c+1,board)
+        row,col=len(board),len(board[0])
+        for m in range(row):
+            for n in range(col):
+                if m ==0 or m==row-1:
+                    dfs(m,n,board)
+                if n==0 or n==col-1:
+                    dfs(m,n,board)
+        for m in range(row):
+            for n in range(col):
+                if board[m][n]=='O':
+                    board[m][n]='X'
+                if board[m][n]=='#':
+                    board[m][n]='O' 
+
+效果：
+Runtime: 215 ms, faster than 48.55% of Python online submissions for Surrounded Regions.
+Memory Usage: 18.9 MB, less than 95.83% of Python online submissions for Surrounded Regions.
+
+reference:
+https://leetcode.com/problems/surrounded-regions/discuss/2647256/Easy-DFSBFS-Imp...-in-Python
+
+
+
+"""
+***********************解法二分割线***********************
+"""
+class Solution(object):
+    def solve(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """        
+        row,col=len(board),len(board[0])
+        q=deque()
+        
+        for m in range(row):
+            for n in range(col):
+                if m ==0 or m==row-1: 
+                    if board[m][n]=='O':
+                        board[m][n]='#' 
+                        q.append((m,n))
+                    
+                if n==0 or n==col-1:
+                    if board[m][n]=='O':
+                        board[m][n]='#' 
+                        q.append((m,n))
+        delta=[(0,1),(0,-1),(1,0),(-1,0)]            
+        while q:
+            i,j=q.popleft()
+            
+            for a,b in delta:
+                
+                if 0<=a+i<row and 0<=b+j<col and board[a+i][b+j]=='O':
+                    board[a+i][b+j]='#'
+                    q.append((a+i,b+j))
+                    
+        for m in range(row):
+            for n in range(col):
+                if board[m][n]=='O':
+                    board[m][n]='X'
+                if board[m][n]=='#':
+                    board[m][n]='O' 
+
+效果：
+Runtime: 116 ms, faster than 89.95% of Python online submissions for Surrounded Regions.
+Memory Usage: 18.8 MB, less than 98.72% of Python online submissions for Surrounded Regions.
+
+reference:
+https://leetcode.com/problems/surrounded-regions/discuss/2647256/Easy-DFSBFS-Imp...-in-Python
+
+
+
+
+
+
+
+
+
 
