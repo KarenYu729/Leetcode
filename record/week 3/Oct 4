@@ -16,25 +16,132 @@ str
 """
 ***********************解法一分割线***********************
 """
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        charCnt = Counter(s)
+        stack = []
+         
+        
+        for i in range(len(s)):
+            if s[i] in stack:
+                charCnt[s[i]] -= 1
+                continue
+            while stack and stack[-1]>s[i] and charCnt[stack[-1]]>0:
+                stack.pop()
+            
+            charCnt[s[i]]-=1
+            stack.append(s[i])
+                
+            
+        return ''.join(stack)
+
+Runtime: 33 ms, faster than 77.74% of Python online submissions for Remove Duplicate Letters.
+Memory Usage: 13.9 MB, less than 24.38% of Python online submissions for Remove Duplicate Letters.
+
+直到最后一个出现才添加
 
 
+"""
+***********************解法二分割线***********************
+"""
+其实还是单调栈，但是终于写出了自己的最初的思路
+这道题其实有两个顺序，一个是字母表，这个是我们维护单调栈的原理之一，也就是要按字母的顺序递增
+第二个是，如果这个字母虽然逆了字典序，但是这是这个字母出现的最后的位置，我们也不能给扔出去
 
+"bcabc"
+"cbacdcbc"
+"dcbadcba"
+"abacb"
 
+->
+"abc"
+"acdb"
+"adcb"
+"abc"
 
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+        stack.append(s[0])
+        last_idx = {}
+        for i in range(len(s)):
+            last_idx[s[i]] = i
+        
+        for i in range(1, len(s)):
+            
+            while stack and stack[-1]>s[i] and last_idx[stack[-1]] > i and s[i] not in stack:
+                stack.pop()
+            if s[i] not in stack:
+                stack.append(s[i])
 
+        return ''.join(stack)
 
+效果：
+Runtime: 37 ms, faster than 65.72% of Python online submissions for Remove Duplicate Letters.
+Memory Usage: 13.7 MB, less than 63.96% of Python online submissions for Remove Duplicate Letters.
 
+整理一下：
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+        stack.append(s[0])
+        last_idx = {}
+        for i in range(len(s)):
+            last_idx[s[i]] = i
+        
+        for i in range(1, len(s)):
+            if s[i] not in stack:
+                while stack and stack[-1]>s[i] and last_idx[stack[-1]] > i:
+                    stack.pop()
+                stack.append(s[i])
+                      
+        return ''.join(stack)
 
+效果：
+Runtime: 54 ms, faster than 32.86% of Python online submissions for Remove Duplicate Letters.
+Memory Usage: 13.8 MB, less than 40.28% of Python online submissions for Remove Duplicate Letters.
+        
 
+或者：
+（效率更高，算是剪枝）
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+        stack.append(s[0])
+        last_idx = {}
+        for i in range(len(s)):
+            last_idx[s[i]] = i
+        
+        for i in range(1, len(s)):
+            if s[i] in stack:
+                continue
+            while stack and stack[-1]>s[i] and last_idx[stack[-1]] > i:
+                stack.pop()
+            
+            stack.append(s[i])
+            
+            
+        return ''.join(stack)
 
-
-
-
-
-
-
-
-
+效果：
+Runtime: 35 ms, faster than 70.67% of Python online submissions for Remove Duplicate Letters.
+Memory Usage: 13.5 MB, less than 77.39% of Python online submissions for Remove Duplicate Letters.
 
 
 
