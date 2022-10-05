@@ -1,0 +1,44 @@
+week 3
+Oct 5
+
+今天看完了survival analysis
+总感觉是鸡肋
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+73. Set Matrix Zeroes <medium>
+输入：
+int[int[]]
+输出：
+无
+
+class Solution(object):
+    def setZeroes(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        row = len(matrix)
+        col = len(matrix[0])
+        
+        rowStack = set()
+        colStack = set()
+        
+        for i in range(row):
+            for j in range(col):
+                if matrix[i][j] == 0:
+                    rowStack.add(i)
+                    colStack.add(j)
+                    
+        for i in range(row):
+            for j in range(col):
+                if i in rowStack or j in colStack:
+                    matrix[i][j] = 0
+
+
+效果：
+Runtime: 239 ms, faster than 25.01% of Python online submissions for Set Matrix Zeroes.
+Memory Usage: 14.5 MB, less than 21.28% of Python online submissions for Set Matrix Zeroes.
