@@ -146,6 +146,38 @@ Memory Usage: 13.5 MB, less than 77.39% of Python online submissions for Remove 
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+397. Integer Replacement <medium>
+输入：
+int
+输出：
+int
+
+找规律
+什么时候除二，什么时候向下找，什么时候向上找
+class Solution(object):
+    def integerReplacement(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        cnt = 0
+        while n != 1:
+            if n%2 == 0:
+                n//=2
+            elif n%4 == 1 or n == 3:
+                n -= 1
+            else:
+                n += 1
+            cnt += 1
+        return cnt
+
+效果：
+Runtime: 29 ms, faster than 61.70% of Python online submissions for Integer Replacement.
+Memory Usage: 13.4 MB, less than 43.62% of Python online submissions for Integer Replacement.
+
 
 
 
