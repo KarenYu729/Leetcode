@@ -221,11 +221,49 @@ class Solution(object):
                     res+=1
         return res
 
+效果：
+Runtime: 131 ms, faster than 22.64% of Python online submissions for Battleships in a Board.
+Memory Usage: 17.1 MB, less than 24.15% of Python online submissions for Battleships in a Board.
 
 
+另一种写法：
+class Solution(object):
+    def countBattleships(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        n = len(board)
+        m = len(board[0])
+        visited = [[0 for _ in range(m)] for i in range(n)]
+        
+        def dfs(i, j):
+            if i<0 or j<0 or i>=n or j>=m or board[i][j]=='.' or visited[i][j]:
+                return
+            if board[i][j] == 'X' and not visited[i][j]:
+                visited[i][j] = 1
+                dfs(i-1,j)
+                dfs(i+1,j)
+                dfs(i,j+1)
+                dfs(i,j-1)
+        
+        res = 0
+        for i in range(n):
+            for j in range(m):
+                if not visited[i][j] and board[i][j]=='X':
+                    dfs(i, j)
+                    res+=1
+        return res
+
+效果：
+Runtime: 132 ms, faster than 21.13% of Python online submissions for Battleships in a Board.
+Memory Usage: 17.1 MB, less than 24.15% of Python online submissions for Battleships in a Board.
 
 
-
+"""
+***********************解法二分割线***********************
+"""
+BFS
 
 
 
