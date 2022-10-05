@@ -264,32 +264,51 @@ Memory Usage: 17.1 MB, less than 24.15% of Python online submissions for Battles
 ***********************解法二分割线***********************
 """
 BFS
+class Solution(object):
+    def countBattleships(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        if not board: 
+            return 0
+        
+        rows = len(board)
+        cols = len(board[0])
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        
+        res = 0
+        # Iterate through our board looking for ships 'X'.
+        for row in range(rows):
+            for col in range(cols):
+			    # If we find one start searching from it's starting location.
+                if board[row][col] == 'X':
+                    q = collections.deque([(row, col)])
+					# Fill the location to avoid revisiting it.
+                    board[row][col] = '#'
+                    while q:
+                        r, c = q.popleft()
+                        for y, x in directions:
+						    # Create new row and col location to search based on our possible move directions.
+                            nr = r + y
+                            nc = c + x
+							# Make sure there coords. are valid, ie. on our board and contain an 'X'.
+                            if nr < rows and nr >= 0 and nc < cols and nc >= 0 and board[nr][nc] == 'X':
+							    # If so, we'll append to the deque and mark the location.
+                                q.append((nr, nc))
+                                board[nr][nc] = '#'
+					# When we get here we know we've found and marked to ship as being found so we count.
+                    res += 1
+                    
+        return res
+
+效果：
+Runtime: 128 ms, faster than 25.66% of Python online submissions for Battleships in a Board.
+Memory Usage: 16.6 MB, less than 97.36% of Python online submissions for Battleships in a Board.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+reference：
+https://leetcode.com/problems/battleships-in-a-board/discuss/755605/Simple-Python-Recursive-DFS-beats-86-and-Iterative-BFS-with-Comments!
 
 
 
