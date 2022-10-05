@@ -180,6 +180,77 @@ Memory Usage: 13.4 MB, less than 43.62% of Python online submissions for Integer
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+419. Battleships in a Board <medium>
+输入：
+int[int[]]
+输出：
+int
+
+数岛屿的数量
+
+"""
+***********************解法一分割线***********************
+"""
+先是DFS
+class Solution(object):
+    def countBattleships(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        n = len(board)
+        m = len(board[0])
+        
+        def dfs(i,j):
+            visited[i][j]=1
+            dir = [[-1,0],[0,1],[1,0],[0,-1]]
+            for a,b in dir:
+                row = a+i
+                col = b+j
+                if row>=0 and row<n and col>=0 and col<m and board[row][col]=='X' and not visited[row][col]:
+                    dfs(row,col)
+        visited = [[0 for _ in range(m)] for i in range(n)]
+        res=0
+        for i in range(n):
+            for j in range(m):
+                if not visited[i][j] and board[i][j]=='X':
+                    dfs(i, j)
+                    res+=1
+        return res
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
