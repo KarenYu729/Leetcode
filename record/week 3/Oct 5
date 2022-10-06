@@ -115,8 +115,50 @@ https://leetcode.com/problems/contains-duplicate-ii/discuss/2666207/Python3-solu
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+220. Contains Duplicate III <hard>
+输入：
+int[]
+int
+int
+输出：
+bool
+
+先说一下，绝对不能双层for循环，绝对会TLE
+虽然我开始猜到肯定不是双层的for循环，但是在discussion里面有很多题解是双层for循环
+私以为LeetCode应该调整过题目本身和测试允许的时间和空间
+这道题不太有价值
+
+from sortedcontainers import SortedList
+    
+class Solution(object):
+    def containsNearbyAlmostDuplicate(self, nums, indexDiff, valueDiff):
+        """
+        :type nums: List[int]
+        :type indexDiff: int
+        :type valueDiff: int
+        :rtype: bool
+        """
+        window = SortedList()
+        for i in range(len(nums)):
+            if i > indexDiff: 
+                window.remove(nums[i-indexDiff-1])   
+            idx1 = SortedList.bisect_left(window, nums[i] - valueDiff)
+            idx2 = SortedList.bisect_right(window, nums[i] + valueDiff)
+            
+            if idx1 != idx2 and idx1 != len(window): 
+                return True
+            
+            window.add(nums[i])
+        
+        return False
 
 
+效果：
+Runtime: 2595 ms, faster than 7.86% of Python online submissions for Contains Duplicate III.
+Memory Usage: 26.4 MB, less than 17.86% of Python online submissions for Contains Duplicate III.
 
-
-
+reference：
+https://leetcode.com/problems/contains-duplicate-iii/discuss/2048581/Python-or-Sliding-Window-%2B-SortedList-or-Simple-Solution
