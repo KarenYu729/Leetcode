@@ -110,7 +110,7 @@ Memory Usage: 31.4 MB, less than 8.48% of Python online submissions for Contains
 reference：
 https://leetcode.com/problems/contains-duplicate-ii/discuss/2666207/Python3-solution-using-hashmap
 
-这里，一开始想的是记录每个数字最后出现的位置，然后再遍历整个数组，只要中间间隔足够大
+这里，一开始想的是记录每个数字最后出现的位置，然后再遍历整个数组，只要中间间隔足够大就行，但是现在发现反过来的其实是找是不是间隔小orz
 
 
 
