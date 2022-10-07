@@ -1,0 +1,77 @@
+week 3
+Oct 7
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+142. Linked List Cycle II <medium>
+输入：
+ListNode
+输出：
+ListNode
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        fast = head
+        slow = head
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+
+            if slow != fast:
+                continue
+            
+            while head != slow:
+                head, slow = head.next, slow.next
+
+            return head
+
+虽然难以理解但是就是在快慢指针重合的时候开始对比一个从头开始向后移动的指针是否跟慢指针重合
+
+效果：
+Runtime: 84 ms, faster than 30.50% of Python online submissions for Linked List Cycle II.
+Memory Usage: 19.5 MB, less than 82.86% of Python online submissions for Linked List Cycle II.
+
+reference：
+https://leetcode.com/problems/linked-list-cycle-ii/discuss/2533976/Python-Fast-and-Easy-Solution
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
