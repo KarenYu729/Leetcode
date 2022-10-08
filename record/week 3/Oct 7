@@ -48,11 +48,53 @@ https://leetcode.com/problems/linked-list-cycle-ii/discuss/2533976/Python-Fast-a
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+179. Largest Number <medium>
+输入：
+int[]
+输出：
+str
 
+"""
+***********************解法一分割线***********************
+"""
+我最开始的思路：
+也就是先都把列表中的数字变成字符串
+然后把大一点的字符串串前面
 
+但是这里有一个问题，例如在示例中：
+Input: nums = [3,30,34,5,9]
+Output: "9534330"
+正常的排序（list.sort()）会吧30排在3前面
+变成：
+"9534303"
 
+class Solution(object):
+    def largestNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        for i, num in enumerate(nums):
+            nums[i] = str(num)
+        
+        def compare(n1, n2):
+            if n1+n2 > n2+n1:
+                return -1
+            else:
+                return 1
+        
+        nums = sorted(nums, key=cmp_to_key(compare))
+        return str(int(str(''.join(nums))))
 
+效果：
+Runtime: 21 ms, faster than 98.11% of Python online submissions for Largest Number.
+Memory Usage: 13.8 MB, less than 5.66% of Python online submissions for Largest Number.
 
+reference：
+https://leetcode.com/problems/largest-number/discuss/2174897/python-easy-to-read-and-understand
 
 
 
