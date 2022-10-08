@@ -6,3 +6,15 @@ select e.name Employee from Employee e, Employee m where e.salary>m.salary and e
 效果：
 Runtime: 437 ms, faster than 64.70% of MySQL online submissions for Employees Earning More Than Their Managers.
 Memory Usage: 0B, less than 100.00% of MySQL online submissions for Employees Earning More Than Their Managers.
+
+
+看了一些其他的写法
+似乎也不是一定要把合成一句话
+
+
+e.g.
+https://leetcode.com/problems/employees-earning-more-than-their-managers/discuss/2478667/MySQL-3-solutions-or-faster-than-83.88-where-or-join
+https://leetcode.com/problems/employees-earning-more-than-their-managers/discuss/2619787/Simple-SQL
+SELECT E.name as Employee
+from Employee E, Employee M
+where E.managerId = M.id AND E.salary > M.salary
