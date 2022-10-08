@@ -247,6 +247,99 @@ map(bool, nums):
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+94. Binary Tree Inorder Traversal <easy>
+输入：
+TreeNode
+输出：
+int[]
+
+"""
+***********************解法一分割线***********************
+"""
+先说一下刚刚的乌龙事件
+我以为这是前序遍历，人傻了
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root:
+            return []
+        stack = []
+        cur = root
+        res = []
+        
+        while cur or stack:
+            if cur:
+                stack.append(cur)
+                cur=cur.left
+            else:
+                cur = stack.pop()
+                res.append(cur.val)
+                cur = cur.right
+
+        return res
+ 
+效果：
+Runtime: 17 ms, faster than 91.11% of Python online submissions for Binary Tree Inorder Traversal.
+Memory Usage: 13.3 MB, less than 73.41% of Python online submissions for Binary Tree Inorder Traversal.
+
+中序遍历就是先走到最下面，在按左根右顺序一路上去
+
+
+"""
+***********************解法二分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root:
+            return []
+        res = []
+        
+        def dfs(node):
+            if node != None:
+                dfs(node.left)
+                res.append(node.val)
+                dfs(node.right)
+        
+        dfs(root)
+        return res
+
+效果：
+Runtime: 32 ms, faster than 37.14% of Python online submissions for Binary Tree Inorder Traversal.
+Memory Usage: 13.3 MB, less than 73.41% of Python online submissions for Binary Tree Inorder Traversal.
+
+
+一点点题外话
+我发现我之前这道题的笔记写错了，dfs的条件写成了==
+
+
+
+
+
+
+
+
 
 
 
