@@ -40,8 +40,8 @@ class Solution(object):
         return res
 
 效果：
-Runtime: 27 ms, faster than 57.88% of Python online submissions for Binary Tree Preorder Traversal.
-Memory Usage: 13.4 MB, less than 46.06% of Python online submissions for Binary Tree Preorder Traversal.
+Runtime: 38 ms, faster than 14.47% of Python online submissions for Binary Tree Preorder Traversal.
+Memory Usage: 13.2 MB, less than 91.51% of Python online submissions for Binary Tree Preorder Traversal.
 
 """
 ***********************解法二分割线***********************
@@ -73,8 +73,8 @@ class Solution(object):
         return res
 
 效果：
-Runtime: 27 ms, faster than 57.88% of Python online submissions for Binary Tree Preorder Traversal.
-Memory Usage: 13.4 MB, less than 46.06% of Python online submissions for Binary Tree Preorder Traversal.
+Runtime: 40 ms, faster than 9.69% of Python online submissions for Binary Tree Preorder Traversal.
+Memory Usage: 13.3 MB, less than 91.51% of Python online submissions for Binary Tree Preorder Traversal.
 
 
 
