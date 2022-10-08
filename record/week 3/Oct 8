@@ -7,8 +7,9 @@ Oct 8
 """
 144. Binary Tree Preorder Traversal <easy>
 输入：
-
+TreeNode
 输出：
+int[]
 
 """
 ***********************解法一分割线***********************
@@ -75,6 +76,106 @@ class Solution(object):
 效果：
 Runtime: 40 ms, faster than 9.69% of Python online submissions for Binary Tree Preorder Traversal.
 Memory Usage: 13.3 MB, less than 91.51% of Python online submissions for Binary Tree Preorder Traversal.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+145. Binary Tree Postorder Traversal <easy>
+输入：
+TreeNode
+输出：
+int[]
+
+"""
+***********************解法一分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def postorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        stack = []
+        res = []
+        cur = root
+        
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                res.append(cur.val)
+                cur=cur.right
+            cur = stack.pop()
+            cur = cur.left
+        
+        return res[::-1]
+
+效果：
+Runtime: 35 ms, faster than 23.22% of Python online submissions for Binary Tree Postorder Traversal.
+Memory Usage: 13.4 MB, less than 46.38% of Python online submissions for Binary Tree Postorder Traversal.
+
+
+"""
+***********************解法二分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def postorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        
+        def dfs(node):
+            if node != None:
+                res.append(node.val)
+                dfs(node.right)
+                dfs(node.left)
+        
+        dfs(root)
+        return res[::-1]
+
+效果：
+Runtime: 28 ms, faster than 51.88% of Python online submissions for Binary Tree Postorder Traversal.
+Memory Usage: 13.5 MB, less than 46.38% of Python online submissions for Binary Tree Postorder Traversal.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
