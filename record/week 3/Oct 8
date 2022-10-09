@@ -155,19 +155,92 @@ Memory Usage: 13.5 MB, less than 46.38% of Python online submissions for Binary 
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+98. Validate Binary Search Tree <medium>
+输入：
+TreeNode
+输出：
+bool
 
 
+"""
+***********************解法一分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        prev = None
+        current = None
+        stack = []
+        node = root
+        while stack or node:
+            if node:
+                stack.append(node)
+                node = node.left
+            else :
+                node = stack.pop()
+                prev, current = current, node.val
+                node = node.right
+            if prev is not None and current is not None and prev >= current:
+                return False
+        return True
+
+效果
+Runtime: 31 ms, faster than 93.72% of Python online submissions for Validate Binary Search Tree.
+Memory Usage: 18 MB, less than 65.28% of Python online submissions for Validate Binary Search Tree.
+
+reference：
+https://leetcode.com/problems/validate-binary-search-tree/discuss/2649554/Python-simple-solution-using-Iterative-DFS
+
+注意：
+这里if prev is not None and current is not None
+不能写if prev and current
+来表示二者皆非空
 
 
+"""
+***********************解法二分割线***********************
+"""
+之前一直错的点是在调用dfs的时候没有return
+（卡了很久）
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        
+        def dfs(node, left, right):
+            if not node:
+                return True
+            
+            if left<node.val<right:
+                return dfs(node.left, left, node.val) and dfs(node.right, node.val, right)
+            
+            return False
+        
+        return dfs(root, float("-inf"), float("inf"))
 
-
-
-
-
-
-
-
-
+效果：
+Runtime: 55 ms, faster than 54.99% of Python online submissions for Validate Binary Search Tree.
+Memory Usage: 17.8 MB, less than 83.57% of Python online submissions for Validate Binary Search Tree.
 
 
 
