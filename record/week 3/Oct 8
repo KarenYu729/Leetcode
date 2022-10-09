@@ -245,6 +245,100 @@ Memory Usage: 17.8 MB, less than 83.57% of Python online submissions for Validat
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+112. Path Sum <easy>
+输入：
+TreeNode
+输出：
+bool
+
+
+"""
+***********************解法一分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def hasPathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: bool
+        """
+        def dfs(node, total):
+            if not node:
+                return
+            
+            total += node.val
+            
+            if (not node.left and not node.right) and targetSum == total:
+                return True
+            
+            return dfs(node.left,total) or dfs(node.right,total)
+        return dfs(root,0)
+
+效果：
+Runtime: 73 ms, faster than 10.95% of Python online submissions for Path Sum.
+Memory Usage: 15.2 MB, less than 71.35% of Python online submissions for Path Sum.
+
+reference：
+https://leetcode.com/problems/path-sum/discuss/2658153/Python-or-Very-easy-approach-using-dfs
+
+"""
+***********************解法二分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def hasPathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: bool
+        """
+        # Edge case: empty tree
+        if not root:
+            return False
+        
+        # DFS stack (current node, current path sum from root to current node)
+        stack = [(root, root.val)]
+        while stack:
+            currNode, currSum = stack.pop()
+            # If currNode is a leaf, check the path sum
+            if not currNode.left and not currNode.right and currSum == targetSum:
+                return True
+            # Otherwise, push children onto the stack
+            else:
+                if currNode.left:
+                    stack.append((currNode.left, currSum + currNode.left.val))
+                if currNode.right:
+                    stack.append((currNode.right, currSum + currNode.right.val))
+                
+        # Target sum not found
+        return False
+
+效果：
+Runtime: 58 ms, faster than 43.57% of Python online submissions for Path Sum.
+Memory Usage: 15.3 MB, less than 46.56% of Python online submissions for Path Sum.
+
+reference：
+https://leetcode.com/problems/path-sum/discuss/2661184/Python-Easy-Stack-DFS-Explained
+
+
+
+
+
+
 
 
 
