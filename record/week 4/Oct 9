@@ -294,3 +294,41 @@ Memory Usage: 14.8 MB, less than 94.19% of Python online submissions for Course 
 reference：
 https://leetcode.com/problems/course-schedule/discuss/2467200/python-solution-using-topological-sort-bfs-approach.
 
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+231. Power of Two <easy>
+输入：
+int
+输出：
+bool
+class Solution(object):
+    def isPowerOfTwo(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        if n<=0:
+            return False
+        
+        binary = str(bin(n))
+        
+        binDict = {}
+        for i in binary:
+            if i not in binDict:
+                binDict[i] = 1
+            else:
+                binDict[i] += 1
+        
+        if '1' in binDict:
+            if binDict['1'] == 1:
+                return True
+        
+        return False
+
+效果：
+Runtime: 30 ms, faster than 64.13% of Python online submissions for Power of Two.
+Memory Usage: 13.2 MB, less than 86.00% of Python online submissions for Power of Two.
+
