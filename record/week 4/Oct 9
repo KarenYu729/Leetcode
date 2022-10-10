@@ -105,6 +105,38 @@ Memory Usage: 17.9 MB, less than 17.86% of Python online submissions for Island 
 reference：
 https://leetcode.com/problems/island-perimeter/discuss/1655746/Python-Simple-recursive-DFS-explained
 
+更新：
+有办法解决不能用nonlocal的问题：
+class Solution(object):
+    def islandPerimeter(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        res = [0]
+        m,n = len(grid),len(grid[0])
+        def dfs(row,col):
+            res[0] += 4
+            grid[row][col] = 2
+            for i,j in ((-1,0),(1,0),(0,-1),(0,1)):
+                newrow,newcol = row+i,col+j
+                if 0<=newrow<m and 0<=newcol<n:
+                    if grid[newrow][newcol]>0:
+                        res[0] -= 1
+                        if grid[newrow][newcol] == 1:
+                            dfs(newrow,newcol)
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    dfs(i,j)
+                    return res[0]
+ 
+效果：
+Runtime: 525 ms, faster than 84.11% of Python online submissions for Island Perimeter.
+Memory Usage: 17.3 MB, less than 19.64% of Python online submissions for Island Perimeter.
+
+reference：
+https://leetcode.com/problems/island-perimeter/discuss/1423297/Recursive-DFS-Iterative-DFS-and-BFS-Python-Solution
 
 """
 ***********************解法二分割线***********************
