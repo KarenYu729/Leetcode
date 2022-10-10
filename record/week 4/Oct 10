@@ -1,0 +1,54 @@
+week 4
+Oct 10
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+223. Rectangle Area <medium>
+输入：
+int
+int
+int
+int
+int
+int
+int
+int
+输出：
+int
+
+class Solution(object):
+    def computeArea(self, ax1, ay1, ax2, ay2, bx1, by1, bx2, by2):
+        """
+        :type ax1: int
+        :type ay1: int
+        :type ax2: int
+        :type ay2: int
+        :type bx1: int
+        :type by1: int
+        :type bx2: int
+        :type by2: int
+        :rtype: int
+        """
+        ans = (ay2-ay1)*(ax2-ax1)+(by2-by1)*(bx2-bx1)
+        h = min(ay2,by2)-max(ay1,by1)
+        w = min(bx2,ax2)-max(ax1,bx1)
+        if h>0 and w>0:
+            ans-=h*w
+        return ans
+
+效果：
+Runtime: 89 ms, faster than 27.40% of Python online submissions for Rectangle Area.
+Memory Usage: 13.3 MB, less than 89.73% of Python online submissions for Rectangle Area.
+
+
+
+
+
+
+
+
+
+
+
