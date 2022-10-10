@@ -142,6 +142,69 @@ https://leetcode.com/problems/island-perimeter/discuss/1423297/Recursive-DFS-Ite
 ***********************解法二分割线***********************
 """
 BFS
+class Solution(object):
+    def islandPerimeter(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        perimeter = [0]
+        
+        rows, cols = len(grid), len(grid[0])
+        visited = set()
+        
+        
+        def bfs(r, c):
+            q = deque()
+            visited.add((r, c))
+            q.append((r, c))
+            
+            while q:
+                row, col = q.popleft()
+                direction = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+                
+                for dr, dc in direction:
+                    r, c = row+dr, col+dc
+                    
+                    if (r<0 or r>rows-1 or c<0 or c>cols-1):
+                        perimeter[0] += 1
+                        
+                    elif grid[r][c] == 0:
+                        perimeter[0] += 1
+                        
+                    elif (grid[r][c] == 1 and (r, c) not in visited):
+                        visited.add((r, c))
+                        q.append((r, c))
+        
+        
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1 and (r, c) not in visited:
+                    bfs(r, c)
+                    return perimeter[0]
+
+效果：
+Runtime: 558 ms, faster than 80.36% of Python online submissions for Island Perimeter.
+Memory Usage: 14.6 MB, less than 28.21% of Python online submissions for Island Perimeter.
+
+reference：
+https://leetcode.com/problems/island-perimeter/discuss/1423297/Recursive-DFS-Iterative-DFS-and-BFS-Python-Solution
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
