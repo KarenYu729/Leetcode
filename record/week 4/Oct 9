@@ -195,17 +195,102 @@ https://leetcode.com/problems/island-perimeter/discuss/1423297/Recursive-DFS-Ite
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+207. Course Schedule <medium>
+输入：
+int[int[]]
+输出：
+bool
+
+"""
+***********************解法一分割线***********************
+"""
+这个逻辑比较清楚
+记录每个点所能连接到的所有节点，并标记这个点为来过
+如果被连接的点找上家都找不到来过的点，OK继续
+恢复现场
+检查下一个点
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        graph = [[] for _ in range(numCourses)]
+        visited = [0 for _ in range(numCourses)]
+        # create graph
+        for pair in prerequisites:
+            x, y = pair
+            graph[x].append(y)
+        # visit each node
+        for i in range(numCourses):
+            if not self.dfs(graph, visited, i):
+                return False
+        return True
+    
+    def dfs(self, graph, visited, i):
+        # if ith node is marked as being visited, then a cycle is found
+        if visited[i] == -1:
+            return False
+        # if it is done visted, then do not visit again
+        if visited[i] == 1:
+            return True
+        # mark as being visited
+        visited[i] = -1
+        # visit all the neighbours
+        for j in graph[i]:
+            if not self.dfs(graph, visited, j):
+                return False
+        # after visit all the neighbours, mark it as done visited
+        visited[i] = 1
+        return True
 
 
+"""
+***********************解法二分割线***********************
+"""
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        # build the graph using dictionary.
+        visited = [0] * numCourses
+        graph = defaultdict(list)
+        print(visited)
+        print(graph)
+        for courses in prerequisites:
+            graph[courses[1]].append(courses[0])
+            visited[courses[0]] += 1
+        print(visited)
+        print(graph)    
+        # find a node with no incoming edge and add it to queue.
+        queue = deque()
+        for i in range(numCourses):
+            if visited[i] == 0:
+                queue.append(i)
+        print(queue)        
+        # topological sort algorithm - bfs approach.
+        total_courses = 0
+        while queue:
+            course = queue.popleft()
+            total_courses += 1
+            for prerequisite in graph[course]:
+                visited[prerequisite] -= 1
+                if visited[prerequisite] == 0:
+                    queue.append(prerequisite)
+                    
+        return total_courses == numCourses
 
+效果：
+Runtime: 263 ms, faster than 9.53% of Python online submissions for Course Schedule.
+Memory Usage: 14.8 MB, less than 94.19% of Python online submissions for Course Schedule.
 
-
-
-
-
-
-
-
-
-
+reference：
+https://leetcode.com/problems/course-schedule/discuss/2467200/python-solution-using-topological-sort-bfs-approach.
 
