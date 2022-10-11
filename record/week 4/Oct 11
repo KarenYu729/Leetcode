@@ -1,0 +1,78 @@
+week 4
+Oct 11
+
+
+又回到了熟悉的图论的领域
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+997. Find the Town Judge <easy>
+输入：
+int[int[]]
+输出：
+int
+
+"""
+***********************解法一分割线***********************
+"""
+class Solution(object):
+    def findJudge(self, n, trust):
+        """
+        :type n: int
+        :type trust: List[List[int]]
+        :rtype: int
+        """
+        
+        trustList = defaultdict(list)
+        visited = [1]*(n+1)
+        visited[0] = 0
+        for a, b in trust:
+            trustList[a].append(b)
+        if len(trustList)!=n-1:
+            return -1
+        for i in trustList:
+            for j in range(1,n+1):
+                if j not in trustList[i]:
+                    visited[j] = 0
+        
+        if 1 not in visited:
+            return -1
+        for i in range(1, len(visited)):
+            if visited[i] == 1 and 1 not in visited[i+1:len(visited)]:
+                return i
+        
+        return -1
+
+效果：
+Runtime: 2617 ms, faster than 5.01% of Python online submissions for Find the Town Judge.
+Memory Usage: 18.6 MB, less than 62.17% of Python online submissions for Find the Town Judge.
+
+
+"""
+***********************解法二分割线***********************
+"""
+看一下别人的写法
+class Solution(object):
+    def findJudge(self, n, trust):
+        """
+        :type n: int
+        :type trust: List[List[int]]
+        :rtype: int
+        """
+        
+        Trusted = [0] * (n+1)
+        for (a, b) in trust:
+            Trusted[a] -= 1
+            Trusted[b] += 1
+            
+        for i in range(1, len(Trusted)):
+            if Trusted[i] == n-1:
+                return i
+        return -1
+
+
+效果：
+Runtime: 791 ms, faster than 77.25% of Python online submissions for Find the Town Judge.
+Memory Usage: 18.5 MB, less than 62.17% of Python online submissions for Find the Town Judge.
