@@ -243,6 +243,11 @@ print(Counter(a).most_common(2)[0][0])#得到元素个数最多的元素
 """
 --------------------------------------题目分割线----------------------------------------------
 """
+452. Minimum Number of Arrows to Burst Balloons <medium>
+输入：
+int[int[]]
+输出：
+int
 
 class Solution(object):
     def findMinArrowShots(self, points):
@@ -288,10 +293,34 @@ print y #[8, 3, 2, 1, 0]
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+455. Assign Cookies <easy>
+输入：
+int[int[]]
+输出：
+int
 
+class Solution(object):
+    def findContentChildren(self, g, s):
+        """
+        :type g: List[int]
+        :type s: List[int]
+        :rtype: int
+        """
+        i, j, ans = 0, 0, 0
+        g.sort()
+        s.sort()
+        while i < len(g) and j < len(s):
+            if s[j] >= g[i]:
+                ans, i = ans + 1, i + 1
+            j += 1
+        return ans
 
-
-
+效果：
+Runtime: 357 ms, faster than 23.56% of Python online submissions for Assign Cookies.
+Memory Usage: 14.8 MB, less than 49.21% of Python online submissions for Assign Cookies.
 
 
 
