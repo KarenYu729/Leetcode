@@ -76,3 +76,46 @@ class Solution(object):
 效果：
 Runtime: 791 ms, faster than 77.25% of Python online submissions for Find the Town Judge.
 Memory Usage: 18.5 MB, less than 62.17% of Python online submissions for Find the Town Judge.
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+841. Keys and Rooms <medium>
+输入：
+int[int[]]
+输出：
+bool
+
+这里要注意一个问题，这是个有向图，我一开始用邻接矩阵做，然后发现一个问题，即使是所有房间的钥匙都能在其他房间找到（不存在想要进入这个房间必须进入这个房间）
+但是也会出现，想进入A先进入B，想进入B先进入A的情况
+如：
+[[4],[3],[],[2,5,7],[1],[],[8,9],[],[],[6]]
+
+class Solution(object):
+    def canVisitAllRooms(self, rooms):
+        """
+        :type rooms: List[List[int]]
+        :rtype: bool
+        """
+        q = deque(rooms[0])   #deque -> doubly ended queue
+        visited = defaultdict(int)
+        visited[0]=1
+        count = 1  #to keep a count of unique number of rooms visited
+        while q:
+            room = q.popleft()  #poping first element
+            if room not in visited:
+                visited[room] = 1
+                count+=1
+                q+=rooms[room]
+        if count==len(rooms):
+            return True
+        return False
+
+效果：
+Runtime: 110 ms, faster than 20.17% of Python online submissions for Keys and Rooms.
+Memory Usage: 14 MB, less than 57.10% of Python online submissions for Keys and Rooms.
+
+
