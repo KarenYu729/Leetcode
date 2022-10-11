@@ -236,3 +236,84 @@ print(Counter(a).most_common(2)[0][0])#得到元素个数最多的元素
 ————————————————
 版权声明：本文为CSDN博主「LiChuanxiu」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
 原文链接：https://blog.csdn.net/LiChuanxiu/article/details/103479656
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+class Solution(object):
+    def findMinArrowShots(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        points.sort(key=lambda p: p[1])
+        
+        ans, arrow = 0, 0
+        for [start, end] in points:
+            if ans == 0 or start > arrow:
+                ans, arrow = ans + 1, end
+        return ans
+
+效果：
+Runtime: 1303 ms, faster than 85.58% of Python online submissions for Minimum Number of Arrows to Burst Balloons.
+Memory Usage: 62.8 MB, less than 80.63% of Python online submissions for Minimum Number of Arrows to Burst Balloons.
+
+
+一点说明
+关于sort
+points.sort(key=lambda p: p[1])
+假设我们输入的points是：
+[[10,16],[2,8],[1,6],[7,12],[3,5]]
+得到：
+[[3, 5], [1, 6], [2, 8], [7, 12], [10, 16]]
+
+即：按照end的位置先后排序
+
+sort方法有两个可选参数：key和reverse
+
+1、key在使用时必须提供一个排序过程总调用的函数：
+
+x = ['mmm', 'mm', 'mm', 'm' ]
+x.sort(key = len)
+print x # ['m', 'mm', 'mm', 'mmm']
+2、reverse实现降序排序，需要提供一个布尔值：
+
+y = [3, 2, 8 ,0 , 1]
+y.sort(reverse = True)
+print y #[8, 3, 2, 1, 0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
