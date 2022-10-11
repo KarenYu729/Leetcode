@@ -119,3 +119,120 @@ Runtime: 110 ms, faster than 20.17% of Python online submissions for Keys and Ro
 Memory Usage: 14 MB, less than 57.10% of Python online submissions for Keys and Rooms.
 
 
+一点说明：
+visited = defaultdict(int)
+defaultdict接受一个工厂函数作为参数，如下来构造：
+
+dict =defaultdict( factory_function)
+这个factory_function可以是list、set、str等等，作用是当key不存在时，返回的是工厂函数的默认值，比如list对应[ ]，str对应的是空字符串，set对应set( )，int对应0，如下举例：
+
+from collections import defaultdict
+ 
+dict1 = defaultdict(int)
+dict2 = defaultdict(set)
+dict3 = defaultdict(str)
+dict4 = defaultdict(list)
+dict1[2] ='two'
+ 
+print(dict1[1])
+print(dict2[1])
+print(dict3[1])
+print(dict4[1])
+ 
+ 
+输出：
+0
+set()
+ 
+[]
+ 
+————————————————
+版权声明：本文为CSDN博主「《一夜飘零》」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/jiaxinhong/article/details/108398099
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+841. Keys and Rooms <medium>
+输入：
+str
+输出：
+str
+
+class Solution(object):
+    def frequencySort(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        # Count the occurence on each character
+        cnt = collections.Counter(s)
+
+        # Build string
+        res = []
+        for k, v in cnt.most_common():
+            res += [k] * v
+        return "".join(res)
+
+效果：
+Runtime: 160 ms, faster than 28.65% of Python online submissions for Sort Characters By Frequency.
+Memory Usage: 17 MB, less than 41.26% of Python online submissions for Sort Characters By Frequency.
+
+
+一点说明：
+cnt = collections.Counter(s)
+哈希表在python中可以用collections.Counter计数来体现。
+该方法用于统计某序列中每个元素出现的次数，以键值对的方式存在字典中。但类型其实是Counter。
+
+nums = [1, 2, 3, 1, 2, 1]
+counts = collections.Counter(nums)
+print(counts)
+## Counter({1: 3, 2: 2, 3: 1})
+1
+2
+3
+4
+凭借这个结构，可以计算出某个序列中出现次数最多的某个元素。也即在得到了counts之后求max即可。但这个max需要给依据索引。
+
+print(max(counts)) # 3，这里只是求得最大的键值
+print(max(counts.keys(), key=counts.get)) # 1，这里是按照key方法求最大
+1
+2
+这里max是两个参数，前一个代表要max的是什么，也就是要返回最大键，后面的key代表要返回的最大的依据是什么，默认是本身，但这里给了key方法，count.get也就是求值，所以该方法就是说返回一个最大键，但这个最大的依据是值。如果某个键值对的值是最大的，那就返回其键。
+————————————————
+版权声明：本文为CSDN博主「Wayback_」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/m0_47105444/article/details/113867636
+
+cnt.most_common()
+Counter(a)   计算a中每个元素的数量，按数量从大到小输出
+
+import numpy as np
+from collections import Counter
+ 
+a = [2,3,1,5,4,1,1,2]
+a = np.array(a)
+print(Counter(a))
+ 
+ 
+结果Counter({1: 3, 2: 2, 3: 1, 5: 1, 4: 1})
+可以看出元素1的数量最多，有3个
+ 
+
+Counter(a).most_common(1)
+
+经过Counter()方法排列后，获取数量最多的元素及准确数量，如果most_common()的参数是2，则获取数量排在前两位的元素及具体数量
+
+print(Counter(a).most_common(1))
+结果 [(1, 3)]
+print(Counter(a).most_common(2))
+结果 [(1, 3), (2, 2)]
+ 
+print(Counter(a).most_common(2)[0])#得到元素个数最多的元素及个数
+输出 (1, 3)
+print(Counter(a).most_common(2)[0][0])#得到元素个数最多的元素
+输出 1
+
+————————————————
+版权声明：本文为CSDN博主「LiChuanxiu」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/LiChuanxiu/article/details/103479656
