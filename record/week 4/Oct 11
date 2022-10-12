@@ -456,6 +456,38 @@ https://leetcode.com/problems/merge-intervals/discuss/350272/Python3-Sort-O(Nlog
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+88. Merge Sorted Array <easy>
+输入：
+int[]
+int
+int[]
+int
+
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: None Do not return anything, modify nums1 in-place instead.
+        """
+        nums1[m:m+n]=nums2
+        nums1.sort()
+
+效果：
+Runtime: 48 ms, faster than 28.06% of Python online submissions for Merge Sorted Array.
+Memory Usage: 13.5 MB, less than 43.53% of Python online submissions for Merge Sorted Array.
+
+
+
+
+输出：
+无
+
 
 
 
