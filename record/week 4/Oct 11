@@ -352,11 +352,34 @@ https://leetcode.com/problems/minimum-moves-to-equal-array-elements/discuss/1909
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+334. Increasing Triplet Subsequence <medium>
+输入：
+int[]
+输出：
+bool
 
+class Solution(object):
+    def increasingTriplet(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        first=second=float('inf')
+        for i in nums:
+            if i<=first:
+                first=i
+            elif i<=second:
+                second=i
+            else:
+                return True
+        return False
 
-
-
-
+效果：
+Runtime: 451 ms, faster than 99.20% of Python online submissions for Increasing Triplet Subsequence.
+Memory Usage: 22.7 MB, less than 95.47% of Python online submissions for Increasing Triplet Subsequence.
 
 
 
