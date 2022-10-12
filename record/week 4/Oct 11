@@ -384,6 +384,32 @@ Memory Usage: 22.7 MB, less than 95.47% of Python online submissions for Increas
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+628. Maximum Product of Three Numbers <medium>
+输入：
+int[]
+输出：
+int
 
+class Solution(object):
+    def maximumProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        return max(nums[-1]*nums[-2]*nums[-3], nums[0]*nums[1]*nums[-1])
 
+效果：
+Runtime: 485 ms, faster than 30.39% of Python online submissions for Maximum Product of Three Numbers.
+Memory Usage: 14.7 MB, less than 34.03% of Python online submissions for Maximum Product of Three Numbers.
+
+这里要留意可能会有负数
+
+比如：
+[1,2,3]
+[-1,-2,-3,-1]
+[-1,-2,-3,4]
 
