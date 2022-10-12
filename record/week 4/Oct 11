@@ -413,3 +413,50 @@ Memory Usage: 14.7 MB, less than 34.03% of Python online submissions for Maximum
 [-1,-2,-3,-1]
 [-1,-2,-3,4]
 
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+56. Merge Intervals <medium>
+输入：
+int[]
+输出：
+int[]
+
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        intervals.sort(key =lambda x: x[0])
+        merged =[]
+        for i in intervals:
+			# if the list of merged intervals is empty 
+			# or if the current interval does not overlap with the previous,
+			# simply append it.
+            if not merged or merged[-1][-1] < i[0]:
+                merged.append(i)
+			# otherwise, there is overlap,
+			#so we merge the current and previous intervals.
+            else:
+                merged[-1][-1] = max(merged[-1][-1], i[-1])
+        return merged
+
+效果：
+Runtime: 257 ms, faster than 33.07% of Python online submissions for Merge Intervals.
+Memory Usage: 18.1 MB, less than 81.74% of Python online submissions for Merge Intervals.
+
+reference：
+https://leetcode.com/problems/merge-intervals/discuss/350272/Python3-Sort-O(Nlog(N))
+
+
+
+
+
+
+
+
+
