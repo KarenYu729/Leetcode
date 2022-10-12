@@ -465,6 +465,8 @@ int[]
 int
 int[]
 int
+输出：
+无
 
 class Solution(object):
     def merge(self, nums1, m, nums2, n):
@@ -485,10 +487,35 @@ Memory Usage: 13.5 MB, less than 43.53% of Python online submissions for Merge S
 
 
 
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+480. Sliding Window Median <hard>
+输入：
+int[]
 输出：
-无
+int
 
+import numpy as np
+class Solution(object):
+    def medianSlidingWindow(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[float]
+        """
+        res = []
+        
+        for i in range(len(nums)-k+1):
+            num = nums[i:i+k]
+            res.append(np.median(num))
+        
+        return res
 
+效果：
+Runtime: 4714 ms, faster than 24.19% of Python online submissions for Sliding Window Median.
+Memory Usage: 26.9 MB, less than 8.06% of Python online submissions for Sliding Window Median.
 
-
-
+data science愣住，这竟然是hard
