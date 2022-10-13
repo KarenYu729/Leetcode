@@ -1,0 +1,74 @@
+week 4
+Oct 12
+
+
+本来今天想摆烂的
+但是下午投的JPMorgan没一会就给我发笔试了
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+643. Maximum Average Subarray I <easy>
+输入：
+str
+int
+输出：
+int
+
+class Solution(object):
+    def findMaxAverage(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: float
+        """
+        current=sum(nums[0:k])
+
+        maxi = current
+        for i in range(k,len(nums)) :
+            current+=nums[i]-nums[i-k]
+            maxi = max(current,maxi)
+        return float(maxi)/k
+
+效果：
+Runtime: 998 ms, faster than 96.77% of Python online submissions for Maximum Average Subarray I.
+Memory Usage: 23 MB, less than 18.66% of Python online submissions for Maximum Average Subarray I.
+
+从头开始for循环会TLE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
