@@ -170,3 +170,68 @@ cnt += right - left + 1
 只要有一个subarray可以，那么这个subarray的subarray也可以->拆开
 
 
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+90. Subsets II <medium>
+输入：
+int[]
+输出：
+int[int[]]
+
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        nums.sort()
+        
+        def backtracking(List, startIdx):
+            
+            res.append(List[:])                
+            if startIdx == len(nums):
+                return
+            
+            for i in range(startIdx, len(nums)):
+                if i>startIdx and nums[i] == nums[i-1]:
+                    continue
+                List.append(nums[i])
+                backtracking(List, i+1)
+                List.pop()
+        
+        backtracking([], 0)
+        return res
+
+效果：
+Runtime: 32 ms, faster than 77.39% of Python online submissions for Subsets II.
+Memory Usage: 13.6 MB, less than 49.10% of Python online submissions for Subsets II.
+
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        nums.sort()
+        
+        def backtracking(List, startIdx):
+            if List not in res:
+                res.append(List[:])                
+            if startIdx == len(nums):
+                return
+            
+            for i in range(startIdx, len(nums)):
+                
+                List.append(nums[i])
+                backtracking(List, i+1)
+                List.pop()
+        
+        backtracking([], 0)
+        return res
+效果：
+Runtime: 36 ms, faster than 67.76% of Python online submissions for Subsets II.
+Memory Usage: 13.5 MB, less than 91.14% of Python online submissions for Subsets II.
