@@ -123,10 +123,50 @@ Memory Usage: 14.5 MB, less than 56.50% of Python online submissions for Find Al
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+713. Subarray Product Less Than K <medium>
+输入：
+int[]
+int
+输出：
+int
 
+class Solution(object):
+    def numSubarrayProductLessThanK(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        if k <= 1 : return 0 # edge cases
+        prod = 1
+        cnt = left= 0
+        for right in range(len(nums)):
+            prod *= nums[right] # expand window
+            while prod >= k: # shrink window
+                prod /= nums[left]
+                left += 1
+            if prod < k: 
+                
+                cnt += right - left + 1
+        return cnt 
+        '''
+                if [5,2,6] is current window then 
+                product is less than 100 => [5], [5,2], [5,2,6] was counted while 
+                expanding right => right - left + 1 
+                for each case => 1 for [5], 
+                2 for [5,2] and [2], 
+                3 for [5,2,6], [2,6] and [6] respectively
+                ''' 
+         
+效果：
+Runtime: 584 ms, faster than 93.26% of Python online submissions for Subarray Product Less Than K.
+Memory Usage: 15.5 MB, less than 73.26% of Python online submissions for Subarray Product Less Than K.
 
-
-
-
+这里的思路是：
+cnt += right - left + 1
+只要有一个subarray可以，那么这个subarray的subarray也可以->拆开
 
 
