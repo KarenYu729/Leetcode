@@ -41,10 +41,34 @@ Memory Usage: 23 MB, less than 18.66% of Python online submissions for Maximum A
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+187. Repeated DNA Sequences <medium>
+输入：
+str
+输出：
+str[str[]]
 
+class Solution(object):
+    def findRepeatedDnaSequences(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        res, d = [], {}
+        for i in range(len(s)):
+            # 如果这个字符串不在字典里（曾经没有出现过），就给一个赋值（赋值0或者1或者其他都可以）
+            if s[i:i+10] not in d: 
+                d[s[i:i+10]] = 0
+            elif s[i:i+10] not in res: 
+                res.append(s[i:i+10])
+                
+        return res
 
-
-
+效果：
+Runtime: 96 ms, faster than 64.13% of Python online submissions for Repeated DNA Sequences.
+Memory Usage: 34.5 MB, less than 38.58% of Python online submissions for Repeated DNA Sequences.
 
 
 
