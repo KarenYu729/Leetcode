@@ -1,0 +1,39 @@
+week 4
+Oct 14
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+1047. Remove All Adjacent Duplicates In String <easy>
+输入：
+str
+输出：
+str
+
+"""
+***********************解法一分割线***********************
+"""
+class Solution(object):
+    def removeDuplicates(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+        
+        for i in range(len(s)):
+            nextchar = s[i]
+            if stack and nextchar == stack[-1]:
+                stack.pop()
+            else:
+                stack.append(nextchar)
+        
+        return ''.join(stack)
+
+效果：
+
+
+
+
