@@ -9,7 +9,6 @@ Oct 13
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
 344. Reverse String <easy>
 输入：
 int[]
@@ -35,10 +34,34 @@ Memory Usage: 21.2 MB, less than 53.16% of Python online submissions for Reverse
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+344. Reverse String <easy>
+输入：
+int[]
+输出：
+int
 
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left = 0
+        right = left+1
+        while right<len(nums):
+            if nums[left] == nums[right]:
+                right += 1
+            else:
+                left += 1
+                nums[left] = nums[right]
+                right += 1
+        return left+1
 
-
-
-
+效果：
+Runtime: 71 ms, faster than 89.09% of Python online submissions for Remove Duplicates from Sorted Array.
+Memory Usage: 14.7 MB, less than 66.12% of Python online submissions for Remove Duplicates from Sorted Array.
 
 
