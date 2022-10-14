@@ -33,7 +33,8 @@ class Solution(object):
         return ''.join(stack)
 
 效果：
-
+Runtime: 203 ms, faster than 31.39% of Python online submissions for Remove All Adjacent Duplicates In String.
+Memory Usage: 17.4 MB, less than 9.36% of Python online submissions for Remove All Adjacent Duplicates In String.
 
 
 
