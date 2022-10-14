@@ -102,6 +102,32 @@ Runtime: 241 ms, faster than 76.82% of Python3 online submissions for Move Zeroe
 Memory Usage: 15.6 MB, less than 64.43% of Python3 online submissions for Move Zeroes.
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+80. Remove Duplicates from Sorted Array II <medium>
+输入：
+int
+输出：
+int
 
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) < 3:
+            return len(nums)
+        left, right = 2, 2
+        
+        while right<len(nums):
+            if nums[right] != nums[left-2]:
+                nums[left] = nums[right]
+                left+=1
+            right+=1
+        return left
 
-
+效果：
+Runtime: 91 ms, faster than 19.83% of Python online submissions for Remove Duplicates from Sorted Array II.
+Memory Usage: 13.7 MB, less than 8.86% of Python online submissions for Remove Duplicates from Sorted Array II.
