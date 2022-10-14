@@ -65,3 +65,43 @@ Runtime: 71 ms, faster than 89.09% of Python online submissions for Remove Dupli
 Memory Usage: 14.7 MB, less than 66.12% of Python online submissions for Remove Duplicates from Sorted Array.
 
 
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+283. Move Zeroes <easy>
+输入：
+int
+输出：
+无
+
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        left = 0
+        right = left+1
+        
+        while right<len(nums):
+            if nums[left] == 0:
+                if nums[right] == 0:
+                    right+=1
+                else:
+                    nums[left], nums[right] = nums[right], nums[left]
+                    left+=1
+                    right+=1
+            else:
+                left += 1
+                right += 1
+
+
+效果：
+Runtime: 241 ms, faster than 76.82% of Python3 online submissions for Move Zeroes.
+Memory Usage: 15.6 MB, less than 64.43% of Python3 online submissions for Move Zeroes.
+
+
+
+
+
