@@ -1,0 +1,44 @@
+week 4
+Oct 13
+
+
+回归two pointers
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+344. Reverse String <easy>
+输入：
+int[]
+输出：
+无
+
+class Solution(object):
+    def reverseString(self, s):
+        """
+        :type s: List[str]
+        :rtype: None Do not return anything, modify s in-place instead.
+        """
+        left, right = 0, len(s)-1
+        while left<right:
+            s[left], s[right] = s[right], s[left]
+            left+=1
+            right-=1
+
+效果：
+Runtime: 192 ms, faster than 79.88% of Python online submissions for Reverse String.
+Memory Usage: 21.2 MB, less than 53.16% of Python online submissions for Reverse String.
+
+
+
+
+
+
+
+
+
+
+
