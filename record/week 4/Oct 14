@@ -36,5 +36,81 @@ class Solution(object):
 Runtime: 203 ms, faster than 31.39% of Python online submissions for Remove All Adjacent Duplicates In String.
 Memory Usage: 17.4 MB, less than 9.36% of Python online submissions for Remove All Adjacent Duplicates In String.
 
+"""
+***********************解法二分割线***********************
+"""
+class Solution(object):
+    def removeDuplicates(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        Slist = list(s)
+        left, right = 0, 1
+        while right<len(s):
+            if left>=0 and Slist[left] == Slist[right]:
+                left-=1
+                right+=1
+            else:
+                left+=1
+                Slist[left] = Slist[right]
+                right+=1
+        print(Slist[:left+1])
+        return ''.join(Slist[:left+1])
+
+效果：
+Runtime: 500 ms, faster than 13.72% of Python online submissions for Remove All Adjacent Duplicates In String.
+Memory Usage: 14.8 MB, less than 26.40% of Python online submissions for Remove All Adjacent Duplicates In String.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+1721. Swapping Nodes in a Linked List <medium>
+输入：
+ListNode
+int
+输出：
+ListNode
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def swapNodes(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        dummy = pre_right = pre_left = ListNode(next=head)
+        right = left = head
+        for i in range(k-1):
+            pre_left = left
+            left = left.next
+
+        null_checker = left
+
+        while null_checker.next:
+            pre_right = right
+            right = right.next
+            null_checker = null_checker.next
+
+        if left == right:
+            return head
+
+        pre_left.next, pre_right.next = right, left
+        left.next, right.next = right.next, left.next
+        return dummy.next        
+
+效果：
+Runtime: 2714 ms, faster than 32.04% of Python online submissions for Swapping Nodes in a Linked List.
+Memory Usage: 91.8 MB, less than 53.40% of Python online submissions for Swapping Nodes in a Linked List.
+
+
+
 
 
