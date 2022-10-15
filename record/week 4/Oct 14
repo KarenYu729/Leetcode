@@ -114,4 +114,39 @@ reference：
 https://leetcode.com/problems/swapping-nodes-in-a-linked-list/discuss/1054370/Python-3-or-Swapping-NODES-or-Swapping-Values-or-One-Pass-or-Fully-explained
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+532. K-diff Pairs in an Array <medium>
+输入：
+int
+输出：
+int
+
+class Solution(object):
+    def findPairs(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        cntList = Counter(nums)
+        cnt = 0
+        
+        if k == 0:
+            for i in cntList:
+                if cntList[i]>1:
+                    cnt+=1
+        else:
+            for i in cntList:
+                if k+i in cntList:
+                    cnt+=1
+        return cnt
+
+效果：
+Runtime: 81 ms, faster than 79.70% of Python online submissions for K-diff Pairs in an Array.
+Memory Usage: 15.5 MB, less than 48.87% of Python online submissions for K-diff Pairs in an Array.
+
+reference：
+https://leetcode.com/problems/k-diff-pairs-in-an-array/discuss/1757434/Python-O(n)-Solution-or-98-Faster-or-Easy-Solution-or-K-diff-Pairs-in-an-Array
 
