@@ -210,3 +210,44 @@ Memory Usage: 14.6 MB, less than 26.03% of Python online submissions for Reverse
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+475. Heaters <medium>
+输入：
+int[]
+int[]
+输出：
+int
+
+class Solution(object):
+    def findRadius(self, houses, heaters):
+        """
+        :type houses: List[int]
+        :type heaters: List[int]
+        :rtype: int
+        """
+        heaters = [float('-inf')] + heaters + [float('inf')]
+        
+        heaters.sort()
+        radius = 0
+        
+        for house in houses:
+            left, right = 0, len(heaters)-1
+            while left<right:
+                meet = (left+right)//2
+                if house<=heaters[meet]:
+                    right = meet
+                else:
+                    left = meet+1
+            radius = max(radius, min((heaters[left] - house), (house - heaters[left-1])))
+        return radius
+            
+效果：
+Runtime: 321 ms, faster than 83.33% of Python online submissions for Heaters.
+Memory Usage: 15.8 MB, less than 84.85% of Python online submissions for Heaters.
+
+reference：
+https://leetcode.com/problems/heaters/discuss/2540596/heaters%3A-TO((m%2Bn)lgm)-SO(1)
+
+对每个房子找到离他最近的取暖器
