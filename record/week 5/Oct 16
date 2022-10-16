@@ -129,3 +129,35 @@ class Solution(object):
 Runtime: 23 ms, faster than 92.43% of Python online submissions for Reverse Linked List.
 Memory Usage: 18.8 MB, less than 11.42% of Python online submissions for Reverse Linked List.
 
+
+"""
+***********************解法二分割线***********************
+"""
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        prev = None        
+        
+        while head:
+            curr = head
+            head = head.next
+            curr.next = prev
+            prev = curr
+        return prev
+
+效果：
+Runtime: 45 ms, faster than 38.78% of Python online submissions for Reverse Linked List.
+Memory Usage: 15.4 MB, less than 76.30% of Python online submissions for Reverse Linked List.
+
+reference：
+https://leetcode.com/problems/reverse-linked-list/discuss/2687413/Python-Easy-Codes
+
+摘下来一个，戳上去一个
