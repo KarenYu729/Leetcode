@@ -97,16 +97,35 @@ Memory Usage: 20.2 MB, less than 80.16% of Python online submissions for Remove 
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+206. Reverse Linked List <easy>
 输入：
-
+ListNode
 输出：
+ListNode
 
-
-
-
-
+"""
+***********************解法一分割线***********************
+"""
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head==None or head.next==None:
+            return head
+        
+        reversed_head = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return reversed_head
 
 效果：
-
+Runtime: 23 ms, faster than 92.43% of Python online submissions for Reverse Linked List.
+Memory Usage: 18.8 MB, less than 11.42% of Python online submissions for Reverse Linked List.
 
