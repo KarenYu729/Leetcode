@@ -1,0 +1,91 @@
+week 5
+Oct 16
+
+第一次感觉来例假之后头疼
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+21. Merge Two Sorted Lists <easy>
+输入：
+ListNode
+ListNode
+输出：
+ListNode
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def mergeTwoLists(self, list1, list2):
+        """
+        :type list1: Optional[ListNode]
+        :type list2: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        dummy = res = ListNode(0)
+        while list1 and list2:
+            if list1.val<list2.val:
+                res.next=list1
+                list1=list1.next
+                res=res.next
+            else:
+                res.next=list2
+                list2=list2.next
+                res=res.next
+        while list1:
+            res.next=list1
+            list1=list1.next
+            res=res.next
+        while list2:
+            res.next=list2
+            list2=list2.next
+            res=res.next
+        
+        return dummy.next
+
+效果：
+Runtime: 52 ms, faster than 21.50% of Python online submissions for Merge Two Sorted Lists.
+Memory Usage: 13.3 MB, less than 81.54% of Python online submissions for Merge Two Sorted Lists.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+
+
+
+效果：
+
+
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+
+
+
+效果：
+
+
