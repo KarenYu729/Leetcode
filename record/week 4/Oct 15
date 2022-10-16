@@ -1,0 +1,46 @@
+week 4
+Oct 15
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+237. Delete Node in a Linked List <medium>
+输入：
+ListNode
+输出：
+无
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def deleteNode(self, node):
+        """
+        :type node: ListNode
+        :rtype: void Do not return anything, modify node in-place instead.
+        """
+        
+        node.val = node.next.val
+        node.next = node.next.next
+
+效果：
+Runtime: 52 ms, faster than 40.33% of Python online submissions for Delete Node in a Linked List.
+Memory Usage: 13.7 MB, less than 81.74% of Python online submissions for Delete Node in a Linked List.
+
+说一下，这里并没有给出要改的链表，而是给出了待修改的那个part的链表，也就是说node的第一个数字就是要舍弃的数字，
+这里的思路就是把这个点的下一个点的值拿给这个位置，然后连接断开跟下一个节点的连接，而直接连到下下个节点。
+
+
+
+
+
+
+
+
+
+
