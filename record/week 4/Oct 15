@@ -92,3 +92,51 @@ reference：
 https://leetcode.com/problems/reverse-linked-list-ii/discuss/1167109/Python3-One-pass-iterative-solution-beats-95.50-(with-figure-explanation)
 
 
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+24. Swap Nodes in Pairs <medium>
+输入：
+ListNode
+输出：
+ListNode
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head:
+            return head
+        # MAKE a dummy node
+        left = right = prev = dummy = ListNode(next = head)
+        
+       
+        while head and head.next:
+            left = head 
+            right = left.next 
+            nextP = right.next 
+            
+            prev.next = right 
+            right.next = left 
+            left.next = nextP
+            
+            prev= left
+            head= nextP
+        
+        
+        return dummy.next
+
+效果：
+Runtime: 38 ms, faster than 21.74% of Python online submissions for Swap Nodes in Pairs.
+Memory Usage: 13.4 MB, less than 53.45% of Python online submissions for Swap Nodes in Pairs.
