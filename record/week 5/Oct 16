@@ -161,3 +161,33 @@ reference：
 https://leetcode.com/problems/reverse-linked-list/discuss/2687413/Python-Easy-Codes
 
 摘下来一个，戳上去一个
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+378. Kth Smallest Element in a Sorted Matrix <medium>
+输入：
+int
+输出：
+int
+
+class Solution(object):
+    def kthSmallest(self, matrix, k):
+        """
+        :type matrix: List[List[int]]
+        :type k: int
+        :rtype: int
+        """
+        nums = []
+        for i in range(len(matrix)):
+            nums+=matrix[i]
+        nums.sort()
+        return nums[k-1]
+
+效果：
+Runtime: 167 ms, faster than 92.00% of Python online submissions for Kth Smallest Element in a Sorted Matrix.
+Memory Usage: 17.6 MB, less than 45.43% of Python online submissions for Kth Smallest Element in a Sorted Matrix.
+
+
+
