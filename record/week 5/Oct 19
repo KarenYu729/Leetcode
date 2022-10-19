@@ -1,0 +1,48 @@
+week 5
+Oct 19
+
+
+解释一下为什么17， 18 两天没有
+17号在做笔试题，写report，18号在写report和头疼（物理意义上的）
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+739. Daily Temperatures <medium>
+输入：
+int[]
+输出：
+int[]
+
+class Solution(object):
+    def dailyTemperatures(self, temperatures):
+        """
+        :type temperatures: List[int]
+        :rtype: List[int]
+        """
+        ans = [0 for i in range(len(temperatures))]
+        stack = []
+        # Maintain a decreasing monotonic stack
+        for i in range(len(temperatures)):
+            # as the values are decreasing keep adding to stack
+            if len(stack)==0 or temperatures[i]<=temperatures[stack[-1]]:
+                stack.append(i)
+            else:
+                #when an increasing value comes, we need to pop the stack
+                #until the stack again becomes decreasingly monotonic
+                while stack and temperatures[i] > temperatures[stack[-1]]:
+                    idx = stack.pop()
+                    ans[idx] = i-idx
+                #finally append the index as the stack will now be monotonic
+                stack.append(i)
+        # note the last index will always be 0
+        return ans
+
+效果：
+Runtime: 1213 ms, faster than 76.56% of Python online submissions for Daily Temperatures.
+Memory Usage: 26.9 MB, less than 5.00% of Python online submissions for Daily Temperatures.
+
+不知道为什么其他都会TLE
+单独测的时候都OK，submit的时候就会TLE，可能是网的问题
+
