@@ -1,0 +1,40 @@
+week 5
+Oct 20
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+274. H-Index <medium>
+输入：
+int[]
+输出：
+int
+
+class Solution(object):
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        if not citations: 
+            return 0
+        citations.sort(reverse=True)
+        left, right = 0, len(citations)-1
+        
+        while left<=right:
+            mid = left + (right-left)//2
+            
+            if citations[mid]>=mid+1:
+                left = mid+1
+            else:
+                right = mid-1
+        return right+1
+
+效果：
+Runtime: 56 ms, faster than 24.10% of Python online submissions for H-Index.
+Memory Usage: 13.8 MB, less than 45.78% of Python online submissions for H-Index.
+
+
+
