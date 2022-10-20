@@ -46,3 +46,54 @@ Memory Usage: 26.9 MB, less than 5.00% of Python online submissions for Daily Te
 不知道为什么其他都会TLE
 单独测的时候都OK，submit的时候就会TLE，可能是网的问题
 
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+735. Asteroid Collision <medium>
+输入：
+int[]
+输出：
+int[]
+
+class Solution(object):
+    def asteroidCollision(self, asteroids):
+        """
+        :type asteroids: List[int]
+        :rtype: List[int]
+        """
+        stack = []
+        
+        for i in range(len(asteroids)):
+            while stack and stack[-1] > 0 and asteroids[i]<0:
+                if abs(stack[-1]) < abs(asteroids[i]):
+                    stack.pop()
+                    continue
+                elif abs(stack[-1]) == abs(asteroids[i]):
+                    stack.pop()
+                
+                break
+                    
+            else:
+                stack.append(asteroids[i])
+        
+        return stack
+
+效果：
+Runtime: 213 ms, faster than 15.59% of Python online submissions for Asteroid Collision.
+Memory Usage: 14.5 MB, less than 67.64% of Python online submissions for Asteroid Collision.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
