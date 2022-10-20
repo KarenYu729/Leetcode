@@ -131,4 +131,58 @@ Memory Usage: 14 MB, less than 11.11% of Python online submissions for Next Grea
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+503. Next Greater Element II <medium>
+输入：
+int[]
+输出：
+int[]
+
+class Solution(object):
+    def nextGreaterElements(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        lookup = nums+nums
+        res = [0 for _ in range(len(lookup))]
+        stack = []
+        
+        
+        for i in range(len(res)-1,-1,-1):
+            
+            while stack and stack[-1]<=lookup[i]:
+                stack.pop()
+            if len(stack) == 0:
+                stack.append(lookup[i])
+                res[i] = -1
+            else:
+                res[i] = stack[-1]
+                stack.append(lookup[i])
+        
+        return res[0:len(nums)]
+
+效果：
+Runtime: 532 ms, faster than 18.66% of Python online submissions for Next Greater Element II.
+Memory Usage: 15.2 MB, less than 83.09% of Python online submissions for Next Greater Element II.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+输入：
+
+输出：
+
+
+
+
+
+
+
+
+效果：
 
