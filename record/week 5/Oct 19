@@ -86,12 +86,47 @@ Memory Usage: 14.5 MB, less than 67.64% of Python online submissions for Asteroi
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+496. Next Greater Element I <easy>
+输入：
+int[]
+int[]
+输出：
+int[]
 
+class Solution(object):
+    def nextGreaterElement(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        idx_dict = {n: i for i, n in enumerate(nums2)}
+        lookup = [-1 for _ in range(len(nums2))]
+        res = []
+        stack = []
+        print(idx_dict)
+        
+        for i in range(len(nums2)-1,-1,-1):
+            while stack and stack[-1]<nums2[i]:
+                stack.pop()
+            if len(stack) == 0:
+                stack.append(nums2[i])
+                lookup[i] = -1
+            else:
+                lookup[i] = stack[-1]
+                stack.append(nums2[i])
+                
+        for i in nums1:
+            res.append(lookup[idx_dict[i]])
+        
+        return res
 
-
-
-
-
+效果：
+Runtime: 63 ms, faster than 71.19% of Python online submissions for Next Greater Element I.
+Memory Usage: 14 MB, less than 11.11% of Python online submissions for Next Greater Element I.
 
 
 
