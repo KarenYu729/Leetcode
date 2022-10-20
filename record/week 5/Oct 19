@@ -211,18 +211,47 @@ Memory Usage: 13.4 MB, less than 77.87% of Python online submissions for Decode 
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+636. Exclusive Time of Functions <medium>
 输入：
-
+int[]
+str[]
 输出：
+int[]
 
-
-
-
-
-
+class Solution(object):
+    def exclusiveTime(self, n, logs):
+        """
+        :type n: int
+        :type logs: List[str]
+        :rtype: List[int]
+        """
+        stack = []
+        prev_time = 0
+        ans = [0 for i in range(n)]
+        
+        for i in range(0,len(logs)):
+            fid, state, time = logs[i].split(':')
+            fid, time = int(fid), int(time)
+            
+            if state == "start":
+                if stack:
+                    ans[stack[-1]] += time - prev_time
+                
+                stack.append(fid)
+                prev_time = time
+           
+            else:
+                ans[stack.pop()] += time - prev_time + 1
+                prev_time = time + 1
+            
+        return ans
 
 
 效果：
+Runtime: 120 ms, faster than 51.20% of Python online submissions for Exclusive Time of Functions.
+Memory Usage: 13.8 MB, less than 36.00% of Python online submissions for Exclusive Time of Functions.
+
+reference：
+https://leetcode.com/problems/exclusive-time-of-functions/discuss/1832267/Python-stack-easy-to-understand
 
 
