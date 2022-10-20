@@ -173,6 +173,45 @@ Memory Usage: 15.2 MB, less than 83.09% of Python online submissions for Next Gr
 """
 --------------------------------------题目分割线----------------------------------------------
 """
+394. Decode String <medium>
+输入：
+str
+输出：
+str
+
+class Solution(object):
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        curr_s = ""
+        curr_n = 0
+        stack = []
+        for char in s:
+            if char.isdigit():
+                curr_n = curr_n * 10 + int(char)
+            elif char == "[":
+                stack.append((curr_s, curr_n))
+                curr_s = ""
+                curr_n = 0
+            elif char == "]":
+                prev_s, prev_n = stack.pop()
+                curr_s = prev_s + prev_n * curr_s
+            else:
+                curr_s += char
+        return curr_s
+
+效果：
+Runtime: 33 ms, faster than 33.20% of Python online submissions for Decode String.
+Memory Usage: 13.4 MB, less than 77.87% of Python online submissions for Decode String.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
 输入：
 
 输出：
@@ -185,4 +224,5 @@ Memory Usage: 15.2 MB, less than 83.09% of Python online submissions for Next Gr
 
 
 效果：
+
 
