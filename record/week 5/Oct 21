@@ -8,17 +8,49 @@ Oct 21
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+155. Min Stack <medium>
 输入：
 
 输出：
 
 
+class MinStack(object):
 
+    def __init__(self):
+        self.stack = []
 
+    def push(self, val):
+        """
+        :type val: int
+        :rtype: None
+        """
+        minn = min(val, self.stack[-1][1]) if self.stack else val
+        self.stack.append((val, minn))
+        
+
+    def pop(self):
+        """
+        :rtype: None
+        """
+        self.stack.pop()
+        
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.stack and self.stack[-1][0]
+
+    def getMin(self):
+        """
+        :rtype: int
+        """
+        return self.stack and self.stack[-1][1]
+        
 
 效果：
-
+Runtime: 135 ms, faster than 18.99% of Python online submissions for Min Stack.
+Memory Usage: 17.8 MB, less than 7.73% of Python online submissions for Min Stack.
 
 
 
