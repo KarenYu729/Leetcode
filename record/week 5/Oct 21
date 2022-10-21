@@ -57,17 +57,36 @@ Memory Usage: 17.8 MB, less than 7.73% of Python online submissions for Min Stac
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+71. Simplify Path <medium>
 输入：
-
+str
 输出：
+str
 
-
-
+class Solution(object):
+    def simplifyPath(self, path):
+        """
+        :type path: str
+        :rtype: str
+        """
+        directories, stack = path.split("/"), []
+        
+        for directory in directories:
+            if directory == "" or directory == ".": 
+                continue
+            elif directory == ".." and stack: 
+                stack.pop()
+            elif directory == "..": 
+                continue
+            else: 
+                stack.append(directory)
+        
+        return "/" + "/".join(stack)
 
 
 效果：
-
+Runtime: 55 ms, faster than 12.32% of Python online submissions for Simplify Path.
+Memory Usage: 13.7 MB, less than 9.72% of Python online submissions for Simplify Path.
 
 
 
