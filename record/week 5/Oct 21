@@ -214,6 +214,52 @@ Memory Usage: 13.7 MB, less than 13.17% of Python online submissions for Remove 
 """
 --------------------------------------题目分割线----------------------------------------------
 """
+82. Remove Duplicates from Sorted List II <medium>
+输入：
+ListNode
+输出：
+ListNode
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        pre = dummy = ListNode(0)
+        dummy.next = head
+        
+        
+        while head and head.next:
+            if head.val == head.next.val:
+                while head and head.next and head.val == head.next.val:
+                    head = head.next
+                head = head.next
+                pre.next = head
+            else:
+                
+                pre = pre.next
+                head = head.next
+        
+        return dummy.next
+       
+
+效果：
+Runtime: 64 ms, faster than 15.43% of Python online submissions for Remove Duplicates from Sorted List II.
+Memory Usage: 13.4 MB, less than 64.01% of Python online submissions for Remove Duplicates from Sorted List II.
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
 
 输入：
 
@@ -224,6 +270,11 @@ Memory Usage: 13.7 MB, less than 13.17% of Python online submissions for Remove 
 
 
 效果：
+
+
+
+
+
 
 
 
