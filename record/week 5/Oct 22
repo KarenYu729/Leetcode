@@ -141,17 +141,44 @@ https://leetcode.com/problems/arranging-coins/discuss/2654856/Python-O(N)-O(LogN
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+560. Subarray Sum Equals K <medium>
 输入：
-
+int[]
+int
 输出：
+int
 
+class Solution(object):
+    def subarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        ans=0
+        prefsum=0
+        d={0:1}
+        
+        for num in nums:
+			prefsum = prefsum + num
 
+			if prefsum-k in d:
+				ans = ans + d[prefsum-k]
 
+			if prefsum not in d:
+				d[prefsum] = 1
+			else:
+				d[prefsum] = d[prefsum]+1
+
+        return ans
         
 
 效果：
+Runtime: 481 ms, faster than 60.34% of Python online submissions for Subarray Sum Equals K.
+Memory Usage: 15.9 MB, less than 70.62% of Python online submissions for Subarray Sum Equals K.
 
+reference：
+https://leetcode.com/problems/subarray-sum-equals-k/discuss/2301103/Python-HashMap-O(n)-(Explanation)
 
 
 """
