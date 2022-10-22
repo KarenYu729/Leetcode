@@ -71,19 +71,70 @@ https://leetcode.com/problems/rotate-list/discuss/348197/96-faster-Simple-python
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+441. Arranging Coins <easy>
 输入：
-
+int
 输出：
+int
 
-
-
+"""
+***********************解法一分割线***********************
+"""
+暴力
+class Solution(object):
+    def arrangeCoins(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        completeStairs = 0
         
+        # i = row number
+        i = 1
+        while n >= 0:
+            # For ith row, we use i coins to fill it completely
+            # So reduce i coins from n
+            n -= i
+            # If n is not negative
+            # that means this row can be fully filled so increment count of completeStairs
+            if n >= 0: completeStairs += 1
+            # Move to the next row
+            i += 1
+
+        return completeStairs
 
 效果：
+Runtime: 824 ms, faster than 34.29% of Python online submissions for Arranging Coins.
+Memory Usage: 13.4 MB, less than 61.19% of Python online submissions for Arranging Coins.
+
+"""
+***********************解法二分割线***********************
+"""
+binary search
+completeStairs = 0
+		
+		start = 1
+        end = n
+
+        while start <= end:
+            mid = start + (end - start) // 2
+			# How many coins required to completely fill 'mid' rows?
+			# Use Gauss Summation to find that in O(1) time
+            if (mid * ( mid + 1)) // 2 <= n:
+                completeStairs = mid
+                start = mid + 1
+            else:
+                end = mid - 1
 
 
+        return completeStairs
+        
+效果：
+Runtime: 50 ms, faster than 57.29% of Python online submissions for Arranging Coins.
+Memory Usage: 13.5 MB, less than 11.50% of Python online submissions for Arranging Coins.
 
+reference:
+https://leetcode.com/problems/arranging-coins/discuss/2654856/Python-O(N)-O(LogN)-O(1)-or-EXPLAINED
 
 
 
