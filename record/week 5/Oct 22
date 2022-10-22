@@ -251,11 +251,41 @@ Memory Usage: 15.4 MB, less than 5.64% of Python online submissions for Copy Lis
 """
 ***********************解法二分割线***********************
 """
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x, next=None, random=None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
 
+class Solution(object):
+    def copyRandomList(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        if head is None: 
+            return None
+        mapping = {}
+        cur = head
+        while cur:
+            mapping[cur] = Node(cur.val,None,None)
+            cur = cur.next
+        cur = head
+        while cur:
+            if cur.next:
+                mapping[cur].next = mapping[cur.next]
+            if cur.random:
+                mapping[cur].random = mapping[cur.random]
+            cur = cur.next
+        return mapping[head]
 
 
 效果：
-
+Runtime: 78 ms, faster than 49.06% of Python online submissions for Copy List with Random Pointer.
+Memory Usage: 14.2 MB, less than 89.66% of Python online submissions for Copy List with Random Pointer.
 
 
 
