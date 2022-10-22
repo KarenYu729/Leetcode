@@ -218,14 +218,41 @@ https://leetcode.com/problems/group-anagrams/discuss/2384037/Python-oror-Easily-
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+138. Copy List with Random Pointer <medium>
 输入：
 
 输出：
 
 
+"""
+***********************解法一分割线***********************
+"""
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x, next=None, random=None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
 
-        
+class Solution(object):
+    def copyRandomList(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        return copy.deepcopy(head)        
+
+效果：
+Runtime: 84 ms, faster than 35.19% of Python online submissions for Copy List with Random Pointer.
+Memory Usage: 15.4 MB, less than 5.64% of Python online submissions for Copy List with Random Pointer.
+
+"""
+***********************解法二分割线***********************
+"""
+
+
 
 效果：
 
