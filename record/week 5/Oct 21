@@ -260,17 +260,44 @@ Memory Usage: 13.4 MB, less than 64.01% of Python online submissions for Remove 
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+19. Remove Nth Node From End of List <medium>
 输入：
-
+ListNode
+int
 输出：
+ListNode
 
-
-
-
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        fast, slow = head, head
+        dummy = ListNode(0)
+        dummy.next = head
+        for i in range(n):
+            fast = fast.next
+        if not fast: 
+            return head.next
+        while fast and fast.next:
+            fast = fast.next
+            slow = slow.next
+        
+        slow.next = slow.next.next
+        
+        return dummy.next
+        
 
 效果：
-
+Runtime: 43 ms, faster than 22.87% of Python online submissions for Remove Nth Node From End of List.
+Memory Usage: 13.6 MB, less than 15.38% of Python online submissions for Remove Nth Node From End of List.
 
 
 
