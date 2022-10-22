@@ -177,17 +177,37 @@ Memory Usage: 16.6 MB, less than 93.70% of Python online submissions for Top K F
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+83. Remove Duplicates from Sorted List <easy>
 输入：
-
+ListNode
 输出：
+ListNode
 
-
-
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        dummy.next = head
+        
+        while head and head.next:
+            while head and head.next and head.val == head.next.val:
+                head.next = head.next.next
+            head = head.next
+        
+        return dummy.next
 
 
 效果：
-
+Runtime: 22 ms, faster than 98.34% of Python online submissions for Remove Duplicates from Sorted List.
+Memory Usage: 13.7 MB, less than 13.17% of Python online submissions for Remove Duplicates from Sorted List.
 
 
 
