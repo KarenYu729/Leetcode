@@ -336,18 +336,40 @@ Memory Usage: 13.5 MB, less than 41.07% of Python online submissions for Integer
 """
 13. Roman to Integer <easy>
 输入：
-
+str
 输出：
+int
 
-
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        translations = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+        }
+        number = 0
+        s = s.replace("IV", "IIII").replace("IX", "VIIII")
+        s = s.replace("XL", "XXXX").replace("XC", "LXXXX")
+        s = s.replace("CD", "CCCC").replace("CM", "DCCCC")
+        for char in s:
+            number += translations[char]
+        return number
 
         
 
 效果：
+Runtime: 54 ms, faster than 78.46% of Python online submissions for Roman to Integer.
+Memory Usage: 13.3 MB, less than 95.44% of Python online submissions for Roman to Integer.
 
-
-
-
+直接把会造成confuse的部分替换掉
 
 
 
