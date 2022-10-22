@@ -184,17 +184,35 @@ https://leetcode.com/problems/subarray-sum-equals-k/discuss/2301103/Python-HashM
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+49. Group Anagrams
 输入：
-
+str[]
 输出：
+str[str[]]
 
-
-
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        strDict = {}
         
-
+        for i in range(len(strs)):
+            strKey  = ''.join(sorted(strs[i]))
+            if strKey not in strDict:
+                strDict[strKey] = [strs[i]]
+            else:
+                strDict[strKey].append(strs[i])
+        
+        return list(strDict.values())
+        
 效果：
+Runtime: 157 ms, faster than 63.43% of Python online submissions for Group Anagrams.
+Memory Usage: 17.8 MB, less than 55.45% of Python online submissions for Group Anagrams.
 
+reference:
+https://leetcode.com/problems/group-anagrams/discuss/2384037/Python-oror-Easily-Understood-oror-Hash-Table-oror-Fast-oror-Simple
 
 
 """
