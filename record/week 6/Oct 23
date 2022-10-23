@@ -74,16 +74,29 @@ https://leetcode.com/problems/minimum-window-substring/discuss/1784588/Python-Si
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+387. First Unique Character in a String <easy>
 输入：
-
+str
 输出：
+int
 
-
-
+class Solution(object):
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        charFreq = Counter(s)
+        
+        for i in range(len(s)):
+            if charFreq[s[i]] == 1:
+                return i
+        return -1
         
 
 效果：
+Runtime: 378 ms, faster than 39.52% of Python online submissions for First Unique Character in a String.
+Memory Usage: 14.2 MB, less than 48.95% of Python online submissions for First Unique Character in a String.
 
 
 
