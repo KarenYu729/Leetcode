@@ -103,17 +103,64 @@ Memory Usage: 14.2 MB, less than 48.95% of Python online submissions for First U
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+128. Longest Consecutive Sequence <medium>
 输入：
 
 输出：
 
 
-
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        numSet = set(nums)
+        
+        maxLen = 0
+        for i in nums:
+            if i-1 not in numSet:
+                # then i is the start of this subset
+                setLen = 1
+                while i+1 in numSet:
+                    setLen += 1
+                    i+=1
+                maxLen = max(maxLen, setLen)
+        return maxLen
         
 
 效果：
+Runtime: 5377 ms, faster than 5.57% of Python online submissions for Longest Consecutive Sequence.
+Memory Usage: 30.5 MB, less than 79.86% of Python online submissions for Longest Consecutive Sequence.
 
+这里要注意两个点
+1. maxLen = 0
+这里如果初始化成负无穷，那么遇到空数组，就会出现返回负无穷，但是显然，我们最少得是0（大概最后加一个判断也行）
+2. maxLen = max(maxLen, setLen)
+注意一下位置，毕竟setLen的初始化是在if条件里的
+
+如下：
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        numSet = set(nums)
+        
+        maxLen = float('-inf')
+        for i in nums:
+            if i-1 not in numSet:
+                # then i is the start of this subset
+                setLen = 1
+                while i+1 in numSet:
+                    setLen += 1
+                    i+=1
+                maxLen = max(maxLen, setLen)
+        
+        return 0 if maxLen<0 else maxLen
+
+但是会稍微慢点儿
 
 
 """
