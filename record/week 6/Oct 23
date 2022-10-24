@@ -329,17 +329,51 @@ Memory Usage: 13.6 MB, less than 26.24% of Python online submissions for Binary 
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+101. Symmetric Tree <easy>
 输入：
-
+TreeNode
 输出：
+bool
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if root is None:
+            return True
+        
+        leftQ, rightQ = collections.deque([root]), collections.deque([root])
+        
+        while leftQ and rightQ:
+            leftSide, rightSide = leftQ.popleft(), rightQ.popleft()
+            if leftSide is None and rightSide is None:
+                continue
+            
+            elif leftSide is None or rightSide is None:
+                return False
+            elif leftSide.val != rightSide.val:
+                return False
 
 
-
+            leftQ.append(leftSide.left)
+            leftQ.append(leftSide.right)
+            rightQ.append(rightSide.right)
+            rightQ.append(rightSide.left)
+            
+        return True
         
 
 效果：
-
+Runtime: 22 ms, faster than 89.81% of Python online submissions for Symmetric Tree.
+Memory Usage: 13.8 MB, less than 17.61% of Python online submissions for Symmetric Tree.
 
 
 
