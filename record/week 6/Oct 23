@@ -166,17 +166,52 @@ class Solution(object):
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+102. Binary Tree Level Order Traversal <medium>
 输入：
-
+TreeNode
 输出：
+int[int[]]
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        res = []
+        if root is None:
+            return res
+        
+        q = collections.deque([root])
+        
+        while q:
+            size = len(q)
+            level = []
+            while size>0:
+                node = q.popleft()
+                level.append(node.val)
+                
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+                
+                size-=1
+                
+            res.append(level)
+        
+        return res
         
 
 效果：
-
+Runtime: 49 ms, faster than 16.07% of Python online submissions for Binary Tree Level Order Traversal.
+Memory Usage: 13.8 MB, less than 64.73% of Python online submissions for Binary Tree Level Order Traversal.
 
 
 
