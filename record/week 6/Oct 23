@@ -105,9 +105,9 @@ Memory Usage: 14.2 MB, less than 48.95% of Python online submissions for First U
 """
 128. Longest Consecutive Sequence <medium>
 输入：
-
+int[]
 输出：
-
+int
 
 class Solution(object):
     def longestConsecutive(self, nums):
@@ -382,17 +382,55 @@ Memory Usage: 13.8 MB, less than 17.61% of Python online submissions for Symmetr
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+103. Binary Tree Zigzag Level Order Traversal <medium>
 输入：
-
+TreeNode
 输出：
+int[int[]]
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def zigzagLevelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        res = []
+        if root is None:
+            return res
+        print((-1)**0)
+        depth = 0
+        q = collections.deque([root])
+        
+        while q:
+            size = len(q)
+            level = []
+            
+            while size>0:
+                node = q.popleft()
+                level.append(node.val)
+                
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+                
+                size-=1
+            
+            res.append(level[::(-1)**depth])
+            depth+=1
+            
+        return res
         
 
 效果：
-
+Runtime: 27 ms, faster than 73.85% of Python online submissions for Binary Tree Zigzag Level Order Traversal.
+Memory Usage: 14 MB, less than 5.01% of Python online submissions for Binary Tree Zigzag Level Order Traversal.
 
 
 
