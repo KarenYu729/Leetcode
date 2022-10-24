@@ -271,17 +271,56 @@ Memory Usage: 16 MB, less than 72.77% of Python online submissions for Maximum D
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+199. Binary Tree Right Side View <medium>
 输入：
-
+TreeNode
 输出：
+int[]
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def rightSideView(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        if root is None:
+            return res
+        
+        q = collections.deque([root])
+        
+        while q:
+            size = len(q)
+            sideView = 0
+            
+            while size>0:
+                node = q.popleft()
+                if size==1:
+                    sideView = node.val
+                
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+                
+                size-=1
+            
+            res.append(sideView)
+        
+        return res
+        
+        
         
 
 效果：
-
+Runtime: 35 ms, faster than 44.64% of Python online submissions for Binary Tree Right Side View.
+Memory Usage: 13.6 MB, less than 26.24% of Python online submissions for Binary Tree Right Side View.
 
 
 
