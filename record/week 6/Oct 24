@@ -8,17 +8,51 @@ Oct 24
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+515. Find Largest Value in Each Tree Row <Medium>
 输入：
-
+TreeNode
 输出：
+int[]
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def largestValues(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = []
+        if root is None:
+            return res
+        
+        q = collections.deque([root])
+        
+        while q:
+            size = len(q)
+            level = []
+            
+            while size>0:
+                node = q.popleft()
+                level.append(node.val)
+                
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+                size-=1
+            
+            res.append(max(level))
+        return res
         
 
 效果：
-
+Runtime: 64 ms, faster than 48.12% of Python online submissions for Find Largest Value in Each Tree Row.
+Memory Usage: 18.1 MB, less than 54.51% of Python online submissions for Find Largest Value in Each Tree Row.
 
 
 
