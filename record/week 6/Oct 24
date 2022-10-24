@@ -112,6 +112,58 @@ Memory Usage: 16.6 MB, less than 23.03% of Python online submissions for N-ary T
 """
 --------------------------------------题目分割线----------------------------------------------
 """
+100. Same Tree <easy>
+输入：
+TreeNode
+TreeNode
+输出：
+bool
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def isSameTree(self, p, q):
+        """
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: bool
+        """
+        leftQ, rightQ = collections.deque([p]), collections.deque([q])
+        
+        while leftQ and rightQ:
+            leftSide, rightSide = leftQ.popleft(), rightQ.popleft()
+            if leftSide is None and rightSide is None:
+                continue
+            
+            elif leftSide is None or rightSide is None:
+                return False
+            elif leftSide.val != rightSide.val:
+                return False
+
+
+            leftQ.append(leftSide.left)
+            leftQ.append(leftSide.right)
+            
+            rightQ.append(rightSide.left)
+            rightQ.append(rightSide.right)
+            
+        return True
+            
+        
+
+效果：
+Runtime: 14 ms, faster than 96.62% of Python online submissions for Same Tree.
+Memory Usage: 13.5 MB, less than 38.33% of Python online submissions for Same Tree.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
 
 输入：
 
@@ -140,5 +192,45 @@ Memory Usage: 16.6 MB, less than 23.03% of Python online submissions for N-ary T
         
 
 效果：
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
 
 
