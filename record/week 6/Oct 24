@@ -164,17 +164,51 @@ Memory Usage: 13.5 MB, less than 38.33% of Python online submissions for Same Tr
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+107. Binary Tree Level Order Traversal II <medium>
 输入：
-
+TreeNode
 输出：
+int[int[]]
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def levelOrderBottom(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        res = []
+        if root is None:
+            return res
+        
+        q = collections.deque([root])
+        
+        while q:
+            size = len(q)
+            level = []
+            while size>0:
+                node = q.popleft()
+                level.append(node.val)
+                
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+        
+                size-=1
+            res.append(level)
+            
+        return res[::-1]
         
 
 效果：
-
+Runtime: 23 ms, faster than 89.83% of Python online submissions for Binary Tree Level Order Traversal II.
+Memory Usage: 13.7 MB, less than 87.95% of Python online submissions for Binary Tree Level Order Traversal II.
 
 
 
