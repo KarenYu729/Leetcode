@@ -219,17 +219,51 @@ Memory Usage: 13.8 MB, less than 64.73% of Python online submissions for Binary 
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+104. Maximum Depth of Binary Tree <easy>
 输入：
-
+TreeNode
 输出：
+int
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        Depth = 0
+        if root is None:
+            return Depth
+        
+        q = collections.deque([root])
+        
+        while q:
+            size = len(q)
+            
+            while size>0:
+                node = q.popleft()
+                
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+                
+                size -= 1
+            
+            Depth += 1
+        
+        return Depth
         
 
 效果：
-
+Runtime: 52 ms, faster than 48.90% of Python online submissions for Maximum Depth of Binary Tree.
+Memory Usage: 16 MB, less than 72.77% of Python online submissions for Maximum Depth of Binary Tree.
 
 
 
