@@ -325,7 +325,6 @@ Memory Usage: 13.6 MB, less than 26.24% of Python online submissions for Binary 
 
 
 
-
 """
 --------------------------------------题目分割线----------------------------------------------
 """
@@ -478,10 +477,8 @@ class Solution(object):
                 
                 size-=1
             
-        # return min(depthList)
-        
-        
-        
+        # return min(depthList)        
+      
 
 效果：
 Runtime: 756 ms, faster than 94.22% of Python online submissions for Minimum Depth of Binary Tree.
