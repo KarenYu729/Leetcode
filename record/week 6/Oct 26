@@ -50,18 +50,54 @@ Memory Usage: 18.7 MB, less than 12.93% of Python online submissions for Balance
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+236. Lowest Common Ancestor of a Binary Tree <medium>
 输入：
-
+TreeNode
+TreeNode
+TreeNode
 输出：
+TreeNode
 
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        
+        if (root == p or root == q or not root): 
+            #found what we want or there is nothing
+            return root  
+            
+        left, right = self.lowestCommonAncestor(root.left, p, q), self.lowestCommonAncestor(root.right, p, q)
+        
+        #common ancestor
+        if left and right:  
+            return root
+        elif left:
+            return left
+        elif right:
+            return right
+        
+        return None
+        
         
 
 效果：
+Runtime: 133 ms, faster than 39.34% of Python online submissions for Lowest Common Ancestor of a Binary Tree.
+Memory Usage: 26 MB, less than 39.58% of Python online submissions for Lowest Common Ancestor of a Binary Tree.
 
-
+reference：
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/discuss/2334341/Python-DFS-clear-and-simple-code-or-easy-to-understand
 
 
 
