@@ -7,18 +7,51 @@ Oct 25
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+124. Binary Tree Maximum Path Sum <hard>
 输入：
-
+TreeNode
 输出：
+int
 
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.max_sum = float('-inf')
+        self.dfs(root)
+        return self.max_sum
+    
+    def dfs(self, node):
+        if not node: return 0
+        
+        # only add positive contributions
+        leftST_sum = max(0, self.dfs(node.left))
+        rightST_sum = max(0, self.dfs(node.right))
 
-
+        # check if cumulative sum at current node > global max sum so far
+        # this evaluates a candidate path
+        self.max_sum = max(self.max_sum, leftST_sum + rightST_sum + node.val)
+        
+        # add to the current node ONLY one of the children contributions
+        # in order to maintain the constraint of considering only paths
+        # if not, we would be exploring explore the whole tree - against problem definition
+        return max(leftST_sum, rightST_sum) + node.val
         
 
 效果：
+Runtime: 72 ms, faster than 90.92% of Python online submissions for Binary Tree Maximum Path Sum.
+Memory Usage: 25.9 MB, less than 73.38% of Python online submissions for Binary Tree Maximum Path Sum.
 
-
+reference:
+https://leetcode.com/problems/binary-tree-maximum-path-sum/discuss/370666/Concise-DFS-solution-with-detailed-explanation-Python
 
 
 
