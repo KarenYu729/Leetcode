@@ -6,17 +6,43 @@ Oct 26
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+110. Balanced Binary Tree <easy>
 输入：
-
+TreeNode
 输出：
+bool
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        
+        def dfs(node):
+            if node is None:
+                return 0
+            
+            leftDepth = dfs(node.left)
+            rightDepth = dfs(node.right)
+            
+            if leftDepth == -1 or rightDepth == -1 or abs(leftDepth - rightDepth) > 1:
+                return -1
+            
+            return max(leftDepth,rightDepth)+1
+        
+        return dfs(root)!=-1
         
 
 效果：
-
+Runtime: 63 ms, faster than 68.62% of Python online submissions for Balanced Binary Tree.
+Memory Usage: 18.7 MB, less than 12.93% of Python online submissions for Balanced Binary Tree.
 
 
 
