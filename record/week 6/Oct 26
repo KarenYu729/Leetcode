@@ -173,17 +173,50 @@ https://leetcode.com/problems/delete-node-in-a-bst/discuss/543124/Python-O(-h-)-
 """
 508. Most Frequent Subtree Sum <medium>
 输入：
-
+TreeNode
 输出：
+int[]
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def findFrequentTreeSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root:
+            return []
+        self.sums = collections.defaultdict(int)
+        self.dfs(root)
+        res = []
+        max_freq = max(self.sums.values())
+        for stree_sum in self.sums:
+            if self.sums[stree_sum] == max_freq:
+                res.append(stree_sum)
+        return res
+        
+    def dfs(self, node):
+        if node:
+            left = self.dfs(node.left)
+            right = self.dfs(node.right)
+            self.sums[right + left + node.val] += 1
+            return right + left + node.val
+        return 0
         
 
 效果：
+Runtime: 61 ms, faster than 64.15% of Python online submissions for Most Frequent Subtree Sum.
+Memory Usage: 18.7 MB, less than 97.17% of Python online submissions for Most Frequent Subtree Sum.
 
+reference:
+https://leetcode.com/problems/most-frequent-subtree-sum/discuss/306162/Simple-Python-DFS-O(n)-Solution-with-Explanation
 
-
+https://leetcode.com/problems/most-frequent-subtree-sum/discuss/1011041/Python-DFS-%2B-memo-easy-to-understand
 
 
 
