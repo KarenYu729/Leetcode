@@ -58,18 +58,152 @@ https://leetcode.com/problems/binary-tree-maximum-path-sum/discuss/370666/Concis
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+129. Sum Root to Leaf Numbers <medium>
 输入：
-
+TreeNode
 输出：
+int
 
-
-
+"""
+***********************解法一分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        self.numsSum = 0
+        
+        def dfs(node, num):
+            
+            print(self.numsSum)
+            num = num*10 + node.val
+            if node.left is None and node.right is None:
+                self.numsSum+=num
+                return
+            
+            if node.left is not None:
+                dfs(node.left, num)
+            if node.right is not None:
+                dfs(node.right, num)
+        
+        dfs(root, 0)
+        return self.numsSum
         
 
 效果：
+Runtime: 40 ms, faster than 19.29% of Python online submissions for Sum Root to Leaf Numbers.
+Memory Usage: 13.5 MB, less than 22.27% of Python online submissions for Sum Root to Leaf Numbers.
 
 
+"""
+***********************解法二分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = 0
+        def dfs(root, path):
+            
+            path += str(root.val)
+            if root.left is None and root.right is None:
+                self.res += int(path)
+                return
+            if root.left is not None:
+                dfs(root.left, path)
+            if root.right is not None:
+                dfs(root.right, path)
+            return
+        path = ''
+        dfs(root, path)
+        return self.res
+
+
+效果：
+Runtime: 29 ms, faster than 61.42% of Python online submissions for Sum Root to Leaf Numbers.
+Memory Usage: 13.3 MB, less than 91.91% of Python online submissions for Sum Root to Leaf Numbers.
+
+
+"""
+***********************解法三分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = 0
+        self.dfs(root, 0)
+        return self.res
+    
+    def dfs(self, root, path):
+        if root:
+            if not root.left and not root.right:
+                path = path*10 + root.val
+                self.res += path
+            self.dfs(root.left, path*10+root.val)
+            self.dfs(root.right, path*10+root.val)
+
+效果：
+Runtime: 34 ms, faster than 42.55% of Python online submissions for Sum Root to Leaf Numbers.
+Memory Usage: 13.3 MB, less than 74.18% of Python online submissions for Sum Root to Leaf Numbers.
+
+
+"""
+***********************解法四分割线***********************
+"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.res = 0
+        self.dfs(root, '')
+        return self.res
+    
+    def dfs(self, root, path):
+        if root:
+            if not root.left and not root.right:
+                path = path+str(root.val)
+                self.res += int(path)
+            self.dfs(root.left, path+str(root.val))
+            self.dfs(root.right, path+str(root.val))
+
+效果：
+Runtime: 25 ms, faster than 75.04% of Python online submissions for Sum Root to Leaf Numbers.
+Memory Usage: 13.4 MB, less than 48.51% of Python online submissions for Sum Root to Leaf Numbers.
 
 
 
