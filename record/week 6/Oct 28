@@ -94,6 +94,11 @@ class Solution(object):
 Runtime: 1189 ms, faster than 19.26% of Python online submissions for Word Ladder.
 Memory Usage: 14.5 MB, less than 82.73% of Python online submissions for Word Ladder.
 
+reference:
+https://leetcode.com/problems/word-ladder/discuss/2435121/Simple-Python-BFS-SC-94
+
+函数说明：
+
 
 
 
