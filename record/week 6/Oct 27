@@ -1,0 +1,100 @@
+week 6
+Oct 27
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+48. Rotate Image <medium>
+输入：
+int[int[]]
+输出：
+
+
+class Solution(object):
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        matrix.reverse()
+        for i in range(len(matrix)):
+            for j in range(i):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        
+
+效果：
+Runtime: 19 ms, faster than 95.48% of Python online submissions for Rotate Image.
+Memory Usage: 13.5 MB, less than 44.27% of Python online submissions for Rotate Image.
+
+reference:
+https://leetcode.com/problems/rotate-image/discuss/2661652/PYTHON-3-EASY-or-FAST-or-LOW-MEMORY
+
+非常巧妙的，先翻转矩阵，然后沿主对角线对换
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
