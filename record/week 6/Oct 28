@@ -1,0 +1,77 @@
+week 6
+Oct 28
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+343. Integer Break <medium>
+输入：
+int
+输出：
+int
+
+class Solution(object):
+    def integerBreak(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        dp = [0] * (n + 1)
+        dp[1] = 1
+        for i in range(2, n + 1):
+            for j in range(1, i):
+                dp[i] = max(dp[i], max(j * dp[i - j], j * (i - j)))
+        return dp[n]
+        
+
+效果：
+Runtime: 23 ms, faster than 84.96% of Python online submissions for Integer Break.
+Memory Usage: 13.7 MB, less than 5.94% of Python online submissions for Integer Break.
+
+reference：
+https://leetcode.com/problems/integer-break/discuss/2404837/Python-Easy-Solution-(faster-than-87)
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
+
+
