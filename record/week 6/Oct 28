@@ -40,17 +40,59 @@ https://leetcode.com/problems/integer-break/discuss/2404837/Python-Easy-Solution
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+127. Word Ladder <hard>
 输入：
-
+str
+str
+str[]
 输出：
+int
 
-
-
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        #Check if endWord exists in wordList
+        if endWord not in wordList:
+            return 0
+        
+        #Initialize queue and res
+        q = collections.deque()
+        q.append(beginWord)
+        res = 0
+        #Cuz TC for removal of elem from list is O(n) while for set, it is O(1)
+        wordList = set(wordList)
+        
+        #BFS
+        while q:
+            #Result incremented for every level
+            res += 1
+            qsize = len(q)
+            #Iterate over all elems in current level
+            for k in range(qsize):
+                word = q.popleft()
+                #If word is result
+                if word == endWord:
+                    return res
+                #If word is not result, then iterate over its length and find its neighbours
+                for i in range(len(word)):
+                    start = ord('a')
+                    for j in range(26):
+                        temp = word[:i] + chr(start+j) + word[i+1:]
+                        #If neighbour is valid
+                        if (temp in wordList):
+                            q.append(temp)
+                            wordList.remove(temp)
+        return 0
         
 
 效果：
-
+Runtime: 1189 ms, faster than 19.26% of Python online submissions for Word Ladder.
+Memory Usage: 14.5 MB, less than 82.73% of Python online submissions for Word Ladder.
 
 
 
