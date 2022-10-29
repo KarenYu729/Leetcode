@@ -60,19 +60,69 @@ https://leetcode.com/problems/rotting-oranges/discuss/1546489/Python-BFS%3A-Easy
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+863. All Nodes Distance K in Binary Tree <Medium>
 输入：
-
+TreeNode
+TreeNode
+int
 输出：
+int[]
 
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-
+class Solution(object):
+    def distanceK(self, root, target, k):
+        """
+        :type root: TreeNode
+        :type target: TreeNode
+        :type k: int
+        :rtype: List[int]
+        """
+        graph = collections.defaultdict(list)
+        
+        def dfs(node):
+            if node.left:
+                graph[node.val].append(node.left.val)
+                graph[node.left.val].append(node.val)
+                dfs(node.left)
+            if node.right:
+                graph[node.val].append(node.right.val)
+                graph[node.right.val].append(node.val)
+                dfs(node.right)
+        
+        dfs(root)
+        visited = set()
+        q = collections.deque()
+        q.append((target.val,0))
+        res = []
+        while q:
+            size = len(q)
+            while size>0:
+                node, dist = q.popleft()
+                if dist == k:
+                    res.append(node)
+                if node in visited:
+                    continue
+                visited.add(node)
+                for nextNode in graph[node]:
+                    if nextNode not in visited:
+                        q.append((nextNode, dist+1))
+                size-=1
+                
+        return res
         
 
 效果：
+Runtime: 32 ms, faster than 78.31% of Python online submissions for All Nodes Distance K in Binary Tree.
+Memory Usage: 14 MB, less than 29.91% of Python online submissions for All Nodes Distance K in Binary Tree.
 
-
-
+reference:
+https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/discuss/2297899/Python-or-BFS-or-Graph
 
 
 """
