@@ -172,18 +172,57 @@ Memory Usage: 13.4 MB, less than 73.49% of Python online submissions for Invert 
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+210. Course Schedule II <medium>
 输入：
-
+int
+int[int[]]
 输出：
+int[]
 
-
-
+class Solution(object):
+    def findOrder(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: List[int]
+        """
+        visited = [0]*numCourses
+        graph = collections.defaultdict(list)
+        # courses[0]:之后上的课
+        # courses[1]:先修课
+        # graph-> graph[先修课]=之后上的课[]
+        # visited-> 尚未访问的后续课程
+        for courses in prerequisites:
+            graph[courses[1]].append(courses[0])
+            visited[courses[0]]+=1
+        
+        # 一层一层拆，如果一门课从来没有出现在后续的选修课中，这门课必须要先选
+        q = collections.deque()
+        for i in range(len(visited)):
+            if visited[i]==0:
+                q.append(i)
+            
+        res = []
+        
+        while q:
+            size = len(q)
+            while size>0:
+                foreCourse=q.popleft()
+                res.append(foreCourse)
+                for nextCourse in graph[foreCourse]:
+                    visited[nextCourse]-=1
+                    if visited[nextCourse]==0:
+                        q.append(nextCourse)
+                size-=1
+        return res if len(res)==numCourses else []
         
 
 效果：
+Runtime: 174 ms, faster than 42.92% of Python online submissions for Course Schedule II.
+Memory Usage: 14.8 MB, less than 91.77% of Python online submissions for Course Schedule II.
 
-
+reference:
+https://leetcode.com/problems/course-schedule-ii/discuss/2467417/python-solution-using-topological-sort-bfs-approach
 
 
 
