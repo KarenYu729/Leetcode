@@ -271,18 +271,48 @@ https://leetcode.com/problems/sum-of-left-leaves/discuss/529634/Python-O(n)-sol-
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+530. Minimum Absolute Difference in BST <easy>
 输入：
-
+TreeNode
 输出：
+int
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def getMinimumDifference(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        global ans,prev #declared ans and prev variables as global as helper function would be using them throughout.
+        prev=None #initialize the prev with None as initially the value of previous value to the root node does not exists.
+        ans=float('inf') #Set maximum value for the ans variable as we have to find out the minimum value of absolute difference
+        def solver(r): #helper function defination
+            global ans,prev #we are using very same global variables as declared and initialized outside.
+            if not r: #return the flow if the end of tree is reached.
+                return
+			#inorder traversal : left -> value -> right
+            solver(r.left) #call made for left sub-tree
+            if prev!=None: #checks if prev holds a genuine value or not if so, then the min value among ans and difference is stored in ans.
+                ans=min(ans,r.val-prev)
+            prev=r.val #value of prev is updated to current value of node
+            solver(r.right) # call made for right sub-tree
+        solver(root) #invoking the helper function with root as parameter
+        return(ans) #return answer
+            
         
 
 效果：
+Runtime: 44 ms, faster than 94.62% of Python online submissions for Minimum Absolute Difference in BST.
+Memory Usage: 17.6 MB, less than 30.94% of Python online submissions for Minimum Absolute Difference in BST.
 
-
+reference：
+https://leetcode.com/problems/minimum-absolute-difference-in-bst/discuss/1976019/Python-inorder-DFS-traversal-100-working-and-faster-code-with-comments-for-best-understanding.
 
 
 
