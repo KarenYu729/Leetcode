@@ -9,15 +9,50 @@ Oct 29
 """
 994. Rotting Oranges <medium>
 输入：
-
+int[int[]]
 输出：
+int
 
-
-
+class Solution(object):
+    def orangesRotting(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        rotOrange = collections.deque()
+        need_visit = set()
+        time=0
+        
+        m, n = len(grid), len(grid[0])
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    need_visit.add((i,j))
+                elif grid[i][j] == 2:
+                    rotOrange.append((i,j))
+        
+        dirs = ((0,1), (0,-1), (1,0), (-1,0))
+        while rotOrange and need_visit:
+            size = len(rotOrange)
+            while size>0:
+                i,j = rotOrange.popleft()
+                for x,y in dirs:
+                    nexti, nextj = i+x, j+y
+                    if (nexti, nextj) in need_visit:
+                        need_visit.remove((nexti, nextj))
+                        rotOrange.append((nexti, nextj))
+                size-=1
+            time+=1
+        
+        return -1 if len(need_visit)>0 else time
         
 
 效果：
+Runtime: 80 ms, faster than 38.97% of Python online submissions for Rotting Oranges.
+Memory Usage: 13.4 MB, less than 73.05% of Python online submissions for Rotting Oranges.
 
+reference:
+https://leetcode.com/problems/rotting-oranges/discuss/1546489/Python-BFS%3A-Easy-to-understand-with-Explanation
 
 
 
