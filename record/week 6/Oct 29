@@ -128,17 +128,42 @@ https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/discuss/229789
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+226. Invert Binary Tree <easy>
 输入：
-
+TreeNode
 输出：
+TreeNode
 
-
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        def dfs(node):
+            if not node:
+                return
+            
+            node.left, node.right = node.right, node.left
+            if node.left:
+                dfs(node.left)
+            if node.right:
+                dfs(node.right)
+        dfs(root)
+        
+        return root
+                
         
 
 效果：
-
+Runtime: 23 ms, faster than 79.10% of Python online submissions for Invert Binary Tree.
+Memory Usage: 13.4 MB, less than 73.49% of Python online submissions for Invert Binary Tree.
 
 
 
