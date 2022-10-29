@@ -297,17 +297,50 @@ https://leetcode.com/problems/minimum-height-trees/discuss/338804/Python-BFS
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+1091. Shortest Path in Binary Matrix <medium>
 输入：
-
+int[int[]]
 输出：
+int
 
-
-
+class Solution(object):
+    def shortestPathBinaryMatrix(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        m, n = len(grid), len(grid[0])
+        if m==1 and n==1:
+            return 1 if grid[0][0]==0 else -1
+        
+        if grid[0][0]==1 or grid[m-1][n-1]==1:
+            return -1
+        
+        dirs = [[0,1],[0,-1],[1,0],[-1,0],[-1,-1],[-1,1],[1,-1],[1,1]]
+        
+        q=collections.deque([(0,0,1)])
+        
+        while q:
+            i, j, pathLength = q.popleft()
+            for x, y in dirs:
+                nexti, nextj = i+x, j+y
+                if nexti==m-1 and nextj==n-1:
+                    return pathLength+1
+                if not (0<=nexti<m and 0<=nextj<n) or grid[nexti][nextj]==1:
+                    continue
+                
+                grid[nexti][nextj]=1
+                q.append([nexti, nextj,pathLength+1])
+                
+        return -1
         
 
 效果：
+Runtime: 1283 ms, faster than 52.26% of Python online submissions for Shortest Path in Binary Matrix.
+Memory Usage: 13.8 MB, less than 80.74% of Python online submissions for Shortest Path in Binary Matrix.
 
+reference:
+https://leetcode.com/problems/shortest-path-in-binary-matrix/discuss/2111074/python-3-oror-simple-bfs
 
 
 
