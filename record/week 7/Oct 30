@@ -93,18 +93,53 @@ https://leetcode.com/problems/water-and-jug-problem/discuss/2733181/Python-Solut
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+116. Populating Next Right Pointers in Each Node <medium>
 输入：
-
+Node
 输出：
+Node
 
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val=0, left=None, right=None, next=None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
 
-
+class Solution(object):
+    def connect(self, root):
+        """
+        :type root: Node
+        :rtype: Node
+        """
+        if root is None:
+            return root
         
-
+        q = collections.deque([(1, root)])
+        pre_level, pre_node = 0, None
+        
+        while q:
+            level, node = q.popleft()
+            if level == pre_level:  # current node is not the first node of level
+                pre_node.next = node
+                pre_node = node
+            else:  # pre_level < level and node is the first node of level, then no need to update pre_node.next, 
+                # leave it as None, update pre_node = node only.
+                pre_level, pre_node = level, node
+            if node.left:  # root is a perfect binary tree, once left exists, right must also exist
+                q.append((level + 1, node.left))
+                q.append((level + 1, node.right))
+        return root
+                
 效果：
+Runtime: 52 ms, faster than 87.50% of Python online submissions for Populating Next Right Pointers in Each Node.
+Memory Usage: 16.7 MB, less than 6.17% of Python online submissions for Populating Next Right Pointers in Each Node.
 
-
+reference:
+https://leetcode.com/problems/populating-next-right-pointers-in-each-node/discuss/1654101/Python-Two-Solutions-oror-BFS-and-DFS-oror-Image-Explanation-oror-Beginner-Friendly
 
 
 
