@@ -51,12 +51,42 @@ https://leetcode.com/problems/water-and-jug-problem/discuss/2542021/Python-oror-
 """
 ***********************解法二分割线***********************
 """
-        
+
+class Solution(object):
+    def canMeasureWater(self, jug1Capacity, jug2Capacity, targetCapacity):
+        """
+        :type jug1Capacity: int
+        :type jug2Capacity: int
+        :type targetCapacity: int
+        :rtype: bool
+        """
+        edges=[jug1Capacity,jug2Capacity,abs(jug2Capacity-jug1Capacity)]
+        lst=[0]
+        mx=max(jug1Capacity,jug2Capacity,targetCapacity)
+        visited=[0]*1000001
+        if targetCapacity>(jug1Capacity+jug2Capacity):
+            return False
+        visited[0]=1
+        while lst:
+            x=lst.pop(0)
+            if x==targetCapacity:
+                return True
+            for i in edges:
+                if x+i<=mx and visited[x+i]==0:
+                    lst.append(x+i)
+                    visited[x+i]=1
+                if x-i>=0 and visited[x-i]==0:
+                    lst.append(x-i)
+                    visited[x-i]=1
+        return False        
 
 效果：
+Runtime: 552 ms, faster than 53.66% of Python online submissions for Water and Jug Problem.
+Memory Usage: 21.2 MB, less than 56.10% of Python online submissions for Water and Jug Problem.
 
 
 reference：
+https://leetcode.com/problems/water-and-jug-problem/discuss/2733181/Python-Solution-using-BFS-traversal
 
 
 
