@@ -320,19 +320,57 @@ https://leetcode.com/problems/minimum-absolute-difference-in-bst/discuss/1976019
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+547. Number of Provinces <medium>
 输入：
-
+int[int[]]
 输出：
+int
 
+class Solution(object):
+    def findCircleNum(self, isConnected):
+        """
+        :type isConnected: List[List[int]]
+        :rtype: int
+        """
+        n = len(isConnected)
+        graph = defaultdict(set)
+        visited = set()
 
+        # Create the graph
+        for i in range(n):
+            for j in range(n):
+                if isConnected[i][j]:
+                    if i != j:
+                        graph[i].add(j)
+                        graph[j].add(i)
+        
+        # Define the BFS
+        def bfs(node):        
+            q = deque([node])
+            while q:
+                node = q.popleft()
+                for neighbor in graph[node]:
+                    if neighbor not in visited:
+                        visited.add(neighbor)
+                        q.append(neighbor) 
 
+        # Count number of provinces       
+        count = 0
+        for node in range(n):
+            if node not in visited:
+                visited.add(node)
+                bfs(node)
+                count += 1
+        return count
+        
         
 
 效果：
+Runtime: 161 ms, faster than 90.38% of Python online submissions for Number of Provinces.
+Memory Usage: 14.1 MB, less than 17.99% of Python online submissions for Number of Provinces.
 
-
-
+refernece:
+https://leetcode.com/problems/number-of-provinces/discuss/1774186/Simple-Python-BFS-Solution
 
 
 """
