@@ -199,18 +199,51 @@ Memory Usage: 16 MB, less than 39.40% of Python online submissions for Populatin
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+279. Perfect Squares <medium>
 输入：
-
+int
 输出：
+int
 
-
-
+class Solution(object):
+    def numSquares(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        # 先制造砝码
+        weights = [x**2 for x in range(n) if (x**2<=n and x!=0)]
+        
+        # 构建队列，先放入原始root，之后会判断这个重量是否包含在砝码里，如果是，直接返回数量（一个砝码）
+        q = collections.deque([(n, 1)])
+        
+        # 确保由当前砝码构建的重量是第一次出现
+        # 当前的砝码数量是得到这个重量的最小数量，防止出现一个一个1给垒出重量
+        seen = set()
+        seen.add(n)
+        
+        while q:
+            # 重量和砝码数量
+            node, cnt = q.popleft()
+            if node in weights:
+                return cnt
+            for weight in weights:
+                if node<=weight:
+                    break
+                if node-weight not in seen:
+                    seen.add(node-weight)
+                    q.append((node-weight, cnt+1))
+        
+        # 总是没有，那就是用1垒
+        return n
         
 
 效果：
+Runtime: 586 ms, faster than 74.39% of Python online submissions for Perfect Squares.
+Memory Usage: 14.6 MB, less than 16.97% of Python online submissions for Perfect Squares.
 
-
+reference:
+https://leetcode.com/problems/perfect-squares/discuss/2065202/Python-or-BFS-or-with-tree-illustration-and-explanation
 
 
 
