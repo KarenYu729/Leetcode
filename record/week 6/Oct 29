@@ -376,18 +376,61 @@ https://leetcode.com/problems/number-of-provinces/discuss/1774186/Simple-Python-
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+529. Minesweeper <medium>
 输入：
-
+str[str[]]
+int[]
 输出：
+str[str[]]
 
-
-
+class Solution(object):
+    def updateBoard(self, board, click):
+        """
+        :type board: List[List[str]]
+        :type click: List[int]
+        :rtype: List[List[str]]
+        """
+        i, j = click
+        if board[i][j] == 'M':
+            board[i][j] = 'X'
+            return board
+        else:
+            m, n = len(board), len(board[0])
+            dirs = [
+            (0,1), (0,-1), (1, 0), (-1,0),
+            (-1,1), (-1,-1), (1,-1), (1,1)
+        ]
+            q = collections.deque([(i, j)])
+            while q:
+                x, y = q.popleft()
+                # 这里必须有，否则下面没有碰到对‘E’的处理
+                if board[x][y] != 'E':
+                    continue
+                # 对于每个位置，调查周围的mine的数量
+                cnt = 0 # to keep track of surrounding mine counts
+                for dx, dy in dirs:
+                    newx, newy = x+dx, y+dy
+                    if 0<=newx<m and 0<=newy<n and board[newx][newy] == 'M':
+                        cnt+=1
+                if cnt>0:
+                    board[x][y] = str(cnt)
+                else:
+                    board[x][y] = 'B'
+                    for dx, dy in dirs:
+                        newx, newy = x+dx, y+dy
+                        if 0<=newx<m and 0<=newy<n:
+                            q.append((newx, newy))
+        
+        return board
         
 
 效果：
+Runtime: 429 ms, faster than 11.24% of Python online submissions for Minesweeper.
+Memory Usage: 13.9 MB, less than 89.33% of Python online submissions for Minesweeper.
 
-
+reference：
+https://leetcode.com/problems/minesweeper/discuss/2052185/Greatly-Explained-BFS-Solution-in-Python-Very-Easy-to-Understand!!!
+https://leetcode.com/problems/minesweeper/discuss/733441/Python-BFS-Solution-with-In-line-Comments
 
 
 
