@@ -299,18 +299,51 @@ https://leetcode.com/problems/network-delay-time/discuss/2036405/Python-Simple-D
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+787. Cheapest Flights Within K Stops <medium>
 输入：
 
 输出：
 
 
-
+class Solution(object):
+    def findCheapestPrice(self, n, flights, src, dst, k):
+        """
+        :type n: int
+        :type flights: List[List[int]]
+        :type src: int
+        :type dst: int
+        :type k: int
+        :rtype: int
+        """
+        graph = collections.defaultdict(list)
+        
+        for start, end, weight in flights:
+            graph[start].append((end, weight))
+        
+        # cost, Stop, stopCnt
+        heap = [(0, src, 0)]
+        # distance
+        dis = [float('inf')]*n
+        
+        while heap:
+            totalCost, Stop, stopCnt = heapq.heappop(heap)
+            if Stop == dst:
+                return totalCost
+            if stopCnt>k or stopCnt>=dis[Stop]:
+                continue
+            dis[Stop]=stopCnt
+            for end, weight in graph[Stop]:
+                heapq.heappush(heap, (totalCost+weight, end, stopCnt+1))
+        
+        return -1
         
 
 效果：
+Runtime: 202 ms, faster than 55.78% of Python online submissions for Cheapest Flights Within K Stops.
+Memory Usage: 15.3 MB, less than 23.15% of Python online submissions for Cheapest Flights Within K Stops.
 
-
+reference:
+https://leetcode.com/problems/cheapest-flights-within-k-stops/discuss/2386606/or-C%2B%2B-Python-or-Min-Heap-or-Dijkstra-Algorithm
 
 
 
