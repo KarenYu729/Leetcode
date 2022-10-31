@@ -251,18 +251,48 @@ https://leetcode.com/problems/perfect-squares/discuss/2065202/Python-or-BFS-or-w
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+743. Network Delay Time <medium>
 输入：
-
+int[int[]]
+int
+int
 输出：
+int
 
-
-
+class Solution(object):
+    def networkDelayTime(self, times, n, k):
+        """
+        :type times: List[List[int]]
+        :type n: int
+        :type k: int
+        :rtype: int
+        """
+        graph = collections.defaultdict(list)
         
+        for start, end, weight in times:
+            graph[start].append((end, weight))
+            
+        visited = set()
+        heap = [(0, k)]
+        
+        while heap:
+            totalcost, next_node = heapq.heappop(heap)
+            visited.add(next_node)
+            if len(visited) == n:
+                return totalcost
+            for adj_node, time in graph[next_node]:
+                if adj_node not in visited:
+                    heapq.heappush(heap, (totalcost+time, adj_node))
+        return -1
+
+这里的要点是使用了heap之后，会自动形成最小堆或者最大堆，所以要注意把什么样的信息放在前面，比如这里就要放权重        
 
 效果：
+Runtime: 865 ms, faster than 52.81% of Python online submissions for Network Delay Time.
+Memory Usage: 15.9 MB, less than 28.07% of Python online submissions for Network Delay Time.
 
-
+reference：
+https://leetcode.com/problems/network-delay-time/discuss/2036405/Python-Simple-Dijkstra-Beats-~90
 
 
 
