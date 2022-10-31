@@ -98,19 +98,28 @@ https://leetcode.com/problems/excel-sheet-column-title/discuss/2448578/Easy-oror
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+171. Excel Sheet Column Number <easy>
 输入：
-
+str
 输出：
+int
 
-
-
+class Solution(object):
+    def titleToNumber(self, columnTitle):
+        """
+        :type columnTitle: str
+        :rtype: int
+        """
+        s = columnTitle[::-1]
+        return sum([(ord(s[i]) - 64) * (26 ** i) for i in range(len(s))])
         
 
 效果：
+Runtime: 55 ms, faster than 5.62% of Python online submissions for Excel Sheet Column Number.
+Memory Usage: 13.4 MB, less than 78.23% of Python online submissions for Excel Sheet Column Number.
 
-
-
+reference:
+https://leetcode.com/problems/excel-sheet-column-number/
 
 
 
