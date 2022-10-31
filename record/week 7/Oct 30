@@ -301,9 +301,13 @@ https://leetcode.com/problems/network-delay-time/discuss/2036405/Python-Simple-D
 """
 787. Cheapest Flights Within K Stops <medium>
 输入：
-
+int
+int[int[]]
+int
+int
+int
 输出：
-
+int
 
 class Solution(object):
     def findCheapestPrice(self, n, flights, src, dst, k):
@@ -350,19 +354,41 @@ https://leetcode.com/problems/cheapest-flights-within-k-stops/discuss/2386606/or
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+264. Ugly Number II <mediun>
 输入：
-
+int
 输出：
+int
 
-
-
+class Solution(object):
+    def nthUglyNumber(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        h = [1]
+        d = {}
+        while n-1:
+            x = heapq.heappop(h)
+            if x*2 not in d:
+                heapq.heappush(h, x*2)
+                d[x*2] = 1
+            if x*3 not in d:
+                heapq.heappush(h, x*3)
+                d[x*3] = 1
+            if x*5 not in d:
+                heapq.heappush(h, x*5)
+                d[x*5] = 1
+            n -= 1
+        return heapq.heappop(h)
         
 
 效果：
+Runtime: 898 ms, faster than 20.37% of Python online submissions for Ugly Number II.
+Memory Usage: 13.7 MB, less than 26.02% of Python online submissions for Ugly Number II.
 
-
-
+reference:
+https://leetcode.com/problems/ugly-number-ii/discuss/2473154/Best-Python-Solution-or-Most-intuitive
 
 
 
