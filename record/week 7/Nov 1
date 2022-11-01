@@ -1,0 +1,135 @@
+week 7
+Nov 1
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+786. K-th Smallest Prime Fraction <medium>
+输入：
+int[]
+int
+输出：
+int
+
+class Solution(object):
+    def kthSmallestPrimeFraction(self, arr, k):
+        """
+        :type arr: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        heap = []
+        n = len(arr)
+        for i in range(n):
+            heappush(heap,(float(arr[0])/float(arr[n-1-i]),i,0))
+        while k:
+            frac, row, col = heappop(heap)
+            if col < n-1-row:
+                heappush(heap, (float(arr[col+1])/float(arr[n-1-row]),row,col+1))
+            k -= 1
+            
+        return [arr[col], arr[n-1-row]]
+        
+
+效果：
+Runtime: 3974 ms, faster than 30.00% of Python online submissions for K-th Smallest Prime Fraction.
+Memory Usage: 13.8 MB, less than 70.00% of Python online submissions for K-th Smallest Prime Fraction.
+
+reference:
+https://leetcode.com/problems/k-th-smallest-prime-fraction/discuss/1839955/Python-or-Heap-or-Easy-to-Understand-Clean-Code
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
+
+
+
+
+
+
