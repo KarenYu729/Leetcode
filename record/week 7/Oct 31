@@ -126,6 +126,48 @@ https://leetcode.com/problems/excel-sheet-column-number/
 """
 --------------------------------------题目分割线----------------------------------------------
 """
+506. Relative Ranks <easy>
+输入：
+int[]
+输出：
+str[]
+
+class Solution(object):
+    def findRelativeRanks(self, score):
+        """
+        :type score: List[int]
+        :rtype: List[str]
+        """
+        heap = []
+        for i in range(len(score)):
+            heapq.heappush(heap, (score[i], i))
+        print(heap)
+        
+        rank = len(score)
+        while heap:
+            scr, idx = heapq.heappop(heap)
+            if rank > 3:
+                score[idx] = str(rank)
+            elif rank == 3:
+                score[idx] = "Bronze Medal"
+            elif rank == 2:
+                score[idx] = "Silver Medal"
+            elif rank == 1:
+                score[idx] = "Gold Medal"
+            rank-=1
+        return score     
+        
+
+效果：
+Runtime: 185 ms, faster than 48.31% of Python online submissions for Relative Ranks.
+Memory Usage: 14.5 MB, less than 28.02% of Python online submissions for Relative Ranks.
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
 
 输入：
 
@@ -155,6 +197,39 @@ https://leetcode.com/problems/excel-sheet-column-number/
 
 效果：
 
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
 
 
 
