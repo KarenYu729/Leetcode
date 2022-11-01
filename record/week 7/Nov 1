@@ -45,18 +45,45 @@ https://leetcode.com/problems/k-th-smallest-prime-fraction/discuss/1839955/Pytho
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+778. Swim in Rising Water <hard>
 输入：
-
+int[int[]]
 输出：
+int
 
-
-
+class Solution(object):
+    def swimInWater(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        dirs = [(0,1), (0,-1), (1,0), (-1,0)]
+        n = len(grid)
+        # heap: totaltime, row, col
+        heap = [(grid[0][0], (0, 0))]
+        visited = set()
+        
+        while heap:
+            totalTime, (i, j) = heapq.heappop(heap)
+            if (i, j) in visited:
+                continue
+            visited.add((i, j))
+            if i == n-1 and j == n-1:
+                return totalTime
+            for dx, dy in dirs:
+                newi, newj = i+dx, j+dy
+                if 0<=newi<n and 0<=newj<n:
+                    heapq.heappush(heap, (max(totalTime, grid[newi][newj]), (newi, newj)))
+        
+        return -1
         
 
 效果：
+Runtime: 453 ms, faster than 14.13% of Python online submissions for Swim in Rising Water.
+Memory Usage: 14.1 MB, less than 71.20% of Python online submissions for Swim in Rising Water.
 
-
+reference:
+https://leetcode.com/problems/swim-in-rising-water/discuss/1358415/Python-solution-using-heap
 
 
 """
