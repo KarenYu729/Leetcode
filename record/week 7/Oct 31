@@ -168,17 +168,37 @@ Memory Usage: 14.5 MB, less than 28.02% of Python online submissions for Relativ
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+658. Find K Closest Elements <medium>
 输入：
-
+int[]
+int
+int
 输出：
+int[]
 
-
-
+class Solution(object):
+    def findClosestElements(self, arr, k, x):
+        """
+        :type arr: List[int]
+        :type k: int
+        :type x: int
+        :rtype: List[int]
+        """
+        heap = []
+        for i in range(len(arr)):
+            heapq.heappush(heap, (abs(arr[i]-x), arr[i]))
+        
+        res = []
+        while k>0:
+            res.append(heapq.heappop(heap)[1])
+            k-=1
+        res.sort()
+        return res
         
 
 效果：
-
+Runtime: 956 ms, faster than 7.60% of Python online submissions for Find K Closest Elements.
+Memory Usage: 15.6 MB, less than 12.01% of Python online submissions for Find K Closest Elements.
 
 
 
@@ -186,17 +206,41 @@ Memory Usage: 14.5 MB, less than 28.02% of Python online submissions for Relativ
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+692. Top K Frequent Words <medium>
 输入：
-
+str[]
+int
 输出：
+str[]
 
-
-
+class Solution(object):
+    def topKFrequent(self, words, k):
+        """
+        :type words: List[str]
+        :type k: int
+        :rtype: List[str]
+        """
+        wordCnt = Counter(words)
+        
+        heap = []
+        for i in wordCnt:
+            heapq.heappush(heap, (-wordCnt[i], i))
+        
+        res=[]
+        while k>0:
+            res.append(heapq.heappop(heap)[1])
+            k-=1
+        
+        return res
         
 
 效果：
+Runtime: 71 ms, faster than 70.65% of Python online submissions for Top K Frequent Words.
+Memory Usage: 13.7 MB, less than 19.99% of Python online submissions for Top K Frequent Words.
 
+reference：
+https://leetcode.com/problems/top-k-frequent-words/discuss/2723147/Heap-Hashmap-Solution-O(klogN)-or-Video
+这里有一个很聪明的是，要排最大堆，就把frequency乘上-1
 
 
 
