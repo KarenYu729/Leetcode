@@ -72,6 +72,81 @@ Memory Usage: 20.2 MB, less than 44.53% of Python online submissions for K Close
 """
 --------------------------------------题目分割线----------------------------------------------
 """
+1046. Last Stone Weight <easy>
+输入：
+int[]
+输出：
+int
+
+class Solution(object):
+    def lastStoneWeight(self, stones):
+        """
+        :type stones: List[int]
+        :rtype: int
+        """
+        heap = []
+        for stone in stones:
+            heapq.heappush(heap, (-stone, stone))
+        
+        while len(heap)>1:
+            weight1, first_stone = heapq.heappop(heap)
+            weight2, second_stone = heapq.heappop(heap)
+            
+            if first_stone == second_stone:
+                continue
+            else:
+                new_stone = first_stone-second_stone
+                heapq.heappush(heap, (-new_stone, new_stone))
+        
+        if len(heap)==0:
+            return 0
+        else:
+            w, s = heapq.heappop(heap)
+            return s
+        
+
+效果：
+Runtime: 37 ms, faster than 37.49% of Python online submissions for Last Stone Weight.
+Memory Usage: 13.7 MB, less than 7.78% of Python online submissions for Last Stone Weight.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
 
 输入：
 
@@ -136,11 +211,51 @@ Memory Usage: 20.2 MB, less than 44.53% of Python online submissions for K Close
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
 
 
 
 
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
 
 
+
+        
+
+效果：
 
 
