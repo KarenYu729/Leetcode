@@ -152,18 +152,51 @@ https://leetcode.com/problems/find-subsequence-of-length-k-with-the-largest-sum/
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+502. IPO <heard>
 输入：
-
+int
+int
+int[]
+int[]
 输出：
+int
 
-
-
+class Solution(object):
+    def findMaximizedCapital(self, k, w, profits, capital):
+        """
+        :type k: int
+        :type w: int
+        :type profits: List[int]
+        :type capital: List[int]
+        :rtype: int
+        """
+        maxProfitsHeap = []
+        minCapitalHeap = []
+        
+        for i in range(len(capital)):
+            heapq.heappush(minCapitalHeap, (capital[i], i))
+        
+        capitalStorage = w
+        
+        while k>0:
+            while minCapitalHeap and minCapitalHeap[0][0]<=capitalStorage:
+                projectCap, i = heapq.heappop(minCapitalHeap)
+                
+                heapq.heappush(maxProfitsHeap, (-profits[i], i))
+            if not maxProfitsHeap:
+                break
+            capitalStorage+=(-1)*heapq.heappop(maxProfitsHeap)[0]
+            k-=1
+        
+        return capitalStorage
         
 
 效果：
+Runtime: 2228 ms, faster than 63.04% of Python online submissions for IPO.
+Memory Usage: 37.7 MB, less than 86.96% of Python online submissions for IPO.
 
-
+reference:
+https://leetcode.com/problems/ipo/discuss/1343168/Python-Two-heaps-greedy-solution-with-simple-explanation
 
 
 """
