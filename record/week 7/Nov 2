@@ -37,17 +37,35 @@ Memory Usage: 22.2 MB, less than 61.83% of Python online submissions for Sort an
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+973. K Closest Points to Origin <medium>
 输入：
-
+int[int[]]
+int
 输出：
+int[int[]]
 
-
-
+class Solution(object):
+    def kClosest(self, points, k):
+        """
+        :type points: List[List[int]]
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        heap = []
+        for point in points:
+            heapq.heappush(heap, (sqrt(point[0]**2+point[1]**2), point))
+        res = []
+        while k>0:
+            dist, point = heapq.heappop(heap)
+            res.append(point)
+            k-=1
+        
+        return res
         
 
 效果：
-
+Runtime: 1442 ms, faster than 58.61% of Python online submissions for K Closest Points to Origin.
+Memory Usage: 20.2 MB, less than 44.53% of Python online submissions for K Closest Points to Origin.
 
 
 
