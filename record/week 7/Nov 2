@@ -114,16 +114,38 @@ Memory Usage: 13.7 MB, less than 7.78% of Python online submissions for Last Sto
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+2099. Find Subsequence of Length K With the Largest Sum <easy>
 输入：
-
+int[]
+int
 输出：
+int[]
 
-
-
+class Solution(object):
+    def maxSubsequence(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        heap = []
+        for idx, num in enumerate(nums):
+            heapq.heappush(heap, (num, idx))
+        delK = len(nums)-k
+        while delK>0:
+            weight, num = heapq.heappop(heap)
+            delK-=1
+        heap.sort(key = lambda x: x[1])
+        return [x[0] for x in heap]
         
 
 效果：
+Runtime: 32 ms, faster than 100.00% of Python online submissions for Find Subsequence of Length K With the Largest Sum.
+Memory Usage: 14 MB, less than 9.65% of Python online submissions for Find Subsequence of Length K With the Largest Sum.
+
+reference：
+https://leetcode.com/problems/find-subsequence-of-length-k-with-the-largest-sum/discuss/1635474/Python-optimized-solution-with-heap
+https://leetcode.com/problems/find-subsequence-of-length-k-with-the-largest-sum/discuss/2443793/Yet-another-Python-solutuion-O(nlog(k))
 
 
 
