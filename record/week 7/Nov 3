@@ -213,18 +213,44 @@ https://leetcode.com/problems/cut-off-trees-for-golf-event/discuss/1204000/Pytho
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+632. Smallest Range Covering Elements from K Lists <hard>
 输入：
-
+int[int[]]
 输出：
+int
 
-
-
+class Solution(object):
+    def smallestRange(self, nums):
+        """
+        :type nums: List[List[int]]
+        :rtype: List[int]
+        """
+        pq = []
+        rangeStart,rangeEnd = float("-inf"),float("inf")
+        max_number = float("-inf")
+        for i in range(len(nums)):
+            heapq.heappush(pq,(nums[i][0],0,nums[i]))
+            max_number = max(max_number,nums[i][0])
+            
+        while len(pq)==len(nums):
+            
+            val,listindex,cl = heapq.heappop(pq)
+            if max_number - val < rangeEnd - rangeStart:
+                rangeStart = val
+                rangeEnd = max_number
+                
+            if len(cl) > listindex+1:
+                heapq.heappush(pq,(cl[listindex+1],listindex+1,cl))
+                max_number = max(max_number,cl[listindex+1])
+        return [rangeStart,rangeEnd]
         
 
 效果：
+Runtime: 245 ms, faster than 79.41% of Python online submissions for Smallest Range Covering Elements from K Lists.
+Memory Usage: 18.6 MB, less than 76.47% of Python online submissions for Smallest Range Covering Elements from K Lists.
 
-
+reference:
+https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/discuss/1654725/Python-Heap-solution
 
 
 """
