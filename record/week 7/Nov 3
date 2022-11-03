@@ -294,6 +294,8 @@ class Solution(object):
 Runtime: 34 ms, faster than 45.87% of Python online submissions for Longest Happy String.
 Memory Usage: 13.5 MB, less than 51.38% of Python online submissions for Longest Happy String.
 
+reference:
+https://leetcode.com/problems/longest-happy-string/discuss/2769358/Explained-Longest-Happy-String-Of-Lenght-K-Python
 
 
 """
