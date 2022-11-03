@@ -202,8 +202,8 @@ class Solution(object):
         
 
 效果：
-Runtime: 11612 ms, faster than 29.41% of Python online submissions for Cut Off Trees for Golf Event.
-Memory Usage: 14.1 MB, less than 35.29% of Python online submissions for Cut Off Trees for Golf Event.
+Runtime: 6625 ms, faster than 88.24% of Python online submissions for Cut Off Trees for Golf Event.
+Memory Usage: 14.4 MB, less than 8.82% of Python online submissions for Cut Off Trees for Golf Event.
 
 reference:
 https://leetcode.com/problems/cut-off-trees-for-golf-event/discuss/1204000/Python-normal-and-priority-BFS-faster-than-99-and-faster-th
