@@ -58,17 +58,95 @@ Memory Usage: 16.8 MB, less than 39.29% of Python online submissions for Distant
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+659. Split Array into Consecutive Subsequences <medium>
 输入：
-
+int[]
 输出：
+bool
 
-
-
+"""
+***********************解法一分割线***********************
+"""
+class Solution(object):
+    def isPossible(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if len(nums) < 3: 
+            return False
         
+        frequency = collections.Counter(nums)
+        subsequence = collections.defaultdict(int)
+        
+        for i in nums:
+            if frequency[i] == 0:
+                continue
+            
+            frequency[i] -= 1
+            
+            # option 1 - add to an existing subsequence
+            if subsequence[i-1] > 0:
+                subsequence[i-1] -= 1
+                subsequence[i] += 1
+            
+            # option 2 - create a new subsequence 
+            elif frequency[i+1] and frequency[i+2]:
+                frequency[i+1] -= 1
+                frequency[i+2] -= 1
+                subsequence[i+2] += 1
+            
+            else:
+                return False
+        
+        return True        
 
 效果：
+Runtime: 494 ms, faster than 89.55% of Python online submissions for Split Array into Consecutive Subsequences.
+Memory Usage: 14.8 MB, less than 46.27% of Python online submissions for Split Array into Consecutive Subsequences.
 
+reference：
+https://leetcode.com/problems/split-array-into-consecutive-subsequences/discuss/2446738/Python-524ms-98.3-Faster-Multiple-solutions-94-memory-efficient
+
+"""
+***********************解法二分割线***********************
+"""
+class Solution(object):
+    def isPossible(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if len(nums)<3:
+            return False
+        
+        heap=[]
+        
+        for x in nums:
+            
+            while heap and (x>(heap[0][0]+1)):
+                length= heapq.heappop(heap)
+                if length[1]<3:
+                    return False
+            
+            if heap and x==(heap[0][0]+1):
+                length=heapq.heappop(heap)
+                heapq.heappush(heap,(x,length[1]+1))
+            else:
+                heapq.heappush(heap,(x,1))
+        
+        while heap:
+            if heapq.heappop(heap)[1]<3:
+                return False
+        
+        return True        
+
+效果：
+Runtime: 1123 ms, faster than 41.79% of Python online submissions for Split Array into Consecutive Subsequences.
+Memory Usage: 15 MB, less than 26.87% of Python online submissions for Split Array into Consecutive Subsequences.
+
+reference:
+https://leetcode.com/problems/split-array-into-consecutive-subsequences/discuss/2449886/Python-solution-using-Heap
 
 
 """
