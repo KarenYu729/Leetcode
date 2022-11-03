@@ -1,0 +1,155 @@
+week 7
+Nov 3
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+1054. Distant Barcodes <medium>
+输入：
+int[]
+输出：
+int[]
+
+class Solution(object):
+    def rearrangeBarcodes(self, barcodes):
+        """
+        :type barcodes: List[int]
+        :rtype: List[int]
+        """
+        maxHeap = []
+        res = []
+        prev = None
+        
+        # Use Counter() to build a maxHeap with priority key as the count of the char
+        count = collections.Counter(barcodes)
+        for char, count in count.items():
+            heappush(maxHeap, (count * -1, char))
+            
+        while maxHeap:
+            count, char = heappop(maxHeap)
+            count +=1 # Since it's a maxHeap we increment count to 'count down'
+            res.append(char)
+            
+            # Push the element from previous iteration to heap 
+            # since we can reuse the char after appending a different char to res
+            if prev:
+                heappush(maxHeap, prev)
+                
+            # Set prev to current element since we can't reuse it just yet
+            # or not if count for the char is 0
+            if count == 0:
+                prev = None
+            else:
+                prev = (count, char)
+        
+        return res
+        
+
+效果：
+Runtime: 1256 ms, faster than 21.43% of Python online submissions for Distant Barcodes.
+Memory Usage: 16.8 MB, less than 39.29% of Python online submissions for Distant Barcodes.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
