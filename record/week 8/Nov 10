@@ -1,0 +1,145 @@
+week 8
+Nov 10
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+332. Reconstruct Itinerary
+输入：
+list[str[]]
+输出：
+str[]
+
+
+class Solution(object):
+    def findItinerary(self, tickets):
+        """
+        :type tickets: List[List[str]]
+        :rtype: List[str]
+        """
+        graph = collections.defaultdict(list)
+        # 创建邻接链表
+        for t in tickets:
+            graph[t[0]].append(t[1])
+        
+        for start in graph:
+            graph[start] = sorted(graph[start], reverse=False)
+        
+        # 一定会从'JFK'出发
+        res = ['JFK']
+        visited_edge = set()
+        
+        def dfs(start):
+            
+            for i in range(len(graph[start])):
+                stop = graph[start][i]
+                if (start, stop, i) not in visited_edge:
+                    visited_edge.add((start, stop, i))
+                    res.append(stop)
+                    dfs(stop)
+                    
+                    if len(visited_edge)==len(tickets):
+                        return
+                    
+                    res.pop()
+                    visited_edge.remove((start, stop, i))
+                
+        dfs('JFK')
+        return res
+              
+
+效果：
+Runtime: 185 ms, faster than 10.71% of Python online submissions for Reconstruct Itinerary.
+Memory Usage: 14.5 MB, less than 24.75% of Python online submissions for Reconstruct Itinerary.
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
