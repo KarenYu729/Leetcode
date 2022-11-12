@@ -68,6 +68,7 @@ Memory Usage: 13.9 MB, less than 7.54% of Python online submissions for Evaluate
 """
 ***********************解法二分割线***********************
 """
+DFS
 class Solution(object):
     def calcEquation(self, equations, values, queries):
         """
@@ -124,18 +125,55 @@ https://leetcode.com/problems/evaluate-division/discuss/2572729/Python-easy-read
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+785. Is Graph Bipartite? <medium>
 输入：
-
+int[int[]]
 输出：
+bool
 
+"""
+***********************解法一分割线***********************
+"""
+BFS
+class Solution(object):
+    def isBipartite(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: bool
+        """
+        seen = {}  # dictionay with key as node and value as it's colour
+        
+        for node in range(len(graph)):          # graph may have different disjoint components
+            if node not in seen:
+                q = collections.deque([(node, 1)])
+                while q:
+                    node, color = q.popleft()
+                    
+                    if node in seen:            # graph is cyclic
+                        if seen[node] == color: # previour color is same as current color
+                            continue            # cyclic graph with EVEN length
+                        else:                   # previour color diffrent with current color
+                            return False        # cyclic graph with ODD length
+                    
+                    seen[node] = color
+                    # store neighbors nodes with opposit color
+                    for nei in graph[node]:
+                        q.append((nei, color * (-1)))
 
-
+        return True  
         
 
 效果：
+Runtime: 140 ms, faster than 95.14% of Python online submissions for Is Graph Bipartite?.
+Memory Usage: 14.3 MB, less than 12.15% of Python online submissions for Is Graph Bipartite?.
 
+reference:
+https://leetcode.com/problems/is-graph-bipartite/discuss/2164560/Python-Well-Explained-BFS-Solution-with-Comments
 
+"""
+***********************解法二分割线***********************
+"""
+DFS
 
 
 """
