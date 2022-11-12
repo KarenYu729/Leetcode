@@ -176,6 +176,14 @@ https://leetcode.com/problems/is-graph-bipartite/discuss/2164560/Python-Well-Exp
 DFS
 
 
+效果：
+Runtime: 325 ms, faster than 54.52% of Python online submissions for Is Graph Bipartite?.
+Memory Usage: 14.1 MB, less than 23.96% of Python online submissions for Is Graph Bipartite?.
+
+reference:
+https://leetcode.com/problems/is-graph-bipartite/discuss/1999283/Python-3-or-DFS-and-BFS-or-Explanation
+
+
 """
 --------------------------------------题目分割线----------------------------------------------
 """
