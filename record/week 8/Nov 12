@@ -1,0 +1,184 @@
+week 8
+Nov 12
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+655. Print Binary Tree <medium>
+输入：
+TreeNode
+输出：
+list[str[]]
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def printTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[str]]
+        """
+        height = self.getHeight(root)
+        width = 2**height-1
+        
+        self.result = [["" for i in range(width)] for j in range(height)]
+        
+        self.dfs(root,0,0,width-1)
+        return self.result
+         
+    def dfs(self,root,level,left,right):
+        if root is None:
+            return
+        
+        mid = left+(right-left)//2
+        self.result[level][mid] = str(root.val)
+        self.dfs(root.left,level+1,left,mid-1)
+        self.dfs(root.right,level+1,mid+1,right)
+        
+    
+    def getHeight(self,root):
+        if root is None:
+            return 0
+        left = self.getHeight(root.left)
+        right = self.getHeight(root.right)
+        return max(left,right)+1
+        
+
+效果：
+Runtime: 28 ms, faster than 70.97% of Python online submissions for Print Binary Tree.
+Memory Usage: 13.5 MB, less than 45.16% of Python online submissions for Print Binary Tree.
+
+reference:
+https://leetcode.com/problems/print-binary-tree/discuss/2024918/Python-Solution-(preorder-Traverse-and-binnnay-search-for-finding-the-position)
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
+        
+
+        
