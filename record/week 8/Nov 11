@@ -1,0 +1,210 @@
+week 8
+Nov 11
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+399. Evaluate Division <medium>
+输入：
+float[]
+float[]
+list[str[]]
+输出：
+float[]
+
+"""
+***********************解法一分割线***********************
+"""
+BFS
+class Solution(object):
+    def calcEquation(self, equations, values, queries):
+        """
+        :type equations: List[List[str]]
+        :type values: List[float]
+        :type queries: List[List[str]]
+        :rtype: List[float]
+        """
+        graph = defaultdict(dict)
+        
+        for i in range(len(equations)):
+            a, b = equations[i][0], equations[i][1]
+            graph[a][b] = values[i]
+            graph[b][a] = 1 / values[i]
+        
+        def bfs(start, end):
+            q = deque()
+            q.append((start,1))
+            seen = set()
+            
+            while q:
+                for _ in range(len(q)):
+                    node, res = q.popleft()
+                    if node == end:
+                        return res
+                    seen.add(node)
+                    
+                    for n in graph[node]:
+                        if n not in seen:
+                            q.append((n,res*graph[node][n]))
+            
+            return -1.0
+        
+        res = []
+        for a, b in queries:
+            if a not in graph or b not in graph:
+                res.append(-1.0)
+            else:
+                res.append(bfs(a,b))
+        
+        return res
+
+效果：
+Runtime: 16 ms, faster than 91.46% of Python online submissions for Evaluate Division.
+Memory Usage: 13.9 MB, less than 7.54% of Python online submissions for Evaluate Division.
+
+"""
+***********************解法二分割线***********************
+"""
+class Solution(object):
+    def calcEquation(self, equations, values, queries):
+        """
+        :type equations: List[List[str]]
+        :type values: List[float]
+        :type queries: List[List[str]]
+        :rtype: List[float]
+        """
+        graph = defaultdict(dict)
+        
+        for i in range(len(equations)):
+            a, b = equations[i][0], equations[i][1]
+            graph[a][b] = values[i]
+            graph[b][a] = 1 / values[i]
+        
+        def dfs(start, end, res):
+            if start in seen:
+                return -1.0
+            
+            if start == end:
+                return res
+            seen.add(start)
+            
+            for n in graph[start]:
+                if n not in seen:
+                    tmp = dfs(n, end, res*graph[start][n]) 
+                    #if tmp is -1, that means this path cannot find answer, not return
+                    if tmp != -1.0:
+                        return tmp
+            
+            return -1.0
+        
+        res = []
+        for a, b in queries:
+            if a not in graph or b not in graph:
+                res.append(-1.0)
+            else:
+                seen = set()
+                res.append(dfs(a,b,1))
+        
+        return res
+        
+
+效果：
+Runtime: 20 ms, faster than 84.42% of Python online submissions for Evaluate Division.
+Memory Usage: 13.6 MB, less than 23.12% of Python online submissions for Evaluate Division.
+
+reference:
+https://leetcode.com/problems/evaluate-division/discuss/2572729/Python-easy-readable-DFSBFS
+
+
+
+        
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+        
+
+效果：
+
+
+
+
+
+        
