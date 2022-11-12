@@ -175,7 +175,29 @@ https://leetcode.com/problems/is-graph-bipartite/discuss/2164560/Python-Well-Exp
 """
 DFS
 
-
+class Solution(object):
+    def isBipartite(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: bool
+        """
+        n = len(graph)
+        colors = [-1] * n
+        
+        def dfs(i, color):
+            colors[i] = color
+            for node in graph[i]:
+                if colors[node] == color: 
+                    return False    
+                elif colors[node] < 0 and not dfs(node, 1 - color):
+                    return False
+            return True    
+        
+        for i in range(n):
+            if colors[i] < 0 and not dfs(i, 0):
+                return False
+        return True        
+        
 效果：
 Runtime: 325 ms, faster than 54.52% of Python online submissions for Is Graph Bipartite?.
 Memory Usage: 14.1 MB, less than 23.96% of Python online submissions for Is Graph Bipartite?.
