@@ -139,17 +139,39 @@ https://leetcode.com/problems/word-break/discuss/43995/A-Simple-Python-DP-soluti
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+746. Min Cost Climbing Stairs <easy>
 输入：
-
+int[]
 输出：
+int
 
-
-
+class Solution(object):
+    def minCostClimbingStairs(self, cost):
+        """
+        :type cost: List[int]
+        :rtype: int
+        """
+        if not cost:
+            return 0
         
-
+        dp = [0]*len(cost)
+        dp[0] = cost[0]
+        
+        if len(cost)>=2:
+            dp[1] = cost[1]
+        
+        for i in range(2, len(cost)):
+            dp[i] = cost[i]+min(dp[i-1], dp[i-2])
+        
+        return min(dp[-1], dp[-2])
+            
+        
 效果：
+Runtime: 54 ms, faster than 76.41% of Python online submissions for Min Cost Climbing Stairs.
+Memory Usage: 13.5 MB, less than 77.84% of Python online submissions for Min Cost Climbing Stairs.
 
+reference:
+https://leetcode.com/problems/min-cost-climbing-stairs/discuss/657490/Python-solution-from-a-beginner-(some-easy-steps-to-follow-to-solve-dp)
 
 
 
