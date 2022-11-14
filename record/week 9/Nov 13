@@ -59,17 +59,37 @@ https://leetcode.com/problems/decode-ways/discuss/2644238/LeetCode-The-Hard-Way-
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+303. Range Sum Query - Immutable <easy>
 输入：
 
 输出：
 
 
+class NumArray(object):
 
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self.n = nums
+
+    def sumRange(self, left, right):
+        """
+        :type left: int
+        :type right: int
+        :rtype: int
+        """
+        return sum(self.n[left: right+1])
+
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(left,right)
         
 
 效果：
-
+Runtime: 1588 ms, faster than 18.02% of Python online submissions for Range Sum Query - Immutable.
+Memory Usage: 17.1 MB, less than 66.14% of Python online submissions for Range Sum Query - Immutable.
 
 
 
