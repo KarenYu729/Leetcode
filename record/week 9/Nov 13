@@ -96,18 +96,41 @@ Memory Usage: 17.1 MB, less than 66.14% of Python online submissions for Range S
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+140. Word Break II <hard>
 输入：
-
+str
+str[]
 输出：
+str[]
 
-
-
+class Solution(object):
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: List[str]
+        """
+        res = []
+        
+        def backtracking(start_idx, List):
+            if start_idx == len(s):
+                res.append(' '.join(List))
+                return
+            
+            for i in range(start_idx, len(s)+1):
+                if s[start_idx:i] in wordDict:
+                    backtracking(i, List+[s[start_idx:i]])
+        
+        backtracking(0, [])
+        return res
         
 
 效果：
+Runtime: 23 ms, faster than 76.06% of Python online submissions for Word Break II.
+Memory Usage: 13.5 MB, less than 38.26% of Python online submissions for Word Break II.
 
-
+reference:
+https://leetcode.com/problems/word-break-ii/discuss/2588753/Simple-Backtracking-Solution-with-Path-Taken
 
 
 """
