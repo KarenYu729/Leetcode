@@ -137,16 +137,50 @@ https://leetcode.com/problems/convert-bst-to-greater-tree/discuss/513712/Python-
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+99. Recover Binary Search Tree <medium>
 输入：
-
+TreeNode
 输出：
 
 
-     
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def recoverTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        stack = [] 
+        lower = TreeNode(float('-inf'))
+        nodes = []
+        
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left
+            
+            top = stack.pop()
+            
+            if top.val < lower.val:
+                nodes += [lower, top]
+            lower = top
+            
+            if top.right:
+                root = top.right
+                
+        if len(nodes) == 2:
+            nodes[0].val, nodes[1].val = nodes[1].val, nodes[0].val
+        elif len(nodes) == 4:
+            nodes[0].val, nodes[3].val = nodes[3].val, nodes[0].val     
 
 效果：
-
+Runtime: 97 ms, faster than 75.28% of Python online submissions for Recover Binary Search Tree.
+Memory Usage: 13.9 MB, less than 36.11% of Python online submissions for Recover Binary Search Tree.
 
 
 
