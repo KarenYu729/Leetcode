@@ -150,6 +150,9 @@ int[]
 输出：
 bool
 
+"""
+***********************解法一分割线***********************
+"""
 先手游戏，先手必胜
 class Solution(object):
     def stoneGame(self, piles):
@@ -163,6 +166,9 @@ class Solution(object):
 Runtime: 27 ms, faster than 85.88% of Python online submissions for Stone Game.
 Memory Usage: 13.3 MB, less than 78.24% of Python online submissions for Stone Game.
 
+"""
+***********************解法二分割线***********************
+"""
 
 
 """
