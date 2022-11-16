@@ -53,8 +53,36 @@ Memory Usage: 15.2 MB, less than 69.88% of Python online submissions for Pacific
 ***********************解法二分割线***********************
 """
 DFS
-
-
+class Solution(object):
+    def pacificAtlantic(self, heights):
+        """
+        :type heights: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        if not heights: 
+            return []
+        dirs = [(1,0), (-1,0), (0,1), (0,-1)]
+        m, n = len(heights), len(heights[0])
+        
+        def dfs(i, j, visited):
+            visited.add((i, j))
+            for di, dj in dirs:
+                newI, newJ = i+di, j+dj
+                if 0<=newI<m and 0<=newJ<n and (newI, newJ) not in visited and heights[newI][newJ]>=heights[i][j]:
+                    dfs(newI, newJ, visited)
+        
+        pas_visited = set()
+        alt_visited = set()
+        
+        for i in range(m):
+            dfs(i, 0, pas_visited)
+            dfs(i, n-1, alt_visited)
+        for j in range(n):
+            dfs(0, j, pas_visited)
+            dfs(m-1, j, alt_visited)
+                        
+        return pas_visited & alt_visited
+        
 效果：
 https://leetcode.com/problems/pacific-atlantic-water-flow/discuss/2508533/Python-Elegant-and-Short-or-DFS-or-99.21-faster
 
@@ -62,16 +90,47 @@ https://leetcode.com/problems/pacific-atlantic-water-flow/discuss/2508533/Python
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+538. Convert BST to Greater Tree <medium>
 输入：
-
+TreeNode
 输出：
+TreeNode
 
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def convertBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        def dfs(node):
+            
+            if node:
+                
+                dfs(node.right)
+                
+                node.val += dfs.greater_sum
+                dfs.greater_sum = node.val
+                
+                dfs(node.left)
         
+        # ----------------------------------
+        dfs.greater_sum = 0
+        dfs(root)
+        
+        return root        
 
 效果：
+Runtime: 57 ms, faster than 98.68% of Python online submissions for Convert BST to Greater Tree.
+Memory Usage: 17.8 MB, less than 54.97% of Python online submissions for Convert BST to Greater Tree.
 
+inference:
+https://leetcode.com/problems/convert-bst-to-greater-tree/discuss/513712/Python-O(n)-by-DFS-approach.-80%2B-With-explanation
 
 
 
