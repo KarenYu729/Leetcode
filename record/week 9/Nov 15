@@ -146,14 +146,22 @@ https://leetcode.com/problems/distinct-subsequences/discuss/572192/Understand-DP
 """
 877. Stone Game <medium>
 输入：
-
+int[]
 输出：
+bool
 
-
+先手游戏，先手必胜
+class Solution(object):
+    def stoneGame(self, piles):
+        """
+        :type piles: List[int]
+        :rtype: bool
+        """
+        return True
         
-
 效果：
-
+Runtime: 27 ms, faster than 85.88% of Python online submissions for Stone Game.
+Memory Usage: 13.3 MB, less than 78.24% of Python online submissions for Stone Game.
 
 
 
