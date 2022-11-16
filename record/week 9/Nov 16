@@ -16,6 +16,7 @@ int[int[]]
 ***********************解法一分割线***********************
 """
 BFS
+每个海都向中心扩展，最后在两个海能到达的位置里找交集
 class Solution(object):
     def pacificAtlantic(self, heights):
         """
