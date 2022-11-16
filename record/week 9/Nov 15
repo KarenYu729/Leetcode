@@ -169,6 +169,31 @@ Memory Usage: 13.3 MB, less than 78.24% of Python online submissions for Stone G
 """
 ***********************解法二分割线***********************
 """
+class Solution(object):
+    def stoneGame(self, piles):
+        """
+        :type piles: List[int]
+        :rtype: bool
+        """
+        dp = {}
+        def dfs(l,r):
+            if (l,r) in dp:
+                return dp[(l,r)]
+            if l>r:
+                return 0
+            
+            score1 = piles[l]+min(dfs(l+2,r),dfs(l+1,r-1))
+            score2 = piles[r]+ min(dfs(l+1,r-1),dfs(l,r-2))
+            
+            dp[(l,r)] = max(score1,score2)
+            return dp[(l,r)]
+        return (dfs(0,len(piles)-1))> sum(piles)//2
+效果：
+Runtime: 1573 ms, faster than 7.06% of Python online submissions for Stone Game.
+Memory Usage: 36.9 MB, less than 10.00% of Python online submissions for Stone Game.
+
+reference：
+https://leetcode.com/problems/stone-game/discuss/2660486/Intiutive-Dp-solution-game-theory
 
 
 """
