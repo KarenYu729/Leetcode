@@ -1,0 +1,158 @@
+week9
+Nov 19
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+516. Longest Palindromic Subsequence <medium>
+输入：
+str
+输出：
+int
+
+class Solution(object):
+    def longestPalindromeSubseq(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        t=s[::-1]  
+        #idea is reverse t and compare t with s
+        
+        dp=[[0 for _ in range(len(s)+1)] for __ in range(len(s)+1)] 
+        #create dp array
+        
+        for i in range(1,len(s)+1):  
+            #start from1 to match dp size, but compare s[i-1] and t [j-1]
+            for j in range(1,len(s)+1):
+                if s[i-1]!=t[j-1]:  
+                    #if not equal what do we want to do ? the question is asking to
+				    #find the longest palindromic subsequence and char @ S !=char @T, 
+                    dp[i][j]=max(dp[i][j-1],dp[i-1][j]) 
+                    #so we just take the max previous value we found before
+                else:                                     
+                    #now they are equal so our palindrome can be bigger
+                    dp[i][j]=1+dp[i-1][j-1]   
+                    #take previous + 1 
+        return dp[-1][-1]
+             
+
+效果：
+Runtime: 2407 ms, faster than 74.20% of Python online submissions for Longest Palindromic Subsequence.
+Memory Usage: 36 MB, less than 18.64% of Python online submissions for Longest Palindromic Subsequence.
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+        
+
+效果：
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+     
+
+效果：
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+     
+
+效果：
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+        
+
+效果：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+     
+
+效果：
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+        
+
+效果：
+
