@@ -38,6 +38,9 @@ class Solution(object):
 Runtime: 4970 ms, faster than 82.86% of Python online submissions for Burst Balloons.
 Memory Usage: 15.3 MB, less than 79.05% of Python online submissions for Burst Balloons.
 
+reference:
+https://leetcode.com/problems/burst-balloons/discuss/892552/For-those-who-are-not-able-to-understand-any-solution-WITH-DIAGRAM
+https://leetcode.com/problems/burst-balloons/discuss/2512188/Best-Solution-or-Easy-Approch-from-Scratch
 
 
 """
