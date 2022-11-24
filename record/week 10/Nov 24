@@ -9,9 +9,10 @@ Nov 24
 """
 44. Wildcard Matching <hard>
 输入：
-
+str
+str
 输出：
-
+bool
 
 class Solution(object):
     def isMatch(self, s, p):
@@ -66,16 +67,41 @@ https://leetcode.com/problems/wildcard-matching/discuss/256025/Python-DP-with-il
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+134. Gas Station <medium>
 输入：
-
+int
 输出：
+int
 
+贪心策略:
+如果所有的油量不能支持走一圈，那就直接返回-1，否则只要能够支付所有的cost，那么就一定能找到起始点。
 
+class Solution(object):
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        if sum(gas) < sum(cost): 
+            return -1
         
+        start = 0
+        cur_gas = 0
+        for i in range(len(gas)):
+            cur_gas += gas[i] - cost[i]
+            if cur_gas < 0:
+                start = i+1
+                cur_gas = 0
+
+        return start        
 
 效果：
+Runtime: 518 ms, faster than 99.84% of Python online submissions for Gas Station.
+Memory Usage: 19.7 MB, less than 80.22% of Python online submissions for Gas Station.
 
+reference:
+https://leetcode.com/problems/gas-station/discuss/2395794/Python-Very-Simple-O(n)-Solution-with-Explanation
 
 
 """
