@@ -96,16 +96,28 @@ https://leetcode.com/problems/combination-sum-ii/discuss/17020/Python-easy-to-un
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+242. Valid Anagram <easy>
 输入：
-
+str
+str
 输出：
+bool
 
-
+class Solution(object):
+    def isAnagram(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        s=Counter(s)
+        t=Counter(t)
         
+        return s==t         
 
 效果：
-
+Runtime: 102 ms, faster than 42.64% of Python online submissions for Valid Anagram.
+Memory Usage: 13.7 MB, less than 90.30% of Python online submissions for Valid Anagram.
 
 
 
