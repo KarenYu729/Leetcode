@@ -50,15 +50,47 @@ https://leetcode.com/problems/combination-sum/discuss/429538/General-Backtrackin
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+40. Combination Sum II <medium>
 输入：
-
+int[]
+int
 输出：
+int[int[]]
 
-
+class Solution(object):
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        candidates.sort()
+        n = len(candidates)
+        res = []
         
-
+        def backtracking(List, start_idx):
+            if sum(List)>target:
+                return
+            if sum(List) == target:
+                res.append(List[:])
+                return
+            
+            for i in range(start_idx, n):
+                if i>start_idx and candidates[i]==candidates[i-1]:
+                    continue
+                List.append(candidates[i])
+                backtracking(List, i+1)
+                List.pop()
+        
+        backtracking([], 0)
+        return res
+                    
 效果：
+Runtime: 92 ms, faster than 63.84% of Python online submissions for Combination Sum II.
+Memory Usage: 13.6 MB, less than 36.82% of Python online submissions for Combination Sum II.
+
+reference:
+https://leetcode.com/problems/combination-sum-ii/discuss/17020/Python-easy-to-understand-backtracking-solution
 
 
 """
