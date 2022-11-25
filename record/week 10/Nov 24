@@ -190,16 +190,49 @@ https://leetcode.com/problems/wiggle-subsequence/discuss/2229573/Simple-O(n)-Sol
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+402. Remove K Digits <medium>
 输入：
-
+str
+int
 输出：
+str
 
-
-        
+class Solution(object):
+    def removeKdigits(self, num, k):
+        """
+        :type num: str
+        :type k: int
+        :rtype: str
+        """
+        stack = []
+        for n in num:
+            while stack and k>0 and stack[-1] > n:
+                stack.pop()
+                k -= 1
+            stack.append(n)
+        while stack and k>0:
+            stack.pop()
+            k -= 1
+        if not stack:
+            return "0"
+        return str(int("".join(stack)))        
 
 效果：
+Runtime: 186 ms, faster than 49.23% of Python online submissions for Remove K Digits.
+Memory Usage: 14.9 MB, less than 90.38% of Python online submissions for Remove K Digits.
 
+reference:
+https://leetcode.com/problems/remove-k-digits/discuss/1779577/Beginner-friendly-JavaJavaScriptPython-Solution
+https://leetcode.com/problems/remove-k-digits/discuss/700059/Python-Very-detail-explanation-with-examples-using-stack
+
+		## APPROACH : STACK ##
+        ## IDEA : 1234, k= 2 => when numbers are in increasing order we need to delete last digits 
+        ## 4321 , k = 2 ==> when numbers are in decreasing order, we need to delete first digits
+        ## so, we need to preserve increasing sequence and remove decreasing sequence ##
+		## LOGIC ##
+		#	1. First think in terms of stack
+		#	2. push num into stack IF num it is greater than top of stack
+		#	3. ELSE pop all elements less than num
 
 
 """
