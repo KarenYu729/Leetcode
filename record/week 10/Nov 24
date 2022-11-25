@@ -107,17 +107,46 @@ https://leetcode.com/problems/gas-station/discuss/2395794/Python-Very-Simple-O(n
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+330. Patching Array <hard>
 输入：
-
+int[]
+int
 输出：
+int
 
-
-        
+class Solution(object):
+    def minPatches(self, nums, n):
+        """
+        :type nums: List[int]
+        :type n: int
+        :rtype: int
+        """
+        miss, i, added = 1, 0, 0
+        while miss <= n:
+            if i < len(nums) and nums[i] <= miss:
+                miss += nums[i]
+                i += 1
+            else:
+                miss += miss
+                added += 1
+        return added        
 
 效果：
+Runtime: 46 ms, faster than 92.31% of Python online submissions for Patching Array.
+Memory Usage: 13.6 MB, less than 7.69% of Python online submissions for Patching Array.
 
+reference:
+https://leetcode.com/problems/patching-array/discuss/1219891/Python-solution-faster-than-97-with-explanation
+https://leetcode.com/problems/patching-array/discuss/78498/Simple-9-line-Python-Solution
 
+you just need to figure out one thing:
+if you can sum up from 1 to 10, what happen if you have another number
+suppose this number is 2, then you can sum up from 1 to 12
+suppose this number is 11, then you can sum up from 1 to 21
+suppose this number is 12, then you can't get 11 and the consecutive sum is broken at 11
+suppose this number is 100, then you can't get the sum from 11 to 99
+so we know if you can sum up from 1 to k, the next largest number you can have is k+1, otherwise the consecutive sum will be invalid
+traverse from left, if the current number x is lower than or equal to k+1, let k = k+x, otherwise let k = k+1(k+1 is the largest we can have to keep the sum valid)
 
 
 """
