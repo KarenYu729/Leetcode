@@ -6,15 +6,37 @@ Nov 25
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+1090. Largest Values From Labels <medium>
 输入：
-
+int[]
+int[]
+int
+int
 输出：
+int
 
-
-
+class Solution(object):
+    def largestValsFromLabels(self, values, labels, numWanted, useLimit):
+        """
+        :type values: List[int]
+        :type labels: List[int]
+        :type numWanted: int
+        :type useLimit: int
+        :rtype: int
+        """
+        d = collections.defaultdict(int)
+        ans = 0
+        l = numWanted
+        for i, j in sorted(list(zip(values, labels)), reverse = True):
+            if(d[j] < useLimit and l):
+                l -= 1
+                d[j] += 1
+                ans += i
+        return ans
+        
 效果：
-
+Runtime: 264 ms, faster than 65.38% of Python online submissions for Largest Values From Labels.
+Memory Usage: 18.4 MB, less than 34.62% of Python online submissions for Largest Values From Labels.
 
 reference：
 
