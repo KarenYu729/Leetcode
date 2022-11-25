@@ -152,17 +152,38 @@ traverse from left, if the current number x is lower than or equal to k+1, let k
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+376. Wiggle Subsequence <medium>
 输入：
-
+int[]
 输出：
+int
 
-
-     
+class Solution(object):
+    def wiggleMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        positive, negative = 1, 1
+        
+        if len(nums) < 2:
+            return len(nums)
+        
+        for i in range(1, len(nums)):
+            if nums[i] > nums[i - 1]:
+                positive = negative + 1
+            elif nums[i] < nums[i - 1]:
+                negative = positive + 1
+                
+        return max(positive, negative)     
 
 效果：
+Runtime: 22 ms, faster than 90.30% of Python online submissions for Wiggle Subsequence.
+Memory Usage: 13.5 MB, less than 53.94% of Python online submissions for Wiggle Subsequence.
 
-
+reference:
+https://leetcode.com/problems/wiggle-subsequence/discuss/2229487/PYTHON-O-(-N-)-oror-EXPLAINED-oror
+https://leetcode.com/problems/wiggle-subsequence/discuss/2229573/Simple-O(n)-Solution-using-Dynamic-Programming
 
 
 
