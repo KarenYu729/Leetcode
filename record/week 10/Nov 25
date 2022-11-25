@@ -122,18 +122,38 @@ dp(i) = min(dp(j) + 1, dp(i)) if the clip covers [j, i] exists
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+409. Longest Palindrome <easy>
 输入：
-
+str
 输出：
+int
 
-
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        cnt = Counter(s)
+        odd = 0
+        ans = []
+        
+        for num in cnt:
+            ans.append(cnt[num])
+            if cnt[num]%2!=0:
+                odd += 1
+        
+        res = sum(ans)-odd+1
+        
+        return res if odd!=0 else res-1
+    
 
 效果：
-
+Runtime: 30 ms, faster than 77.33% of Python online submissions for Longest Palindrome.
+Memory Usage: 13.6 MB, less than 36.30% of Python online submissions for Longest Palindrome.
 
 reference：
-
+https://leetcode.com/problems/longest-palindrome/discuss/2832908/Python-Hash-Table-faster-than-99.88
 
 
 
