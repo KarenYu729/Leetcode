@@ -15,6 +15,9 @@ int
 输出：
 int
 
+"""
+***********************解法一分割线***********************
+"""
 class Solution(object):
     def largestValsFromLabels(self, values, labels, numWanted, useLimit):
         """
@@ -39,7 +42,17 @@ Runtime: 264 ms, faster than 65.38% of Python online submissions for Largest Val
 Memory Usage: 18.4 MB, less than 34.62% of Python online submissions for Largest Values From Labels.
 
 reference：
+https://leetcode.com/problems/largest-values-from-labels/discuss/2277331/71-TC-and-68-SC-easy-python-solution
 
+"""
+***********************解法二分割线***********************
+"""
+
+
+效果：
+
+
+reference：
 
 
 
