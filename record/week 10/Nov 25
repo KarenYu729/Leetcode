@@ -47,13 +47,37 @@ https://leetcode.com/problems/largest-values-from-labels/discuss/2277331/71-TC-a
 """
 ***********************解法二分割线***********************
 """
-
+class Solution(object):
+    def largestValsFromLabels(self, values, labels, numWanted, useLimit):
+        """
+        :type values: List[int]
+        :type labels: List[int]
+        :type numWanted: int
+        :type useLimit: int
+        :rtype: int
+        """
+        dic = collections.defaultdict(int)
+        
+        heap = []
+        for i in range(len(values)):
+            heap.append([-values[i], labels[i]])
+            
+        heapify(heap)
+        arr = []
+        while len(arr) < numWanted and heap:
+            nodeValue, nodeLabel = heapq.heappop(heap)
+            if dic[nodeLabel] < useLimit:
+                arr.append(-nodeValue)
+                dic[nodeLabel] += 1
+        
+        return sum(arr)
 
 效果：
-
+Runtime: 310 ms, faster than 46.15% of Python online submissions for Largest Values From Labels.
+Memory Usage: 19 MB, less than 23.08% of Python online submissions for Largest Values From Labels.
 
 reference：
-
+https://leetcode.com/problems/largest-values-from-labels/discuss/2774024/Heap
 
 
 """
