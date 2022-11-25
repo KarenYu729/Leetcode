@@ -238,16 +238,33 @@ https://leetcode.com/problems/remove-k-digits/discuss/700059/Python-Very-detail-
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+1029. Two City Scheduling <medium>
 输入：
-
+int[int[]]
 输出：
+int
 
-
-        
+class Solution(object):
+    def twoCitySchedCost(self, costs):
+        """
+        :type costs: List[List[int]]
+        :rtype: int
+        """
+        # Sort by diff
+        sortedCosts = sorted(costs, key = lambda x: x[0] - x[1])
+        N = len(sortedCosts) // 2
+        res = 0
+        # Add res from both leftmost aCosts and rightmost bCosts
+        for i in range(N):
+            res += sortedCosts[i][0] + sortedCosts[i + N][1]
+        return res        
 
 效果：
+Runtime: 49 ms, faster than 51.15% of Python online submissions for Two City Scheduling.
+Memory Usage: 13.5 MB, less than 51.66% of Python online submissions for Two City Scheduling.
 
+reference:
+https://leetcode.com/problems/two-city-scheduling/discuss/1881390/PythonGOC%2B%2B-Greedy-Solution-and-Explanations
 
 
 
