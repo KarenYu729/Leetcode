@@ -75,18 +75,37 @@ https://leetcode.com/problems/rabbits-in-forest/discuss/2186012/Simple-Solution-
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+807. Max Increase to Keep City Skyline <medium>
 输入：
-
+int[int[]]
 输出：
+int
 
-
+class Solution(object):
+    def maxIncreaseKeepingSkyline(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        row_max = [0]*len(grid)
+        col_max = [0]*len(grid[0])
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                row_max[i] = max(row_max[i], grid[i][j])
+                col_max[j] = max(col_max[j], grid[i][j])
+        res = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                res += min(row_max[i], col_max[j]) - grid[i][j]
+        return res
 
 效果：
-
+Runtime: 116 ms, faster than 57.26% of Python online submissions for Max Increase to Keep City Skyline.
+Memory Usage: 13.3 MB, less than 87.90% of Python online submissions for Max Increase to Keep City Skyline.
 
 reference：
-
+https://leetcode.com/problems/max-increase-to-keep-city-skyline/discuss/2270359/PYTHON-3-EASY-or-SIMPLE-SOLUTION-or-STRAIGHT-FORWARD
 
 
 """
