@@ -40,19 +40,36 @@ https://leetcode.com/problems/non-overlapping-intervals/discuss/2730719/Python-G
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+781. Rabbits in Forest <medium>
 输入：
-
+int[]
 输出：
+int
 
-
-
+class Solution(object):
+    def numRabbits(self, answers):
+        """
+        :type answers: List[int]
+        :rtype: int
+        """
+        cnt = Counter(answers)
+        res = 0
+        for i in cnt:
+            while cnt[i] >= i+1:
+                res += i+1
+                cnt[i] -= (i+1)
+            if cnt[i] > 0:
+                res += i+1
+                
+        return res
+        
 效果：
-
+Runtime: 72 ms, faster than 10.71% of Python online submissions for Rabbits in Forest.
+Memory Usage: 13.8 MB, less than 25.00% of Python online submissions for Rabbits in Forest.
 
 reference：
-
-
+https://leetcode.com/problems/rabbits-in-forest/discuss/2143035/Basic-or-Easy-or-Python-or-Dictionary
+https://leetcode.com/problems/rabbits-in-forest/discuss/2186012/Simple-Solution-or-Easy-or-O(n)-or-Using-Map-or-Counter-or-Python
 
 
 """
