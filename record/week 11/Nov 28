@@ -1,0 +1,207 @@
+week 11
+Nov 28
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+826. Most Profit Assigning Work <medium>
+输入：
+int[]
+int[]
+int[]
+输出：
+int
+
+class Solution(object):
+    def maxProfitAssignment(self, difficulty, profit, worker):
+        """
+        :type difficulty: List[int]
+        :type profit: List[int]
+        :type worker: List[int]
+        :rtype: int
+        """
+        jobs=[]
+        for dif,pro in zip(difficulty, profit):
+            jobs.append([dif,pro])
+        #sort it based on the difficulty level    
+        jobs = sorted(jobs, key=lambda x:x[0]) 
+        ans = i = best = 0
+        for skill in sorted(worker):
+            while i < len(jobs) and skill >= jobs[i][0]:
+                #doing this because even a low difficulty task 
+                # can have a higher profit than a high difficulty task 
+                # 遍历得到当前能力下能得到的最大收益
+                best = max(best, jobs[i][1])
+                i += 1
+            ans += best
+        return ans
+
+效果：
+Runtime: 705 ms, faster than 58.11% of Python online submissions for Most Profit Assigning Work.
+Memory Usage: 17.2 MB, less than 6.76% of Python online submissions for Most Profit Assigning Work.
+
+reference：
+https://leetcode.com/problems/most-profit-assigning-work/discuss/2478003/Python-commented-code-or-Greedy
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+效果：
+
+
+reference：
+
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+效果：
+
+
+reference：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+效果：
+
+
+reference：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+效果：
+
+
+reference：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+效果：
+
+
+reference：
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+效果：
+
+
+reference：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+效果：
+
+
+reference：
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+效果：
+
+
+reference：
+
+
+
+
+"""
+--------------------------------------题目分割线----------------------------------------------
+"""
+
+输入：
+
+输出：
+
+
+
+效果：
+
+
+reference：
+
