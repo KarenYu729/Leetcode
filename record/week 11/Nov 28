@@ -50,18 +50,44 @@ https://leetcode.com/problems/most-profit-assigning-work/discuss/2478003/Python-
 """
 --------------------------------------题目分割线----------------------------------------------
 """
-
+605. Can Place Flowers <easy>
 输入：
-
+int[]
+int
 输出：
+bool
 
-
+class Solution(object):
+    def canPlaceFlowers(self, flowerbed, n):
+        """
+        :type flowerbed: List[int]
+        :type n: int
+        :rtype: bool
+        """
+        dummy_flower = [0] + flowerbed + [0]
+        first_flower, second_flower = -1, -1
+        res = 0
+        
+        while second_flower<=len(dummy_flower):
+            if second_flower<len(dummy_flower):
+                if dummy_flower[second_flower] == 1:
+                    new_flower = (second_flower-first_flower-2)//2
+                    first_flower = second_flower
+                    res+=new_flower
+                    
+            else:
+                new_flower = (second_flower-first_flower-2)//2
+                res+=new_flower
+                
+            second_flower+=1
+        return res>=n
 
 效果：
-
+Runtime: 135 ms, faster than 88.18% of Python online submissions for Can Place Flowers.
+Memory Usage: 13.9 MB, less than 75.39% of Python online submissions for Can Place Flowers.
 
 reference：
-
+https://leetcode.com/problems/can-place-flowers/discuss/1698771/C%2B%2BJavaPython-2-Simple-Solutions-oror-Image-Explanation-oror-Beginner-Friendly
 
 
 
